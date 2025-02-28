@@ -1,0 +1,11 @@
+## THIS IS A GENERATED FILE -- DO NOT EDIT
+.configuro: .libraries,em4f linker.cmd package/cfg/httpServer_pem4f.oem4f
+
+# To simplify configuro usage in makefiles:
+#     o create a generic linker command file name 
+#     o set modification times of compiler.opt* files to be greater than
+#       or equal to the generated config header
+#
+linker.cmd: package/cfg/httpServer_pem4f.xdl
+	$(SED) 's"^\"\(package/cfg/httpServer_pem4fcfg.cmd\)\"$""\"C:/Users/14169/workspace_v10_1/httpServer_cgiget_tirtos/.config/xconfig_httpServer/\1\""' package/cfg/httpServer_pem4f.xdl > $@
+	-$(SETDATE) -r:max package/cfg/httpServer_pem4f.h compiler.opt compiler.opt.defs

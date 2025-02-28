@@ -1,0 +1,15 @@
+LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/arch=x86_64
+LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/name=Local
+LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/os=win32
+activeLaunchTarget=null\:---
+configDescList=org.eclipse.launchbar.core.descriptorType.default\:boot_emac_flash,org.eclipse.launchbar.core.descriptorType.default\:assembly,org.eclipse.launchbar.core.descriptorType.default\:UartBootloader
+eclipse.preferences.version=1
+org.eclipse.launchbar.core.descriptorType.default\:UartBootloader/activeLaunchMode=debug
+org.eclipse.launchbar.core.descriptorType.default\:UartBootloader/activeLaunchTarget=org.eclipse.launchbar.core.launchTargetType.local\:Local
+org.eclipse.launchbar.core.descriptorType.default\:assembly/activeLaunchMode=debug
+org.eclipse.launchbar.core.descriptorType.default\:assembly/activeLaunchTarget=org.eclipse.launchbar.core.launchTargetType.local\:Local
+org.eclipse.launchbar.core.descriptorType.default\:boot_demo_emac_flash/activeLaunchMode=debug
+org.eclipse.launchbar.core.descriptorType.default\:enet_lwip/activeLaunchMode=debug
+org.eclipse.launchbar.core.descriptorType.default\:enet_lwip/activeLaunchTarget=org.eclipse.launchbar.core.launchTargetType.local\:Local
+org.eclipse.launchbar.core.descriptorType.default\:enet_tcpecho_server_lwip/activeLaunchMode=debug
+org.eclipse.launchbar.core.descriptorType.default\:enet_tcpecho_server_lwip/activeLaunchTarget=org.eclipse.launchbar.core.launchTargetType.local\:Local

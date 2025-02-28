@@ -1,0 +1,82 @@
+
+        body {
+            font-family: 'Courier New', monospace;
+            background-color: black;  /* Set body background to black */
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: white; /* Set text color to white */
+        }
+
+
+        /* Container for everything */
+        .container {
+            background-color: black; /* Dark background for the container */
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0px 15px rgba(255, 255, 255, 0.2);
+            width: 700px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;            
+            border: 1px solid white; /* White border for the button */
+        }
+
+        /* Input box and Send button */
+        .input-container {
+            display: flex; /* Align input and button in a row */
+            align-items: center; /* Vertically align them in the center */
+            gap: 10px; /* Space between input and button */
+        }
+
+        #inputBox {
+            width: 610px; /* Adjust the width of the input box */
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 4px;
+            background-color: black; /* Dark background for the input box */
+            color: white; /* Set text color to white */
+            border: 1px solid white; /* White border for the input box */
+        }
+
+        #sendButton {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: black; /* Dark button color */
+            color: white; /* White text on the button */
+            border: 1px solid white; /* White border for the button */
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        #sendButton:hover {
+            background-color: white; /* Darker color on hover */
+            color: black;
+            border: 1px black; 
+        }
+
+        /* Output box */
+        .output-box {
+            width: 100%; /* Full width */
+            height: 300px; /* Fixed height */
+            background-color: black; /* Dark background for the output box */
+            color: white; /* Set text color to white */
+            border: 1px solid white; /* White border for the output box */
+            padding: 10px;
+            border-radius: 6px;
+            margin-top: 5px;
+            display: flex; /* Use flexbox layout */
+            flex-direction: column; /* Stack content vertically */
+            align-items: flex-start; /* Align items to the start (left) */
+            justify-content: flex-start; /* Align content to the top */
+            overflow-y: auto; /* Enables scrolling when the content exceeds the box height */
+            font-size: 16px;
+            white-space: pre-wrap; /* Wrap text inside the box */
+            font-family: 'Courier New', monospace; /* Font style */
+        }

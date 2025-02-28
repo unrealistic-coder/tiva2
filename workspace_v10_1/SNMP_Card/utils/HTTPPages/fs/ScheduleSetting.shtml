@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Fuji Electric India Pvt Ltd</title>
+<link href="CSS/Main.css" rel="stylesheet" type="text/css" />
+<link href="CSS/Tab.css" rel="stylesheet" type="text/css" />
+<script src="Script/WebSocket.js" type="text/javascript" defer ></script>
+<script src="Script/AllParameter.js" ></script>
+<script src="Script/MainPage.js" type="text/javascript" defer ></script>
+<script src="Script/ScheduleSetting.js" ></script>
+
+<script type="text/javascript">
+	window.history.pushState(null, null, window.location.href);
+	window.onpopstate = function () {
+		window.history.go(1);
+	};
+
+</script>
+
+</head>
+
+<style>
+    * 
+    {
+      box-sizing: border-box;
+    }
+
+    .column 
+    {
+      float: left;
+      width: 50%;
+      padding: 5px;
+    }
+
+    .row::after 
+    {
+      content: "";
+      clear: both;
+      display: table;
+      width:100%;
+      height:30%;
+    }
+
+      table.center 
+    {
+      margin-left: auto; 
+      margin-right: auto;
+    }
+
+    #leftbox 
+    {
+      float:left; 
+      width:25%;
+      height:280px;
+      margin:20px 40px;
+    }
+    #middlebox
+    {
+      float:left; 
+      width:25%;
+      height:280px;
+      margin:20px 40px;
+    }
+    #rightbox
+    {
+      float:left;
+      width:25%;
+      height:280px;
+      margin:20px 100px;
+    }
+
+    input:text 
+    {
+      width:240px;
+    }
+
+    td, th 
+    {  
+      border: none;  
+      text-align: left;  
+      padding: 1px;  
+    }  
+</style>
+
+<body onload="SocketCreation()" >
+<div id="page" >
+
+  <div style="padding:0 0 1px 3px"><img src="images/blue.jpg" alt="WELCOME" style="width: 130px; height: auto;" />
+  <table style="float:right;margin-top:10px;margin-left:-300px;">
+		<tr>
+			<td style="font-size:13px;">UPS FW VER :</td>
+			<td><input type="button" id="Ctlversion" style="font-size:14px; width:70px; margin-left:1px; text-align: left; border:none; background-color: #fff;"/></td>
+			
+			<td style="font-size:13px;">SNMP CARD FW VER :</td>
+			<td><input type="button" id="OSversion" style="font-size:14px; width:50px; margin-left:0px; text-align: left; border:none; background-color: #fff;"/></td>
+			
+			<td style="font-size:13px;">BOOT VER :</td>
+			<td><input type="button" id="bootversion" style="width:30px; font-size:14px; border:none; text-align: left; background-color: #fff;"/></td>
+			
+			<td><input type="button" id="dateTimeValue" onclick="confirmAction()" style="font-size:14px; border:none; background-color: #fff;" /></td>
+		</tr>
+  </table>
+</div>
+
+ 
+<div class="menu">
+<ul class = "menuul">
+	<li><a href="MainPage.shtml" class="menuList">MAIN PAGE</a></li>
+	<li><a href="AllParameters.shtml" class="menuList active" style="pointer-events: none;">ALL PARAMETERS</a></li>
+	<li><a href="EthernetSetting.shtml" class="menuList">ETHERNET SETTING</a></li>
+	<li><a href="SerialSetting.shtml" class="menuList">SERIAL SETTING</a></li>
+	<li><a href="javascript:void(0);" id="openModalBtn" class="menuList">COMMAND SETTING</a></li>
+	<li><a href="/ScheduleSetting.shtml" class="menuList active" style="pointer-events: none;">SCHEDULE SETTING</a></li>
+	<li><a href="DataLog.shtml" class="menuList" >DATA LOGS</a></li>
+	<li><a href="RTCSetting.shtml" class="menuList" >CLOCK SETTING</a></li>
+	<li id="emailSetting" style="display:none;"><a href="EmailConfig.shtml" class="menuList">EMAIL SETTING</a></li>
+	</ul><br/>
+</div>
+<!-- Custom modal -->
+<form id="customModal" class="modal">
+	<div class="modal-content">
+		<h2>Enter Password to Access Feature Setting</h2>
+		<input type="password" id="passwordInput" placeholder="Password">
+		<button  type="submit" id="submitPassword">Submit</button>
+	</div>
+</form>
+<div style="background:white;overflow: auto;">
+  <div style="width:100%;background-color: #ddd;overflow: auto;">
+  <br/>
+ <fieldset>  
+ <br/>
+ <fieldset style="width: 500px; height:80px;" >
+  <legend><b>Shedule Shutdown Setting</b></legend>
+  <table>
+  <tr>
+	<td style="padding: 3px 10px 10px 150px;">Disable</td>
+  <label style="padding:10px 1px 10px 100px;" ></label>
+  <td><label>
+  <input type="checkbox" id="Cbox1"  name="Cbox1" onchange='ScheduledShutDownEnDis(this);'>
+	</label></td> 
+	<td style="padding: 3px 10px 10px 10px;">Enable</td>
+	</tr>
+	</table>
+ </fieldset>
+ <br/>
+  
+    
+<fieldset style="width: 500px; height:80px;" >
+  <legend><b>Shutdown By:</b></legend>
+    <table>
+	<tr>
+    <td style="padding: 10px 10px 10px 60px;">Time</td>
+   <label style="padding: 1px 10px 10px 50px;" ></label>
+   <td><label>
+  <input type="checkbox" id="Cbox2"  name="Cbox2"  onchange='ScheduledShutDownEnDisTimeBased(this);' >
+	</label></td>
+    
+    
+	<td style="padding: 10px 10px 10px 100px;">Mains fail</td>
+  <label style="padding: 10px 10px 10px 60px;" ></label>
+  <td><label>
+  <input type="checkbox" id="Cbox3"  name="Cbox3" onchange='ScheduledShutDownEnDisMainsFaileBased(this);'>
+  </label></td>
+	</tr>
+	</table>
+ </fieldset>
+ <br/>
+    
+    
+ <fieldset style="width: 500px; height:160px;" >
+  <table>
+  <legend><b>Shutdown By Time:</b></legend>
+  <tr>
+    <td style="padding: 3px 10px 10px 190px;">HH</td>
+    <td style="padding: 3px 10px 10px 60px;">MM</td>
+    <td style="padding: 3px 10px 10px 60px;">SS</td>
+  </tr>
+  <table>
+    <tr>
+      <label style="padding: 1px 40px 1px 10px;"><b>Shutdown Time:</b></label> 
+      <input style="padding: 1px 1px 1px 1px;" type="number" id="STHRS"  name="STHRS" min="1" max="24" disabled> 
+        &nbsp; &nbsp;
+      <input style="padding: 1px 1px 1px 1px;" type="number" id="STMIN"  name="STMIN" min="1" max="59" disabled> 
+        &nbsp; &nbsp;
+      <input style="padding: 1px 1px 1px 1px;" type="number" id="STSEC"  name="STSEC" min="1" max="59" disabled>
+    </tr>
+    <div>&nbsp;</div>
+    <div>&nbsp;</div>     
+    <tr>
+      <label style="padding: 1px 55px 1px 15px;"><b>Restart Time:</b></label> 
+      <input style="padding: 1px 1px 1px 1px;" type="number" id="RTHRS"  name="RTHRS" min="1" max="24" disabled> 
+        &nbsp; &nbsp;
+      <input style="padding: 1px 1px 1px 1px;" type="number" id="RTMIN"  name="RTMIN" min="1" max="59" disabled> 
+        &nbsp; &nbsp;
+      <input style="padding: 1px 1px 1px 1px;" type="number" id="RTSEC"  name="RTSEC" min="1" max="59" disabled>
+    </tr>     
+  </table>   
+</fieldset>   
+   <br/>
+<fieldset style="width: 500px; height:160px;" >
+  <legend><b>Shutdown Delay After Mains Fail:</b></legend>
+  <table>
+    <tr>
+      <td style="padding: 3px 10px 10px 190px;">HH</td>
+      <td style="padding: 3px 10px 10px 60px;">MM</td>
+      <td style="padding: 3px 10px 10px 60px;">SS</td>
+    </tr>
+  </table>
+
+  <table>
+    <tr>
+      <label style="padding: 1px 40px 1px 2px;"><b>Shutdown Delay:</b></label> 
+      <input style="padding: 1px 1px 1px 1px;" type="number" id="SDHRS"  name="SDHRS" min="1" max="24" disabled> 
+        &nbsp; &nbsp;
+      <input style="padding: 1px 1px 1px 1px;" type="number" id="SDMIN"  name="SDMIN" min="1" max="59" disabled> 
+        &nbsp; &nbsp;
+      <input style="padding: 1px 1px 1px 1px;" type="number" id="SDSEC"  name="SDSEC" min="1" max="59" disabled>
+    </tr>
+  </table>
+</fieldset>   
+<div><input type="button" class="sm" onclick="ClickScheduleSetting()" value="set" style="border: 1;background-color:#69F;color: white;padding: 10px 20px;text-align: center;text-decoration: none;font-size: 20px;margin: 1px 40px; cursor: pointer;"/></div>
+
+</fieldset> 
+<div class="spacer" >&nbsp;</div>
+<div style="padding: 10px 1px 20px 1px;" id="footer" >FEI - Copyright &copy; 2024 Fuji Electric India Pvt Ltd </div>
+
+</div> 
+</div>
+</div>
+</body>
+
+<script>
+
+
+
+function ScheduledShutDownEnDis(checkbox) 
+{
+	
+   if(checkbox.checked == true)
+    {	
+        document.getElementById('Cbox2').disabled = false;
+		document.getElementById('Cbox3').disabled = false;
+    }
+    else
+    {
+       document.getElementById('Cbox2').disabled = true;
+	   document.getElementById('Cbox3').disabled = true;
+	   document.getElementById('STHRS').disabled = true;
+	   document.getElementById('STMIN').disabled = true;
+	   document.getElementById('STSEC').disabled = true
+	   document.getElementById('RTHRS').disabled = true;
+	   document.getElementById('RTMIN').disabled = true;   
+	   document.getElementById('RTSEC').disabled = true;
+	   document.getElementById('SDHRS').disabled = true;
+	   document.getElementById('SDMIN').disabled = true;
+	   document.getElementById('SDSEC').disabled = true;
+
+   	} 
+}
+function ScheduledShutDownEnDisTimeBased(checkbox)
+{
+	
+	if(checkbox.checked == true)
+    {	
+	   document.getElementById('STHRS').disabled = false;
+	    document.getElementById('STMIN').disabled = false;
+	    document.getElementById('STSEC').disabled = false
+	    document.getElementById('RTHRS').disabled = false;
+	    document.getElementById('RTMIN').disabled = false;
+	    document.getElementById('RTSEC').disabled = false;
+    }
+    else
+    { document.getElementById('STHRS').disabled = true;
+	    document.getElementById('STMIN').disabled = true;
+	    document.getElementById('STSEC').disabled = true
+	    document.getElementById('RTHRS').disabled = true;
+	    document.getElementById('RTMIN').disabled = true;
+	    document.getElementById('RTSEC').disabled = true;
+	    
+   	} 
+}
+function ScheduledShutDownEnDisMainsFaileBased(checkbox)
+{
+
+	if(checkbox.checked == true)
+    {	  document.getElementById('SDHRS').disabled = false;
+	    document.getElementById('SDMIN').disabled = false;
+	    document.getElementById('SDSEC').disabled = false
+		
+    }
+    else
+    {
+	  document.getElementById('SDHRS').disabled = true;
+		document.getElementById('SDMIN').disabled = true;
+		document.getElementById('SDSEC').disabled = true;
+
+   	} 
+}
+
+function ClickScheduleSetting() 
+{
+  NewShutDownSettingStruct.ShutdownTime_HH = document.getElementById("STHRS").value;
+  NewShutDownSettingStruct.ShutdownTime_MM = document.getElementById("STMIN").value;
+  NewShutDownSettingStruct.ShutdownTime_SS = document.getElementById("STSEC").value;
+  NewShutDownSettingStruct.RestartTime_HH = document.getElementById("RTHRS").value;
+  NewShutDownSettingStruct.RestartTime_MM = document.getElementById("RTMIN").value;
+  NewShutDownSettingStruct.RestartTime_SS = document.getElementById("RTSEC").value;
+  NewShutDownSettingStruct.ShutdownDelay_HH = document.getElementById("SDHRS").value;
+  NewShutDownSettingStruct.ShutdownDelay_MM = document.getElementById("SDMIN").value;
+  NewShutDownSettingStruct.ShutdownDelay_SS = document.getElementById("SDSEC").value;
+  NewShutDownSettingStruct.Cbox_SS_EnDis= document.getElementById("Cbox1").checked ? 1 : 0;//document.getElementById("Cbox1").value;
+  NewShutDownSettingStruct.Cbox_SS_ByTime=document.getElementById("Cbox2").checked ? 1 : 0;// document.getElementById("Cbox2").value;
+  NewShutDownSettingStruct.Cbox_SS_ByMainsFail= document.getElementById("Cbox3").checked ? 1 : 0;//document.getElementById("Cbox3").value;
+
+
+  SaveScheduledSetting_Request();
+}
+
+var ReadOnce = 1;
+function UpdateScheduleParam() 
+{
+  if(socket.readyState==WebSocket.OPEN)
+  {
+    if(FlagSettingStruct.WEBEmail_Enable == 1)
+    {
+      toggleEmailSetting();
+    }
+
+    if(ShutDownSettingStruct.Updated == 1)
+    {
+      document.getElementById("STHRS").value = ShutDownSettingStruct.ShutdownTime_HH;
+      document.getElementById("STMIN").value = ShutDownSettingStruct.ShutdownTime_MM;
+      document.getElementById("STSEC").value = ShutDownSettingStruct.ShutdownTime_SS;
+      document.getElementById("RTHRS").value = ShutDownSettingStruct.RestartTime_HH;
+      document.getElementById("RTMIN").value = ShutDownSettingStruct.RestartTime_MM;
+      document.getElementById("RTSEC").value = ShutDownSettingStruct.RestartTime_SS;
+      document.getElementById("SDHRS").value = ShutDownSettingStruct.ShutdownDelay_HH;
+      document.getElementById("SDMIN").value = ShutDownSettingStruct.ShutdownDelay_MM;
+      document.getElementById("SDSEC").value = ShutDownSettingStruct.ShutdownDelay_SS;
+        
+      if(ShutDownSettingStruct.Cbox_EnDIsShtdown == 1)
+	  {
+		 	document.getElementById('Cbox1').checked = true;
+	  }
+	  else
+	  {
+		 	document.getElementById('Cbox1').checked = false;
+	  }
+   	   if(ShutDownSettingStruct.Cbox_SS_ByTime == 1)
+	   {
+			document.getElementById('Cbox2').checked = true;
+		    document.getElementById('STHRS').disabled = false;
+		    document.getElementById('STMIN').disabled = false;
+		    document.getElementById('STSEC').disabled = false
+		    document.getElementById('RTHRS').disabled = false;
+		    document.getElementById('RTMIN').disabled = false;
+		    document.getElementById('RTSEC').disabled = false;
+	   }
+		else
+		{
+			document.getElementById('Cbox2').checked = false;
+			document.getElementById('STHRS').disabled = true;
+		    document.getElementById('STMIN').disabled = true;
+		    document.getElementById('STSEC').disabled = true
+		    document.getElementById('RTHRS').disabled = true;
+		    document.getElementById('RTMIN').disabled = true;
+		    document.getElementById('RTSEC').disabled = true;
+	    
+		}
+	    if(ShutDownSettingStruct.Cbox_SS_ByMainsFail == 1)
+		{
+			document.getElementById('Cbox3').checked = true;
+			document.getElementById('SDHRS').disabled = false;
+			document.getElementById('SDMIN').disabled = false;
+			document.getElementById('SDSEC').disabled = false
+		}
+		else
+		{
+			document.getElementById('Cbox3').checked = false;
+			document.getElementById('SDHRS').disabled = true;
+		    document.getElementById('SDMIN').disabled = true;
+		    document.getElementById('SDSEC').disabled = true
+		}
+    
+      ShutDownSettingStruct.Updated = 0;
+    }
+  }
+}
+
+setInterval(UpdateScheduleParam,500);
+</script>
+</html>

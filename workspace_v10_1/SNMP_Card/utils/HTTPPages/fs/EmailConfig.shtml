@@ -1,0 +1,558 @@
+<html>
+<head>
+<title>Fuji Electric India Pvt Ltd</title>
+<link href="CSS/Main.css" rel="stylesheet" type="text/css" />
+<link href="CSS/Tab.css" rel="stylesheet" type="text/css" />
+<script src="Script/WebSocket.js" type="text/javascript" defer ></script>
+<script src="Script/AllParameter.js" ></script>
+<script src="Script/Email.js" ></script>
+<script src="Script/MainPage.js" type="text/javascript" defer ></script>
+<script src="Script/ScheduleSetting.js" ></script>
+
+<script type="text/javascript">
+	window.history.pushState(null, null, window.location.href);
+	window.onpopstate = function () {
+		window.history.go(1);
+	};
+	
+</script>
+</head>
+<body onload="SocketCreation()">
+<div id="page" >
+
+	<div style="padding:0 0 1px 3px"><img src="images/blue.jpg" alt="WELCOME" style="width: 130px;"/>
+		<table style="float:right;margin-top:10px;margin-left:-300px;">
+			<tr>
+				<td style="font-size:13px;">CONTROL VER :</td>
+				<td><input type="button" id="Ctlversion" style="font-size:14px; width:50px; margin-left:1px; text-align: left; border:none; background-color: #fff;"/></td>
+				
+				<td style="font-size:13px;">FW VER :</td>
+				<td><input type="button" id="OSversion" style="font-size:14px; width:50px; margin-left:0px; text-align: left; border:none; background-color: #fff;"/></td>
+				
+				<td style="font-size:13px;">BOOT VER :</td>
+				<td><input type="button" id="bootversion" style="width:30px; font-size:14px; border:none; text-align: left; background-color: #fff;"/></td>
+				
+				<td><input type="button" id="dateTimeValue" onclick="confirmAction()" style="font-size:14px; border:none; background-color: #fff;" /></td>
+			</tr>
+		</table>
+	</div>
+
+	<div>
+		<ul class= "menuul">
+			<li><a href="MainPage.shtml" class="menuList">MAIN PAGE</a></li>
+			<li><a href="AllParameters.shtml" class="menuList ">ALL PARAMETERS</a></li>
+			<li><a href="EthernetSetting.shtml" class="menuList">ETHERNET SETTING</a></li>
+			<li><a href="SerialSetting.shtml" class="menuList">SERIAL SETTING</a></li>
+			<li><a href="javascript:void(0);" id="openModalBtn" class="menuList">COMMAND SETTING</a></li>
+			<li><a href="DataLog.shtml" class="menuList" >DATA LOGS</a></li>
+			<li><a href="RTCSetting.shtml" class="menuList" >CLOCK SETTING</a></li>
+			<li><a href="/EmailConfig.shtml" class="menuList active" style="pointer-events: none;">EMAIL SETTING</a></li>
+		</ul><br/>
+	</div>
+
+<!-- Custom modal -->
+<form id="customModal" class="modal">
+    <div class="modal-content">
+        <h2>Enter Password to Access Feature Setting</h2>
+        <input type="password" id="passwordInput" placeholder="Password">
+        <button  type="submit" id="submitPassword">Submit</button>
+    </div>
+</form>
+
+	<div style="background-color:#dddddd; float: left; width: 100%; height: 84%; padding: 5px;padding: 2px;border-style: ridge;overflow: auto;">
+		<div  style="float:left; padding: 5px 5px 5px 20px;"> 
+			<fieldset id="fieldset1" style="width: 350px; height:350px; border: 1px solid #333; margin: 10px 5px 5px 50px;">
+				<legend style="margin: 10px 20px"><b>Event Configuration:</b></legend>
+				
+				<table style="margin-left:30px;width:80%;border:none;">
+
+					<tr>
+						<td><p style="padding: 1px 10px 1px 10px; font-size:14px; color:red;">Event Name</td>
+						<td><p style="padding: 1px 10px 1px 10px; font-size:14px; color:red;">Email</td>
+					</tr>
+					<tr>
+						<td style="font-size:14px">Inverter Trip:</td>
+						<td><label >
+						<input type="checkbox" id="INVTRIP"  onchange='handleChange(this);'>
+						</label></td>
+					</tr>
+					<tr>
+						<td style="font-size:14px">Overload Alarm:</td>
+						<td><label >
+						<input type="checkbox" id="OVRLDAL"  onchange='handleChange(this);'>
+						</label></td>
+					</tr>
+					<tr>
+						<td style="font-size:14px">Mains Fail:</td>
+						<td><label >
+						<input type="checkbox" id="MAINFAIL"  onchange='handleChange(this);'>
+						</label></td>
+					</tr>
+					<tr>
+						<td style="font-size:14px">Battery Low Alarm:</td>
+						<td><label >
+						<input type="checkbox" id="BATTLOWAL"  onchange='handleChange(this);'>
+						</label></td>
+					</tr>
+					<tr>
+						<td style="font-size:14px">Rectifier Trip:</td>
+						<td><label >
+						<input type="checkbox" id="RECTTRIP"  onchange='handleChange(this);'>
+						</label></td>
+					</tr>
+					<tr>
+						<td style="font-size:14px">Mains OK:</td>
+						<td><label >
+						<input type="checkbox" id="MAINSOK"  onchange='handleChange(this);'>
+						</label></td>
+					</tr>
+				</table>
+			</fieldset>
+		</div>
+
+		<div style="float:left; padding: 5px 10px 5px 10px;"> 
+			<fieldset id="fieldset2" style="width: 400px; height:350px; border: 1px solid #333; margin: 10px 5px 5px 5px;">
+			<legend style="margin: 10px 20px"><b>SMTP Configuration:</b></legend>
+			
+				<table style="margin-left:20px;width:100%;border:none;">
+				<tr >
+					<td><b style="color:red;">Sender Details</b></td>
+					<td></td>
+				</tr>
+				<tr >
+					<td style="width: 30%;">USERNAME :</td>
+					<td><input style="width: 85%; height:25px;" type="email" id="UserName" class="tdstyle" maxlength="64" placeholder="Example@gmail.com" required/></td>
+				</tr>
+				<tr >
+					<td></td><td></td>
+				</tr>
+				<tr >
+					<td >PASSWORD :</td>
+					<td><input style="width: 85%; height:25px;" type="password" id="Password" class="tdstyle" maxlength="64" /></td>
+				</tr>
+				<tr >
+					<td></td><td></td>
+				</tr>
+				<tr >
+					<td>TO :</td>
+					<td><input style="width: 85%; height:25px;" type="email" id="TOUSER1" class="tdstyle" maxlength="64" placeholder="Example@gmail.com" required/></td>
+				</tr>
+				<tr >
+					<td></td><td></td>
+				</tr>
+				<tr >
+					<td>TO :</td>
+					<td><input style="width: 85%; height:25px;" type="email" id="TOUSER2" class="tdstyle" maxlength="64" placeholder="Example@gmail.com" required/></td>
+				</tr>
+				<tr >
+					<td></td><td></td>
+				</tr>
+				<tr >
+					<td>TO :</td>
+					<td><input style="width: 85%; height:25px;" type="email" id="TOUSER3" class="tdstyle" maxlength="64" placeholder="Example@gmail.com" required/></td>
+				</tr>
+				<tr ></tr><tr ></tr><tr ></tr>
+				<tr >
+					<td><b style="color:red;">SMTP Setting</b></td>
+					<td></td>
+				</tr>
+				<tr >
+					<td>SMTP HOST :</td>
+					<td><input style="width: 85%; height:25px;" type="text" id="SMTPHost" class="tdstyle" maxlength="64" /></td>
+				</tr>
+				<tr >
+					<td></td><td></td>
+				</tr>
+				<tr >
+					<td>SMTP PORT :</td>
+					<td><input style="width: 85%; height:25px;" type="text" id="SMTPPort" class="tdstyle" maxlength="64" /></td>
+				</tr>
+				<tr >
+					<td></td><td></td>
+				</tr>
+				<tr>
+					<td>SSL ENABLE :</td>
+					<td><select id="SSLEnable" name="SSLEnable" style="width:85%; padding: 5px 0px;">
+					<option value="0">False</option>
+					<option value="1">True</option>
+					</select></td>
+				</tr>
+				</table>
+			</fieldset>
+		</div>
+
+		<div style="float:left; padding: 5px 10px 5px 10px;"> 
+			<fieldset id="fieldset3" style="width: 350px; height:350px; border: 1px solid #333; margin: 10px 5px 5px 5px;">
+				<legend style="margin: 10px 20px"><b>Configuration:</b></legend>
+				<table style="margin-left:20px;width:100%;border:none;">
+					<tr >
+						<td><b style="color:red;">Email Config</b></td>
+						<td></td>
+					</tr>
+					<tr >
+						<td style="width: 30%;">Interval :</td>
+						<td><input type="text" id="EmailInterval" style="width: 50%;height:25px;" class="tdstyle" onchange="ValueChange(this);" />Sec</td>
+					</tr>
+					<tr >
+						<td></td><td></td>
+					</tr>
+					<tr ></tr><tr ></tr><tr ></tr>
+					<tr >
+						<td><b style="color:red;">Diagnostic</b></td>
+						<td></td>
+					</tr>
+					<tr >
+						<td>Email Sent :</td>
+						<td><input style="width: 50%; height:25px;" type="text" id="EmailSent" class="tdstyle" readonly/></td>
+					</tr>
+					<tr >
+						<td></td><td></td>
+					</tr>
+					<tr >
+						<td>Email Failed :</td>
+						<td><input style="width: 50%; height:25px;" type="text" id="EmailFailed" class="tdstyle" readonly/></td>
+					</tr>
+					<tr >
+						<td></td><td></td>
+					</tr>
+					<tr >
+						<td>Email Status :</td>
+						<td><input style="width: 50%; height:25px;" type="text" id="EmailResult" class="tdstyle" readonly/></td>
+					</tr>
+					<tr >
+						<td></td><td></td>
+					</tr>
+				</table>
+			</fieldset>
+		</div>
+
+		<table>
+			<tr>
+				<td>
+					<input id="SaveConfig" type="button" value="Save" style="border: 1;background-color:#69F;color: white;padding: 10px 20px;text-align: left;text-decoration: none;font-size: 20px;margin: 1px 40px 5px 505px; cursor: pointer;" onclick= "ClickOnSaveEmail_Request()"/>
+				</td>
+				<td>
+					<input id="TestEmail" type="button" value="Test" style="border: 1;background-color:#69F;color: white;padding: 10px 20px;text-align: left;text-decoration: none;font-size: 20px;margin: 1px 40px 5px 10px; cursor: pointer;" onclick= "ClickOnTestEmail_Request()"/>
+				</td>
+				<td>
+					<input id="EmailError" type="button" style="font-size:20px; width:200px; margin:10px 1px 5px 50px; text-align: left; border:none; background-color: #dddddd;"/>
+				</td>
+			</tr>
+		<table>
+		<div id="footer">FEI - Copyright &copy; 2024 Fuji Electric India Pvt Ltd </div>
+	</div>
+</div>
+</body>
+
+<script>
+
+function EmailSettings()
+{
+	document.getElementById('EmailSent').value = EmailStruct.EmailSent;
+	document.getElementById('EmailFailed').value = EmailStruct.EmailFail;
+	document.getElementById('EmailResult').value = EmailStruct.EmailState;
+	
+	if(EmailStruct.Updated == 1)
+	{
+		if(FlagSettingStruct.WEBEmail_Enable == 1)
+		{
+			document.getElementById('fieldset1').disabled = false;
+			document.getElementById('fieldset2').disabled = false;
+			document.getElementById('fieldset3').disabled = false;
+			document.getElementById('TestEmail').disabled = false;
+			document.getElementById('SaveConfig').disabled = false;
+		}
+		else
+		{
+			document.getElementById('fieldset1').disabled = true;
+			document.getElementById('fieldset2').disabled = true;
+			document.getElementById('fieldset3').disabled = true;
+			document.getElementById('TestEmail').disabled = true;
+			document.getElementById('SaveConfig').disabled = true;
+		}
+
+		document.getElementById('UserName').value = EmailStruct.SmtpUser.filter(value => value !== 0).map(value => String.fromCharCode(value)).join('');
+		document.getElementById('TOUSER1').value = EmailStruct.toUser1.filter(value => value !== 0).map(value => String.fromCharCode(value)).join('');
+		document.getElementById('TOUSER2').value = EmailStruct.toUser2.filter(value => value !== 0).map(value => String.fromCharCode(value)).join('');
+		document.getElementById('TOUSER3').value = EmailStruct.toUser3.filter(value => value !== 0).map(value => String.fromCharCode(value)).join('');
+		document.getElementById('Password').value = EmailStruct.Smtppassword.filter(value => value !== 0).map(value => String.fromCharCode(value)).join('');
+		document.getElementById('SMTPHost').value = EmailStruct.SmtpHost.filter(value => value !== 0).map(value => String.fromCharCode(value)).join('');
+
+		document.getElementById("SMTPPort").value = EmailStruct.SmtpPort;
+		document.getElementById("SSLEnable").value = EmailStruct.SmtpSSL;
+		document.getElementById("EmailInterval").value = EmailStruct.EmailInterval;
+
+		if((EmailStruct.EmailEvent & 1) != 0)
+			document.getElementById("INVTRIP").checked = true;
+		else
+			document.getElementById("INVTRIP").checked = false;
+
+		if((EmailStruct.EmailEvent & 2) != 0)
+			document.getElementById("OVRLDAL").checked = true;
+		else
+			document.getElementById("OVRLDAL").checked = false;
+
+		if((EmailStruct.EmailEvent & 4) != 0)
+			document.getElementById("MAINFAIL").checked = true;
+		else
+			document.getElementById("MAINFAIL").checked = false;
+
+		if((EmailStruct.EmailEvent & 8) != 0)
+			document.getElementById("BATTLOWAL").checked = true;
+		else
+			document.getElementById("BATTLOWAL").checked = false;
+
+		if((EmailStruct.EmailEvent & 16) != 0)
+			document.getElementById("RECTTRIP").checked = true;
+		else
+			document.getElementById("RECTTRIP").checked = false;
+
+		if((EmailStruct.EmailEvent & 32) != 0)
+			document.getElementById("MAINSOK").checked = true;
+		else
+			document.getElementById("MAINSOK").checked = false;
+
+		EmailStruct.Updated = 0;
+	}
+}
+
+function GetCombinedValue(checkbox1, checkbox2, checkbox3, checkbox4, checkbox5, checkbox6) 
+{
+	return ((document.getElementById(checkbox6).checked ? 1 : 0) << 5) |
+			((document.getElementById(checkbox5).checked ? 1 : 0) << 4) |
+			((document.getElementById(checkbox4).checked ? 1 : 0) << 3) |
+			((document.getElementById(checkbox3).checked ? 1 : 0) << 2) |
+			((document.getElementById(checkbox2).checked ? 1 : 0) << 1) |
+			(document.getElementById(checkbox1).checked ? 1 : 0);
+}
+
+function ClickOnTestEmail_Request()
+{
+	let i = 0;
+	let validationFailed = false;
+	EmailState = false;
+
+	var TOEmail = document.getElementById("TOUSER1").value;
+	if(!document.getElementById("TOUSER1").checkValidity() || TOEmail.trim() === "")
+	{
+		NewEmailStruct.toUser1 = new Array(64).fill(0);
+	}
+	else
+	{	
+		EmailState = true;
+		for ( i = 0; i < 64; i++) 
+		{
+			NewEmailStruct.toUser1[i] = TOEmail.charCodeAt(i);
+		}
+	}
+
+	TOEmail = 0;
+	TOEmail = document.getElementById("TOUSER2").value;
+	if(!document.getElementById("TOUSER2").checkValidity() || TOEmail.trim() === "")
+	{
+		NewEmailStruct.toUser2 = new Array(64).fill(0);
+	}
+	else
+	{
+		EmailState = true;
+		for ( i = 0; i < 64; i++) 
+		{
+			NewEmailStruct.toUser2[i] = TOEmail.charCodeAt(i);
+		}
+	}
+	TOEmail = 0;
+	TOEmail = document.getElementById("TOUSER3").value;
+	if(!document.getElementById("TOUSER3").checkValidity() || TOEmail.trim() === "")
+	{
+		NewEmailStruct.toUser3 = new Array(64).fill(0);
+	}
+	else
+	{
+		EmailState = true;
+		for ( i = 0; i < 64; i++) 
+		{
+			NewEmailStruct.toUser3[i] = TOEmail.charCodeAt(i);
+		}
+	}
+
+	var UserName = document.getElementById("UserName").value;
+	if(!document.getElementById("UserName").checkValidity())
+	{
+		validationFailed = true;
+		NewEmailStruct.SmtpUser = new Array(64).fill(0);
+	}
+	else
+	{
+		for ( i = 0; i < 64; i++) 
+		{
+			NewEmailStruct.SmtpUser[i] = UserName.charCodeAt(i);
+		}
+	}
+
+	var Password = document.getElementById("Password").value;
+	if (Password.trim() === "") 
+	{
+		validationFailed = true;
+	}
+	else
+	{	
+		for ( i = 0; i < 64; i++) 
+		{
+			NewEmailStruct.Smtppassword[i] = Password.charCodeAt(i);
+		}
+	}
+
+	var SMTPHost = document.getElementById("SMTPHost").value;
+	if(!document.getElementById("SMTPHost").checkValidity() || SMTPHost.trim() === "")
+	{
+		validationFailed = true;
+	}
+	else
+	{
+		for ( i = 0; i < 64; i++) 
+		{
+			NewEmailStruct.SmtpHost[i] = SMTPHost.charCodeAt(i);
+		}
+	}
+
+	var SmtpPort = document.getElementById("SMTPPort").value;
+	if (SmtpPort.trim() === "" || isNaN(SmtpPort)) 
+	{
+		validationFailed = true;
+	}
+	else
+	{
+		NewEmailStruct.SmtpPort = document.getElementById("SMTPPort").value;
+	}
+
+	NewEmailStruct.SmtpSSL= document.getElementById("SSLEnable").value;
+
+	
+	if (EmailState && !validationFailed)  
+	{
+		document.getElementById('EmailError').value = "";
+		document.getElementById('TestEmail').disabled = true;
+		document.getElementById('SaveConfig').disabled = true;
+		SendEmail_Request();
+	}
+	else 
+	{
+		document.getElementById('EmailError').value = "Please fill in all the email \n fields correctly.";
+		document.getElementById('EmailError').style.fontSize = "12px";
+		document.getElementById('EmailError').style.color = "green";
+	}
+}
+
+function ClickOnSaveEmail_Request()
+{
+	let i = 0;
+	let validationFailed = false;
+	// EmailState = false;
+	
+	var TOEmail = document.getElementById("TOUSER1").value;
+	if(!document.getElementById("TOUSER1").checkValidity() || TOEmail.trim() === "")
+	{
+		NewEmailStruct.toUser1 = new Array(64).fill(0);
+	}
+	else
+	{
+		// EmailState = true;
+		for ( i = 0; i < 64; i++) 
+		{
+			NewEmailStruct.toUser1[i] = TOEmail.charCodeAt(i);
+		}
+	}
+
+	TOEmail = 0;
+	TOEmail = document.getElementById("TOUSER2").value;
+	if(!document.getElementById("TOUSER2").checkValidity() || TOEmail.trim() === "")
+	{
+		NewEmailStruct.toUser2 = new Array(64).fill(0);
+	}
+	else
+	{
+		// EmailState = true;
+		for ( i = 0; i < 64; i++) 
+		{
+			NewEmailStruct.toUser2[i] = TOEmail.charCodeAt(i);
+		}
+	}
+	TOEmail = 0;
+	TOEmail = document.getElementById("TOUSER3").value;
+	if(!document.getElementById("TOUSER3").checkValidity() || TOEmail.trim() === "")
+	{
+		NewEmailStruct.toUser3 = new Array(64).fill(0);
+	}
+	else
+	{
+		// EmailState = true;
+		for ( i = 0; i < 64; i++) 
+		{
+			NewEmailStruct.toUser3[i] = TOEmail.charCodeAt(i);
+		}
+	}
+
+	var UserName = document.getElementById("UserName").value;
+	if(!document.getElementById("UserName").checkValidity())
+	{
+		// validationFailed = true;
+		NewEmailStruct.SmtpUser = new Array(64).fill(0);
+	}
+	else
+	{
+		for ( i = 0; i < 64; i++) 
+		{
+			NewEmailStruct.SmtpUser[i] = UserName.charCodeAt(i);
+		}
+	}
+
+	var Password = document.getElementById("Password").value;
+	if (Password.trim() === "") 
+	{
+		// validationFailed = true;
+	}
+	else
+	{	
+		for ( i = 0; i < 64; i++) 
+		{
+			NewEmailStruct.Smtppassword[i] = Password.charCodeAt(i);
+		}
+	}
+
+	var SMTPHost = document.getElementById("SMTPHost").value;
+	if(!document.getElementById("SMTPHost").checkValidity() || SMTPHost.trim() === "")
+	{
+		validationFailed = true;
+	}
+	else
+	{
+		for ( i = 0; i < 64; i++) 
+		{
+			NewEmailStruct.SmtpHost[i] = SMTPHost.charCodeAt(i);
+		}
+	}
+
+	var SmtpPort = document.getElementById("SMTPPort").value;
+	if (SmtpPort.trim() === "" || isNaN(SmtpPort)) 
+	{
+		validationFailed = true;
+	}
+	else
+	{
+		NewEmailStruct.SmtpPort = document.getElementById("SMTPPort").value;
+	}
+
+	NewEmailStruct.SmtpSSL= document.getElementById("SSLEnable").value;
+	NewEmailStruct.EmailEvent = GetCombinedValue("INVTRIP","OVRLDAL","MAINFAIL","BATTLOWAL","RECTTRIP","MAINSOK");
+	NewEmailStruct.EmailInterval = document.getElementById("EmailInterval").value;
+	
+	if (!validationFailed) 
+	{
+		document.getElementById('EmailError').value = "";
+		SaveEmailSend_Request();
+	}
+}
+
+	setInterval(EmailSettings, 500);
+</script>
+</html>

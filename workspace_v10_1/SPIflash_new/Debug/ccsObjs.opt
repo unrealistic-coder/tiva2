@@ -1,0 +1,1 @@
+"./SSI_main_new.obj" "./SST26VF032B_new.obj" "./cpu.obj" "./gpio.obj" "./interrupt.obj" "./ssi.obj" "./sysctl.obj" "./timer.obj" "./tm4c1294ncpdt_startup_ccs.obj" "./source/diskio.obj" "./source/ff.obj" "./source/ffsystem.obj" "./source/ffunicode.obj" "../tm4c1294ncpdt.cmd" -llibc.a 

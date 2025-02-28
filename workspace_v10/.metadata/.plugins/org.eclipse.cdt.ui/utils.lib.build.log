@@ -1,0 +1,90 @@
+
+**** Build of configuration Debug for project utils.lib ****
+
+"C:\\ti\\ccs1031\\ccs\\utils\\bin\\gmake" -k -j 8 all -O 
+ 
+Building file: "../locator.c"
+Invoking: Arm Compiler
+"C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_20.2.4.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me -Ooff --include_path="C:/Users/14169/workspace_v10/utils.lib" --include_path="C:/ti/TivaWare_C_Series-2.2.0.295/third_party" --include_path="C:/ti/tirtos_tivac_2_16_01_14/products/TivaWare_C_Series-2.1.1.71b" --include_path="C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_20.2.4.LTS/include" --define=ccs="ccs" --define=PART_TM4C1294NCPDT -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --abi=eabi --preproc_with_compile --preproc_dependency="locator.d_raw"  "../locator.c"
+ 
+>> Compilation failure
+subdir_rules.mk:9: recipe for target 'locator.obj' failed
+"C:/ti/tirtos_tivac_2_16_01_14/products/TivaWare_C_Series-2.1.1.71b/utils/lwiplib.h", line 44: fatal error #1965: cannot open source file "lwip/opt.h"
+1 catastrophic error detected in the compilation of "../locator.c".
+Compilation terminated.
+gmake: *** [locator.obj] Error 1
+Building file: "../lwiplib.c"
+Invoking: Arm Compiler
+"C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_20.2.4.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me -Ooff --include_path="C:/Users/14169/workspace_v10/utils.lib" --include_path="C:/ti/TivaWare_C_Series-2.2.0.295/third_party" --include_path="C:/ti/tirtos_tivac_2_16_01_14/products/TivaWare_C_Series-2.1.1.71b" --include_path="C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_20.2.4.LTS/include" --define=ccs="ccs" --define=PART_TM4C1294NCPDT -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --abi=eabi --preproc_with_compile --preproc_dependency="lwiplib.d_raw"  "../lwiplib.c"
+ 
+>> Compilation failure
+subdir_rules.mk:9: recipe for target 'lwiplib.obj' failed
+"C:/ti/tirtos_tivac_2_16_01_14/products/TivaWare_C_Series-2.1.1.71b/utils/lwiplib.h", line 44: fatal error #1965: cannot open source file "lwip/opt.h"
+1 catastrophic error detected in the compilation of "../lwiplib.c".
+Compilation terminated.
+gmake: *** [lwiplib.obj] Error 1
+Building file: "../ptpdlib.c"
+Invoking: Arm Compiler
+"C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_20.2.4.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me -Ooff --include_path="C:/Users/14169/workspace_v10/utils.lib" --include_path="C:/ti/TivaWare_C_Series-2.2.0.295/third_party" --include_path="C:/ti/tirtos_tivac_2_16_01_14/products/TivaWare_C_Series-2.1.1.71b" --include_path="C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_20.2.4.LTS/include" --define=ccs="ccs" --define=PART_TM4C1294NCPDT -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --abi=eabi --preproc_with_compile --preproc_dependency="ptpdlib.d_raw"  "../ptpdlib.c"
+ 
+>> Compilation failure
+subdir_rules.mk:9: recipe for target 'ptpdlib.obj' failed
+"C:\ti\TivaWare_C_Series-2.2.0.295\third_party\ptpd-1.1.0\src\datatypes.h", line 351: error #20: identifier "PATH_MAX" is undefined
+"C:/ti/TivaWare_C_Series-2.2.0.295/third_party/ptpd-1.1.0/src/arith.c", line 67: warning #190-D: enumerated type mixed with another type
+"C:/ti/TivaWare_C_Series-2.2.0.295/third_party/ptpd-1.1.0/src/bmc.c", line 96: warning #190-D: enumerated type mixed with another type
+"C:/ti/TivaWare_C_Series-2.2.0.295/third_party/ptpd-1.1.0/src/bmc.c", line 97: warning #190-D: enumerated type mixed with another type
+"C:/ti/TivaWare_C_Series-2.2.0.295/third_party/ptpd-1.1.0/src/bmc.c", line 111: warning #190-D: enumerated type mixed with another type
+"C:/ti/TivaWare_C_Series-2.2.0.295/third_party/ptpd-1.1.0/src/bmc.c", line 112: warning #190-D: enumerated type mixed with another type
+"C:/ti/TivaWare_C_Series-2.2.0.295/third_party/ptpd-1.1.0/src/protocol.c", line 400: warning #190-D: enumerated type mixed with another type
+"C:/ti/TivaWare_C_Series-2.2.0.295/third_party/ptpd-1.1.0/src/dep-tiva/ptpd_servo.c", line 15: warning #190-D: enumerated type mixed with another type
+"C:/ti/TivaWare_C_Series-2.2.0.295/third_party/ptpd-1.1.0/src/dep-tiva/ptpd_servo.c", line 16: warning #190-D: enumerated type mixed with another type
+"C:/ti/TivaWare_C_Series-2.2.0.295/third_party/ptpd-1.1.0/src/dep-tiva/ptpd_msg.c", line 72: warning #190-D: enumerated type mixed with another type
+"C:/ti/TivaWare_C_Series-2.2.0.295/third_party/ptpd-1.1.0/src/dep-tiva/ptpd_msg.c", line 74: warning #190-D: enumerated type mixed with another type
+"C:/ti/TivaWare_C_Series-2.2.0.295/third_party/ptpd-1.1.0/src/dep-tiva/ptpd_msg.c", line 100: warning #190-D: enumerated type mixed with another type
+"C:/ti/TivaWare_C_Series-2.2.0.295/third_party/ptpd-1.1.0/src/dep-tiva/ptpd_msg.c", line 173: warning #112-D: statement is unreachable
+"C:/ti/TivaWare_C_Series-2.2.0.295/third_party/ptpd-1.1.0/src/dep-tiva/ptpd_msg.c", line 226: warning #190-D: enumerated type mixed with another type
+"C:/ti/TivaWare_C_Series-2.2.0.295/third_party/ptpd-1.1.0/src/dep-tiva/ptpd_msg.c", line 233: warning #190-D: enumerated type mixed with another type
+"C:/ti/TivaWare_C_Series-2.2.0.295/third_party/ptpd-1.1.0/src/dep-tiva/ptpd_msg.c", line 234: warning #190-D: enumerated type mixed with another type
+"C:/ti/TivaWare_C_Series-2.2.0.295/third_party/ptpd-1.1.0/src/dep-tiva/ptpd_msg.c", line 265: warning #190-D: enumerated type mixed with another type
+"C:/ti/TivaWare_C_Series-2.2.0.295/third_party/ptpd-1.1.0/src/dep-tiva/ptpd_msg.c", line 266: warning #190-D: enumerated type mixed with another type
+"C:/ti/TivaWare_C_Series-2.2.0.295/third_party/ptpd-1.1.0/src/dep-tiva/ptpd_msg.c", line 267: warning #190-D: enumerated type mixed with another type
+"C:/ti/TivaWare_C_Series-2.2.0.295/third_party/ptpd-1.1.0/src/dep-tiva/ptpd_msg.c", line 268: warning #190-D: enumerated type mixed with another type
+"C:/ti/TivaWare_C_Series-2.2.0.295/third_party/ptpd-1.1.0/src/dep-tiva/ptpd_msg.c", line 269: warning #190-D: enumerated type mixed with another type
+"C:/ti/TivaWare_C_Series-2.2.0.295/third_party/ptpd-1.1.0/src/dep-tiva/ptpd_msg.c", line 291: warning #190-D: enumerated type mixed with another type
+"C:/ti/TivaWare_C_Series-2.2.0.295/third_party/ptpd-1.1.0/src/dep-tiva/ptpd_msg.c", line 292: warning #190-D: enumerated type mixed with another type
+"C:/ti/TivaWare_C_Series-2.2.0.295/third_party/ptpd-1.1.0/src/dep-tiva/ptpd_msg.c", line 294: warning #190-D: enumerated type mixed with another type
+"C:/ti/TivaWare_C_Series-2.2.0.295/third_party/ptpd-1.1.0/src/dep-tiva/ptpd_msg.c", line 297: warning #190-D: enumerated type mixed with another type
+"C:/ti/TivaWare_C_Series-2.2.0.295/third_party/ptpd-1.1.0/src/dep-tiva/ptpd_msg.c", line 304: warning #190-D: enumerated type mixed with another type
+"C:/ti/TivaWare_C_Series-2.2.0.295/third_party/ptpd-1.1.0/src/dep-tiva/ptpd_msg.c", line 305: warning #190-D: enumerated type mixed with another type
+"C:/ti/TivaWare_C_Series-2.2.0.295/third_party/ptpd-1.1.0/src/dep-tiva/ptpd_msg.c", line 318: warning #190-D: enumerated type mixed with another type
+"C:/ti/TivaWare_C_Series-2.2.0.295/third_party/ptpd-1.1.0/src/dep-tiva/ptpd_msg.c", line 332: warning #190-D: enumerated type mixed with another type
+"C:/ti/TivaWare_C_Series-2.2.0.295/third_party/ptpd-1.1.0/src/dep-tiva/ptpd_msg.c", line 333: warning #190-D: enumerated type mixed with another type
+"C:/ti/TivaWare_C_Series-2.2.0.295/third_party/ptpd-1.1.0/src/dep-tiva/ptpd_msg.c", line 560: warning #190-D: enumerated type mixed with another type
+"C:/ti/TivaWare_C_Series-2.2.0.295/third_party/ptpd-1.1.0/src/dep-tiva/ptpd_msg.c", line 564: warning #190-D: enumerated type mixed with another type
+"C:/ti/tirtos_tivac_2_16_01_14/products/TivaWare_C_Series-2.1.1.71b/utils/lwiplib.h", line 44: fatal error #1965: cannot open source file "lwip/opt.h"
+1 error and 1 catastrophic error detected in the compilation of "../ptpdlib.c".
+Compilation terminated.
+gmake: *** [ptpdlib.obj] Error 1
+Building file: "../tftp.c"
+Invoking: Arm Compiler
+"C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_20.2.4.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me -Ooff --include_path="C:/Users/14169/workspace_v10/utils.lib" --include_path="C:/ti/TivaWare_C_Series-2.2.0.295/third_party" --include_path="C:/ti/tirtos_tivac_2_16_01_14/products/TivaWare_C_Series-2.1.1.71b" --include_path="C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_20.2.4.LTS/include" --define=ccs="ccs" --define=PART_TM4C1294NCPDT -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --abi=eabi --preproc_with_compile --preproc_dependency="tftp.d_raw"  "../tftp.c"
+ 
+>> Compilation failure
+subdir_rules.mk:9: recipe for target 'tftp.obj' failed
+"C:/ti/tirtos_tivac_2_16_01_14/products/TivaWare_C_Series-2.1.1.71b/utils/lwiplib.h", line 44: fatal error #1965: cannot open source file "lwip/opt.h"
+1 catastrophic error detected in the compilation of "../tftp.c".
+Compilation terminated.
+gmake: *** [tftp.obj] Error 1
+Building file: "../swupdate.c"
+Invoking: Arm Compiler
+"C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_20.2.4.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me -Ooff --include_path="C:/Users/14169/workspace_v10/utils.lib" --include_path="C:/ti/TivaWare_C_Series-2.2.0.295/third_party" --include_path="C:/ti/tirtos_tivac_2_16_01_14/products/TivaWare_C_Series-2.1.1.71b" --include_path="C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_20.2.4.LTS/include" --define=ccs="ccs" --define=PART_TM4C1294NCPDT -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --abi=eabi --preproc_with_compile --preproc_dependency="swupdate.d_raw"  "../swupdate.c"
+ 
+>> Compilation failure
+subdir_rules.mk:9: recipe for target 'swupdate.obj' failed
+"C:/ti/tirtos_tivac_2_16_01_14/products/TivaWare_C_Series-2.1.1.71b/utils/lwiplib.h", line 44: fatal error #1965: cannot open source file "lwip/opt.h"
+1 catastrophic error detected in the compilation of "../swupdate.c".
+Compilation terminated.
+gmake: *** [swupdate.obj] Error 1
+gmake: Target 'all' not remade because of errors.
+
+**** Build Finished ****

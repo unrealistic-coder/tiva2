@@ -1,0 +1,28 @@
+
+**** Build of configuration Debug for project io ****
+
+"C:\\ti\\ccs1031\\ccs\\utils\\bin\\gmake" -k -j 8 all -O 
+ 
+Building file: "../print.c"
+Invoking: Arm Compiler
+"C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_20.2.4.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --include_path="C:/Users/14169/workspace_v10/io" --include_path="C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_20.2.4.LTS/include" --define=ccs="ccs" --define=PART_TM4C1294NCPDT -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --abi=eabi --preproc_with_compile --preproc_dependency="print.d_raw"  "../print.c"
+Finished building: "../print.c"
+ 
+Building file: "../console_io/io_console.c"
+Invoking: Arm Compiler
+"C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_20.2.4.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --include_path="C:/Users/14169/workspace_v10/io" --include_path="C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_20.2.4.LTS/include" --define=ccs="ccs" --define=PART_TM4C1294NCPDT -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --abi=eabi --preproc_with_compile --preproc_dependency="console_io/io_console.d_raw" --obj_directory="console_io"  "../console_io/io_console.c"
+Finished building: "../console_io/io_console.c"
+ 
+Building file: "../utils/uartstdio.c"
+Invoking: Arm Compiler
+"C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_20.2.4.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --include_path="C:/Users/14169/workspace_v10/io" --include_path="C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_20.2.4.LTS/include" --define=ccs="ccs" --define=PART_TM4C1294NCPDT -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --abi=eabi --preproc_with_compile --preproc_dependency="utils/uartstdio.d_raw" --obj_directory="utils"  "../utils/uartstdio.c"
+Finished building: "../utils/uartstdio.c"
+ 
+Building target: "io.out"
+Invoking: Arm Linker
+"C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_20.2.4.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --define=ccs="ccs" --define=PART_TM4C1294NCPDT -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --abi=eabi -z -m"io.map" --heap_size=0 --stack_size=512 -i"C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_20.2.4.LTS/lib" -i"C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_20.2.4.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="io_linkInfo.xml" --rom_model -o "io.out" "./print.obj" "./tm4c1294ncpdt_startup_ccs.obj" "./console_io/io_console.obj" "./driverlib/adc.obj" "./driverlib/aes.obj" "./driverlib/can.obj" "./driverlib/comp.obj" "./driverlib/cpu.obj" "./driverlib/crc.obj" "./driverlib/des.obj" "./driverlib/eeprom.obj" "./driverlib/emac.obj" "./driverlib/epi.obj" "./driverlib/epi_workaround_ccs.obj" "./driverlib/flash.obj" "./driverlib/fpu.obj" "./driverlib/gpio.obj" "./driverlib/hibernate.obj" "./driverlib/i2c.obj" "./driverlib/interrupt.obj" "./driverlib/lcd.obj" "./driverlib/mpu.obj" "./driverlib/onewire.obj" "./driverlib/pwm.obj" "./driverlib/qei.obj" "./driverlib/shamd5.obj" "./driverlib/ssi.obj" "./driverlib/sw_crc.obj" "./driverlib/sysctl.obj" "./driverlib/sysexc.obj" "./driverlib/systick.obj" "./driverlib/timer.obj" "./driverlib/uart.obj" "./driverlib/udma.obj" "./driverlib/usb.obj" "./driverlib/watchdog.obj" "./utils/cmdline.obj" "./utils/cpu_usage.obj" "./utils/eeprom_pb.obj" "./utils/flash_pb.obj" "./utils/isqrt.obj" "./utils/random.obj" "./utils/ringbuf.obj" "./utils/scheduler.obj" "./utils/sine.obj" "./utils/smbus.obj" "./utils/softi2c.obj" "./utils/softssi.obj" "./utils/softuart.obj" "./utils/spi_flash.obj" "./utils/uartstdio.obj" "./utils/ustdlib.obj" "../tm4c1294ncpdt.cmd" "../driverlib/ccs/Debug/driverlib.lib" "../driverlib/rvmdk/driverlib.lib"  -llibc.a   ../driverlib/ewarm/Exe/driverlib.a  ../driverlib/gcc/libdriver.a 
+<Linking>
+Finished building target: "io.out"
+ 
+
+**** Build Finished ****

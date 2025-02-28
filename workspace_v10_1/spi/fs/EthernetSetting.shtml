@@ -1,0 +1,2260 @@
+
+<html>
+<head>
+<title>Fuji Electric India Pvt Ltd</title>
+<link href="CSS/Tab.css" rel="stylesheet" type="text/css" />
+<link href="CSS/Main.css" rel="stylesheet" type="text/css" />
+<script src="Script/WebSocket.js" type="text/javascript" ></script>
+<script src="Script/AllParameter.js" ></script>
+<script src="Script/EthernetSetting.js" ></script>
+<script src="Script/MainPage.js" type="text/javascript" defer ></script>
+<script src="Script/ScheduleSetting.js" ></script>
+<script type="text/javascript">
+	window.history.pushState(null, null, window.location.href);
+	window.onpopstate = function () {
+		window.history.go(1);
+	};
+
+</script>
+
+<style>
+	#leftbox 
+	{
+		float:left; 
+		width:20%;
+		height:280px;
+		margin:10px 20px 10px 100px;
+	}
+	#middlebox
+	{
+		float:left; 
+		width:20%;
+		height:280px;
+		margin:10px 20px 10px 100px;
+	}
+	#rightbox
+	{
+		float:left;
+		width:19%;
+		height:280px;
+		margin:10px 20px 10px 100px;
+	}
+	#rightbox1
+	{
+		float:left;
+		width:19%;
+		height:280px;
+		margin:20px 30px;
+	}
+
+	#DiagLeftbox
+	{
+		float:left;
+		height:280px;
+		margin:5px 10px;
+	}
+	#DiagMiddlebox
+	{
+		float:left;
+		height:280px;
+		margin:5px 10px;
+	}
+	#DiagRightbox
+	{
+		float:left;
+	    height:280px;
+		margin:5px 10px;
+	}
+	#DiagRightbox1
+	{
+		float:left;
+	    height:280px;
+		margin:5px 10px;
+	}
+
+	td, th
+	{
+	border: none;
+	text-align: left;
+	padding: 1px;
+	}
+</style>
+
+<meta name="viewp" content="width=device-width, initial-scale=1">
+<style>
+h3 {font-family: Arial;}
+</style>
+</head>
+
+<body onload="SocketCreation()">
+
+<div id="page">
+<div style="padding:0 0 1px 3px"><img src="images/blue.jpg" alt="WELCOME" style="width: 130px;"/>
+	<table style="float:right;margin-top:10px;margin-left:-300px;">
+		<tr>
+			<td style="font-size:13px;">CONTROL VER :</td>
+			<td><input type="button" id ="Ctlversion" style="font-size:14px; width:70px; margin-left:1px; text-align: left; border:none; background-color: #fff;"/></td>
+			
+			<td style="font-size:13px;">FW VER :</td>
+			<td><input type="button" id ="OSversion" style="font-size:14px; width:50px; margin-left:0px; text-align: left; border:none; background-color: #fff;"/></td>
+			
+			<td style="font-size:13px;">BOOT VER :</td>
+			<td><input type="button" id ="bootversion" style="width:30px; font-size:14px; border:none; text-align: left; background-color: #fff;"/></td>
+			
+			<td><input type="button" id="dateTimeValue" onclick="confirmAction()" style="font-size:14px; border:none; background-color: #fff;" /></td>
+		</tr>
+	</table>
+</div>
+
+<div class="menu">
+	<ul class = "menuul">
+	<li><a href="MainPage.shtml" class="menuList">MAIN PAGE</a></li>
+	<li><a href="AllParameters.shtml" class="menuList">ALL PARAMETERS</a></li>
+	<li><a href="EthernetSetting.shtml" class="menuList active" style="pointer-events: none;">ETHERNET SETTING</a></li>
+	<li><a href="SerialSetting.shtml" class="menuList">SERIAL SETTING</a></li>
+	<li><a href="javascript:void(0);" id="openModalBtn" class="menuList">COMMAND SETTING</a></li>
+	<li><a href="DataLog.shtml" class="menuList" >DATA LOGS</a></li>
+	<li><a href="RTCSetting.shtml" class="menuList" >CLOCK SETTING</a></li>
+	<li id="emailSetting" style="display:none;"><a href="EmailConfig.shtml" class="menuList">EMAIL SETTING</a></li>
+	</ul><br/>
+</div>
+
+<!-- Custom modal -->
+<form id="customModal" class="modal">
+    <div class="modal-content">
+        <h2>Enter Password to Access Feature Setting</h2>
+        <input type="password" id="passwordInput" placeholder="Password">
+        <button  type="submit" id="submitPassword">Submit</button>
+    </div>
+</form>
+
+<div class="tab">
+	<button class="tablinks" id="ETHERNET" value="ETHERNET" name="ETHERNET" onclick="TabButtons(event, 'Ethernet','#69F', '#ddd')" id="defaultOpen" >ETHERNET SETTING</button>
+	<button class="tablinks" id="SNMP" value="SNMP" name="SNMP" onclick="TabButtons(event, 'Snmp','#69F', '#ddd')" >SNMP TRAP SETTING</button>
+	<button class="tablinks" id="DIAGNOSTICS" value="DIAGNOSTICS" name="DIAGNOSTICS" onclick="TabButtons(event, 'Diagnostics','#69F', '#ddd')">DIAGNOSTICS</button>
+</div>
+
+<div style="background:white;overflow: auto;">
+
+<div id="Ethernet" class="tabcontent">
+<div style="width:100%; height:84%;background-color: #ddd;overflow: auto;">
+
+<div id = "leftbox">
+<h3 style="width:300px;text-align:center;padding: 8px 0px;font-size:20px;padding: 1px 70px 1px 70px">  Ethernet Setting  </h3>
+<div>
+	<table>
+		<tr>
+			<td><P style="font-size:15px;" >Host Name:</td>
+			<td><input type="text" name="host" id="host" style="width: 150px" maxlength="15" ></input></td>
+		</tr>
+		<tr>
+			<td><P style="font-size:15px;" > Enable DHCP:</td>
+			<td><input type="checkbox" name="DHCP" id="DHCP" onchange='DHCPChange(this);' /></td>
+		</tr>
+		<tr>
+			<td><P style="font-size:15px;" >IP Address:</td>
+			<td><input type="text" name="ip" id='ip' maxlength="15" onkeypress="return onlyNumberKey(event)"  style="width: 150px"  disabled/></td>
+		</tr>
+		<tr>
+			<td><P style="font-size:15px;" >Subnet Mask:</td>
+			<td><input type="text" name="sub" id="sub" maxlength="15" onkeypress="return onlyNumberKey(event)" style="width: 150px"  disabled/></td>
+		</tr>
+		<tr>
+			<td><P style="font-size:15px;" >Gateway:</td>
+			<td><input type="text" name="gw" id="gw" maxlength="15" onkeypress="return onlyNumberKey(event)" style="width: 150px"  disabled/></td>
+		</tr>
+		<tr>
+			<td><P style="font-size:15px;" >Primary DNS:</td>
+			<td><input type="text" name="dns1" id="dns1" maxlength="15" onkeypress="return onlyNumberKey(event)" style="width: 150px" disabled/></td>
+		</tr>
+		<tr>
+			<td><P style="font-size:15px;" >Secondary DNS:</td>
+			<td><input type="text" name="dns2" id="dns2" maxlength="15" onkeypress="return onlyNumberKey(event)" style="width: 150px" disabled/></td>
+		</tr>
+		<tr>
+			<td><P style="font-size:15px;" >Mac Address:</td>
+			<td><input type="text" name="macaddress" id="macaddress" maxlength="25"  style="width: 150px" disabled /></td>
+		</tr>
+	</table>
+<div><input type="button" class="sm" onclick="ClickEthernetSetting_Request()" value="Save Config" style="border: 1;background-color:#69F;color: white;padding: 5px 10px;text-align: center;text-decoration: none;font-size: 20px;margin: 73px 80px 10px 80px; cursor: pointer;"/></div>
+</div>
+</div>
+
+<div id = "middlebox">
+<h3 style="width:300px;text-align:center;padding: 8px 0px;font-size:20px;padding: 1px 70px 1px 70px">  SNMP Setting  </h3>
+<div>
+	<table>
+		<tr>
+			<td><p style="margin: 10px 10px ">Trap IP Address:</td>
+			<td><input type="text" name="TRAPIPADDR" id='TRAPIPADDR' maxlength="15" onkeypress="return onlyNumberKey(event)" style="width:100%"  /></td>
+      	</tr>
+		<tr>
+			<td><p style="margin: 10px 10px ">PORT </td>
+			<td><input type="text"  id="SNMPPORT" name="SNMPPORT" style="width:100%;"  /></td>
+		</tr>
+	</table>
+<div>&nbsp;</div>
+<div><input type="button" class="sm" onclick="ClickSNMPSetting_Request()" value="Save Config" style="border: 1;background-color:#69F;color: white;padding: 5px 10px;text-align: center;text-decoration: none;font-size: 20px;margin: 175px 80px 10px 80px; cursor: pointer;"/></div>
+</div>
+</div>
+
+<div id = "rightbox">
+<h3 style="width:300px;text-align:center;padding: 8px 0px;font-size:20px;padding: 1px 30px 1px 30px">  MODBUS Setting  </h3>
+<div>
+	<table>
+		<tr>
+			<td><p style="margin: 10px 10px "> Socket TimeOut:</td>
+			<td><input type="text" id="MODBUSTIMEOUT" name="MODBUSTIMEOUT" onkeypress="return onlyNumberKey(event)" style="width:70%;" step="0.01"  /><label>msec </label></td>
+		</tr>
+		<tr>
+			<td><p style="margin: 10px 10px ">Port:</td>
+			<td><input type="text" id="MODBUSPORT" name='MODBUSPORT' onkeypress="return onlyNumberKey(event)" style="width:70%;" step="0.01" /></td>
+		</tr>
+		<tr>
+			<td><p style="margin: 10px 10px ">Client Connected:</td>
+			<td><input type="text" id="MODBUSCLIENT" name='MODBUSCLIENT' onkeypress="return onlyNumberKey(event)" style="width:70%;"  readonly/></td>
+		</tr>
+	</table>
+<div>&nbsp;</div>
+<div><input type="button" class="sm" onclick="ClickModbusTCPSetting_Request()" value="Save Config" style="border: 1;background-color:#69F;color: white;padding: 5px 10px;text-align: center;text-decoration: none;font-size: 20px;margin: 122px 80px 10px 80px; cursor: pointer;"/></div>
+</div>
+</div>
+
+<div class="spacer" style="padding: 80px 10px 20px 10px;">&nbsp;</div>
+<div id="footer" style="padding: 10px 1px 10px 1px;" >FEI - Copyright &copy; 2024 Fuji Electric India Pvt Ltd </div>
+</div>
+</div>
+
+<div id="Snmp" class="tabcontent">
+<div style="width:100%;height: 500px; background-color:  #ddd;overflow: auto;">
+<h3 style="color: #000000; width:350px;text-align:center;padding: 1px 1px;font-size:20px ;margin: 10px 400px">  SNMP TRAP SETTING  </h3>
+<div>
+	<input type="button" class="sm" onclick="ClickSNMPTrapSetting_Request()" value="submit" style="border: 1;background-color:#69F;color: white;padding: 10px 30px;text-align: center;text-decoration: none;font-size: 20px;margin: 1px 10px 1px 1050px; cursor: pointer;"/>
+</div>
+
+<div style = "float: center; width: 1150px; padding: 10px 10px ; border-style: ridge;height:1550px; margin:5px 20px 10px 70px;">
+<div>
+	<table>
+		<tr>
+			<td><p style="padding: 1px 40px 1px 20px; font-size:18px">OID index</td>
+			<td><p style="padding: 10px 150px 10px 30px; font-size:18px">Traps</td>
+			<td><p style="padding: 10px 70px 10px 40px; font-size:18px">Trap Interval</td>
+			<td><p style="padding: 10px 100px 10px 60px; font-size:18px">Falling Edge</td>
+			<td><p style="padding: 10px 50px 10px 50px; font-size:18px">Rising Edge</td>
+		</tr>
+	</table>
+</div>
+
+<div>
+ 	<table>
+      	<tr>
+	        <td><p style="padding: 1px 100px 1px 30px; font-size:15px">4</b></td>
+	        <td><p style="padding: 10px 200px 1px 15px; font-size:15px">CHARGER FAIL:</b></td>
+			<td><label>
+			<input type="checkbox" id="SnmpTrap1"  onchange='handleChange(this);'>
+			</label></td>
+
+			<td><p style="padding: 1px 200px 1px 20px;"></p></td>
+			<td><label>
+			<input type="checkbox" id="SnmpTrap2"  onchange='handleChange(this);'>
+			</label></td>
+		
+			<td><p style="padding: 1px 200px 1px 20px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap3"  onchange='handleChange(this);'>
+			</label></td>
+      	</tr>
+      	<tr>
+	        <td><p style="padding: 1px 100px 1px 30px; font-size:15px">8</b></td>
+	        <td><p style="padding: 1px 2px 1px 15px; font-size:15px">BATTERY FUSE BROKEN:</b></td>
+			<td><label>
+			<input type="checkbox" id="SnmpTrap4"  onchange='handleChange(this);'>
+			</label></td>
+
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label>
+			<input type="checkbox" id="SnmpTrap5"  onchange='handleChange(this);'>
+			</label></td>
+
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label>
+			<input type="checkbox" id="SnmpTrap6"  onchange='handleChange(this);'>
+			</label></td>
+      	</tr>
+      	<tr>
+	        <td><p style="padding: 1px 2px 1px 30px; font-size:15px">9</b></td>
+	        <td><p style="padding: 1px 20px 1px 15px; font-size:15px">BATTERY LOW:</b></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap7"  onchange='handleChange(this);' name="BC007"	>
+			</label></td>
+
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap8"  onchange='handleChange(this);'>
+			</label></td>
+
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap9"  onchange='handleChange(this);'>
+			</label></td>
+      	</tr>
+        <tr>
+          	<td><p style="padding: 1px 2px 1px 30px; font-size:15px">11</b></td>
+        	<td><p style="padding: 1px 20px 1px 15px; font-size:15px">IP SITE FAIL:</b></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap10"  onchange='handleChange(this);'>
+			</label></td>
+
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap11"  onchange='handleChange(this);'>
+			</label></td>
+
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap12"  onchange='handleChange(this);'>
+			</label></td>
+      	</tr>
+
+        <tr>
+          	<td><p style="padding: 1px 2px 1px 30px; font-size:15px">12</b></td>
+        	<td><p style="padding: 1px 20px 1px 15px; font-size:15px">LINE PHASE ERROR:</b></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap13"  onchange='handleChange(this);'>
+			</label></td>
+
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap14"  onchange='handleChange(this);'>
+			</label></td>
+
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap15"  onchange='handleChange(this);'>
+			</label></td>
+      	</tr>
+        <tr>
+          	<td><p style="padding: 1px 2px 1px 30px; font-size:15px">13</b></td>
+        	<td><p style="padding: 1px 20px 1px 15px; font-size:15px">BYPASS PHASE ERROR:</b></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap16"  onchange='handleChange(this);'>
+			</label></td>
+
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap17"  onchange='handleChange(this);'>
+			</label></td>
+
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap18"  onchange='handleChange(this);'>
+			</label></td>
+      	</tr>
+        <tr>
+          	<td><p style="padding: 1px 2px 1px 30px; font-size:15px">14</b></td>
+        	<td><p style="padding: 1px 20px 1px 15px; font-size:15px">FAN LOCK WARNING:</b></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap19"  onchange='handleChange(this);' name="BC019"	>
+			</label></td>
+
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap20"  onchange='handleChange(this);'>
+			</label></td>
+
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap21"  onchange='handleChange(this);'>
+			</label></td>
+      	</tr>
+        <tr>
+          	<td><p style="padding: 1px 2px 1px 30px; font-size:15px">15</b></td>
+        	<td><p style="padding: 1px 20px 1px 15px; font-size:15px">EPO ACTIVE:</b></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap22"  onchange='handleChange(this);'>
+			</label></td>
+
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap23"  onchange='handleChange(this);'>
+			</label></td>
+
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap24"  onchange='handleChange(this);'>
+			</label></td>
+      	</tr>
+
+        <tr>
+          	<td><p style="padding: 1px 2px 1px 30px; font-size:15px">16</b></td>
+        	<td><p style="padding: 1px 20px 1px 15px; font-size:15px">TURN ON ABNORMAL:</b></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap25"  onchange='handleChange(this);'>
+			</label></td>
+
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap26"  onchange='handleChange(this);'>
+			</label></td>
+		
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap27"  onchange='handleChange(this);'>
+			</label></td>
+      	</tr>
+        <tr>
+          	<td><p style="padding: 1px 2px 1px 30px; font-size:15px">17</b></td>
+        	<td><p style="padding: 1px 20px 1px 15px; font-size:15px">OVER TEMPERATURE:</b></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap28"  onchange='handleChange(this);'>
+			</label></td>
+
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap29"  onchange='handleChange(this);'>
+			</label></td>
+
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap30"  onchange='handleChange(this);'>
+			</label></td>
+      	</tr>
+
+        <tr>
+          	<td><p style="padding: 1px 2px 1px 30px; font-size:15px">18</b></td>
+        	<td><p style="padding: 1px 20px 1px 15px; font-size:15px">BYPASS FREQUENCY UNSTABLE:</b></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap31"  onchange='handleChange(this);'>
+			</label></td>
+
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap32"  onchange='handleChange(this);'>
+			</label></td>
+
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap33"  onchange='handleChange(this);'>
+			</label></td>
+      	</tr>
+        <tr>
+          	<td><p style="padding: 1px 2px 1px 30px; font-size:15px">20</b></td>
+        	<td><p style="padding: 1px 20px 1px 15px; font-size:15px">L1 IP FUSE FAIL:</b></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap34"  onchange='handleChange(this);'>
+			</label></td>
+
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap35"  onchange='handleChange(this);'>
+			</label></td>
+
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap36"  onchange='handleChange(this);'>
+			</label></td>
+      	</tr>
+
+        <tr>
+          	<td><p style="padding: 1px 2px 1px 30px; font-size:15px">21</b></td>
+        	<td><p style="padding: 1px 20px 1px 15px; font-size:15px">IP N LOSS:</b></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap37" onchange='handleChange(this);'>
+			</label></td>
+
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap38"  onchange='handleChange(this);'>
+			</label></td>
+
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap39"  onchange='handleChange(this);'>
+			</label></td>
+      	</tr>
+
+        <tr>
+          	<td><p style="padding: 1px 2px 1px 30px; font-size:15px">22</b></td>
+        	<td><p style="padding: 1px 20px 1px 15px; font-size:15px">L2 IP FUSE FAIL:</b></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap40"  onchange='handleChange(this);'>
+			</label></td>
+
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap41"  onchange='handleChange(this);'>
+			</label></td>
+
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap42"  onchange='handleChange(this);'>
+			</label></td>
+      	</tr>
+        <tr>
+          	<td><p style="padding: 1px 2px 1px 30px; font-size:15px">23</b></td>
+        	<td><p style="padding: 1px 20px 1px 15px; font-size:15px">L3 IP FUSE FAIL:</b></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap43"  onchange='handleChange(this);'>
+			</label></td>
+
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap44"  onchange='handleChange(this);'>
+			</label></td>
+
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap45"  onchange='handleChange(this);'>
+			</label></td>
+      	</tr>
+
+        <tr>
+          	<td><p style="padding: 1px 2px 1px 30px; font-size:15px">24</b></td>
+        	<td><p style="padding: 1px 20px 1px 15px; font-size:15px">L1 PFC PERROR:</b></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap46"  onchange='handleChange(this);'>
+			</label></td>
+
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap47"  onchange='handleChange(this);'>
+			</label></td>
+
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap48"  onchange='handleChange(this);'>
+			</label></td>
+      	</tr>
+
+        <tr>
+          	<td><p style="padding: 1px 2px 1px 30px; font-size:15px">25</b></td>
+    		<td><p style="padding: 1px 20px 1px 15px; font-size:15px">L1 PFC NERROR:</b></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap49"  onchange='handleChange(this);'>
+			</label></td>
+
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap50"  onchange='handleChange(this);'>
+			</label></td>
+		
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap51"  onchange='handleChange(this);'>
+			</label></td>
+      	</tr>
+
+        <tr>
+          	<td><p style="padding: 1px 2px 1px 30px; font-size:15px">26</b></td>
+	        <td><p style="padding: 1px 20px 1px 15px; font-size:15px">L2 PFC PERROR:</b></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap52"  onchange='handleChange(this);' >
+			</label></td>
+
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap53"  onchange='handleChange(this);'>
+			</label></td>
+		
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap54"  onchange='handleChange(this);'>
+			</label></td>
+      	</tr>
+        <tr>
+          	<td><p style="padding: 1px 100px 1px 30px; font-size:15px">27</b></td>
+	        <td><p style="padding: 1px 20px 1px 15px; font-size:15px">L2 PFC NERROR:</b></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap55"  onchange='handleChange(this);'>
+			</label></td>
+
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap56"  onchange='handleChange(this);'>
+			</label></td>
+		
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap57"  onchange='handleChange(this);'>
+			</label></td>
+		</tr>
+
+        <tr>
+	        <td><p style="padding: 1px 2px 1px 30px; font-size:15px">28</b></td>
+	        <td><p style="padding: 1px 20px 1px 15px; font-size:15px">L3 PFC PERROR:</b></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap58"  onchange='handleChange(this);'>
+			</label></td>
+
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap59"  onchange='handleChange(this);'>
+			</label></td>
+		
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap60"  onchange='handleChange(this);'>
+			</label></td>
+      	</tr>
+
+        <tr>
+          	<td><p style="padding: 1px 2px 1px 30px; font-size:15px">29</b></td>
+	        <td><p style="padding: 1px 20px 1px 15px; font-size:15px">L3 PFC NERROR:</b></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap61"  onchange='handleChange(this);' >
+			</label></td>
+
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap62"  onchange='handleChange(this);'>
+			</label></td>
+		
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap63"  onchange='handleChange(this);'>
+			</label></td>
+      	</tr>
+
+        <tr>
+           	<td><p style="padding: 1px 2px 1px 30px; font-size:15px">26</b></td>
+	        <td><p style="padding: 1px 20px 1px 15px; font-size:15px">PARALLEL INV VOLT DIFF:</b></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap64"  onchange='handleChange(this);'>
+			</label></td>
+
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap65"  onchange='handleChange(this);'>
+			</label></td>
+		
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap66"  onchange='handleChange(this);'>
+			</label></td>
+      	</tr>
+
+        <tr>
+          	<td><p style="padding: 1px 2px 1px 30px; font-size:15px">52</b></td>
+	        <td><p style="padding: 1px 20px 1px 15px; font-size:15px">LINE CONN DIFFERENCE:</b></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap67"  onchange='handleChange(this);'>
+			</label></td>
+
+			<td><p style="padding: 1px 20px 1px 15px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap68"  onchange='handleChange(this);'>
+			</label></td>
+		
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap69"  onchange='handleChange(this);'>
+			</label></td>
+      	</tr>
+
+        <tr>
+          	<td><p style="padding: 1px 2px 1px 30px; font-size:15px">53</b></td>
+	        <td><p style="padding: 1px 20px 1px 15px; font-size:15px">CAN COMM ERROR:</b></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap70"  onchange='handleChange(this);'>
+			</label></td>
+
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap71"  onchange='handleChange(this);'>
+			</label></td>
+		
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap72"  onchange='handleChange(this);'>
+			</label></td>
+      	</tr>
+
+        <tr>
+           <td><p style="padding: 1px 2px 1px 30px; font-size:15px">55</b></td>
+	        <td><p style="padding: 1px 20px 1px 15px; font-size:15px">PARALLEL OUTPUT PHASE DIFF:</b></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap73"  onchange='handleChange(this);' >
+			
+			</label></td>
+
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap74"  onchange='handleChange(this);'>
+			</label></td>
+		
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap75"  onchange='handleChange(this);'>
+			</label></td>
+      	</tr>
+
+        <tr>
+           	<td><p style="padding: 1px 2px 1px 30px; font-size:15px">56</b></td>
+	        <td><p style="padding: 1px 20px 1px 15px; font-size:15px">PARALLEL OUTPUT FREQ DIFF:</b></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap76"  onchange='handleChange(this);'>
+			</label></td>
+
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap77"  onchange='handleChange(this);'>
+			</label></td>
+		
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap78"  onchange='handleChange(this);'>
+			</label></td>
+      	</tr>
+		<tr>
+	        <td><p style="padding: 1px 2px 1px 30px; font-size:15px">57</b></td>
+	        <td><p style="padding: 1px 20px 1px 15px; font-size:15px">THREE PHASE CURR UNSTABLE:</b></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap79"  onchange='handleChange(this);'>
+			</label></td>
+
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap80"  onchange='handleChange(this);' >
+			</label></td>
+		
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap81"  onchange='handleChange(this);' >
+			</label></td>
+      	</tr>
+        <tr>
+          	<td><p style="padding: 1px 2px 1px 30px; font-size:15px">59</b></td>
+	        <td><p style="padding: 1px 20px 1px 15px; font-size:15px">INVERSE CURRENT UNSTABLE:</b></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap82"  onchange='handleChange(this);'>
+			</label></td>
+
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap83"  onchange='handleChange(this);' >
+			</label></td>
+	
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap84"  onchange='handleChange(this);' >
+			</label></td>
+      </tr>
+
+        <tr>
+          	<td><p style="padding: 1px 2px 1px 30px; font-size:15px">60</b></td>
+	        <td><p style="padding: 1px 20px 1px 15px; font-size:15px">BATTERY OPEN:</b></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap85"  onchange='handleChange(this);'>
+			</label></td>
+
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap86"  onchange='handleChange(this);' >
+			</label></td>
+			
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap87"  onchange='handleChange(this);' >
+			</label></td>
+      	</tr>
+
+        <tr>
+          	<td><p style="padding: 1px 2px 1px 30px; font-size:15px">62</b></td>
+	        <td><p style="padding: 1px 20px 1px 15px; font-size:15px">BATTERY OVERCHARGE:</b></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap88"  onchange='handleChange(this);'>
+			</label></td>
+
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+				<input type="checkbox" id="SnmpTrap89"  onchange='handleChange(this);' >
+			</label></td>
+		
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap90"  onchange='handleChange(this);' >
+			</label></td>
+     	</tr>
+
+        <tr>
+          	<td><p style="padding: 1px 2px 1px 30px; font-size:15px">62</b></td>
+	        <td><p style="padding: 1px 20px 1px 15px; font-size:15px">BATTERY CELL OVERCHARGE:</b></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap91"  onchange='handleChange(this);'>
+			</label></td>
+
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap92"  onchange='handleChange(this);' >
+			</label></td>
+		
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap93"  onchange='handleChange(this);' >
+			</label></td>
+      	</tr>
+
+        <tr>
+          	<td><p style="padding: 1px 2px 1px 30px; font-size:15px">65</b></td>
+	        <td><p style="padding: 1px 20px 1px 15px; font-size:15px">FEMALE CONN ERROR:</b></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap94"  onchange='handleChange(this);' >
+			
+			</label></td>
+
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap95"  onchange='handleChange(this);'>
+			</label></td>
+		
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap96"  onchange='handleChange(this);'>
+			</label></td>
+      	</tr>
+
+        <tr>
+          	<td><p style="padding: 1px 2px 1px 30px; font-size:15px">66</b></td>
+	        <td><p style="padding: 1px 20px 1px 15px; font-size:15px">MALE CONN ERROR:</b></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap97"  onchange='handleChange(this);'>
+			
+			</label></td>
+
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap98"  onchange='handleChange(this);'>
+			</label></td>
+		
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap99"  onchange='handleChange(this);'>
+			</label></td>
+      	</tr>
+
+        <tr>
+           	<td><p style="padding: 1px 2px 1px 30px; font-size:15px">67</b></td>
+	        <td><p style="padding: 1px 20px 1px 15px; font-size:15px">LOCKED IN BYPASS:</b></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap100"  onchange='handleChange(this);'>
+			
+			</label></td>
+
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap101"  onchange='handleChange(this);'>
+			</label></td>
+		
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap102"  onchange='handleChange(this);'>
+			</label></td>
+      	</tr>
+        <tr>
+          	<td><p style="padding: 1px 2px 1px 30px; font-size:15px">68</b></td>
+	        <td><p style="padding: 1px 20px 1px 15px; font-size:15px">PARALLEL LINE CONN ERROR:</b></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap103"  onchange='handleChange(this);'>
+			
+			</label></td>
+
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap104"  onchange='handleChange(this);'>
+			</label></td>
+		
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap105"  onchange='handleChange(this);'>
+			</label></td>
+      	</tr>
+
+        <tr>
+          	<td><p style="padding: 1px 2px 1px 30px; font-size:15px">69</b></td>
+	        <td><p style="padding: 1px 20px 1px 15px; font-size:15px">SYNCH PULSE ERROR:</b></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap106"  onchange='handleChange(this);'>
+			
+			</label></td>
+
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap107"  onchange='handleChange(this);'>
+			</label></td>
+		
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap108"  onchange='handleChange(this);'>
+			</label></td>
+      	</tr>
+        <tr>
+          	<td><p style="padding: 1px 2px 1px 30px; font-size:15px">70</b></td>
+	        <td><p style="padding: 1px 20px 1px 15px; font-size:15px">SYNCH LINE ERROR:</b></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap109"  onchange='handleChange(this);' >
+			
+			</label></td>
+
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap110"  onchange='handleChange(this);'>
+			</label></td>
+		
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap111"  onchange='handleChange(this);'>
+			</label></td>
+      	</tr>
+
+        <tr>
+          	<td><p style="padding: 1px 2px 1px 30px; font-size:15px">71</b></td>
+	        <td><p style="padding: 1px 20px 1px 15px; font-size:15px">HOST LINE ERROR:</b></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap112"  onchange='handleChange(this);'>
+			
+			</label></td>
+
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap113"  onchange='handleChange(this);'>
+			</label></td>
+		
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap114"  onchange='handleChange(this);'>
+			</label></td>
+      	</tr>
+
+        <tr>
+          	<td><p style="padding: 1px 2px 1px 30px; font-size:15px">73</b></td>
+	        <td><p style="padding: 1px 20px 1px 15px; font-size:15px">PARALLEL LINE VOLT LOW LD:</b></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap115"  onchange='handleChange(this);' name="BC115">
+			
+			</label></td>
+
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap116"  onchange='handleChange(this);'>
+			</label></td>
+
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap117"  onchange='handleChange(this);'>
+			</label></td>
+      	</tr>
+
+        <tr>
+          	<td><p style="padding: 1px 2px 1px 30px; font-size:15px">74</b></td>
+	        <td><p style="padding: 1px 20px 1px 15px; font-size:15px">PARALLEL LINE VOLT HIGH LD:</b></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap118"  onchange='handleChange(this);'>
+			
+			</label></td>
+
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap119"  onchange='handleChange(this);'>
+			</label></td>
+
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap120"  onchange='handleChange(this);'>
+			</label></td>
+      	</tr>
+
+        <tr>
+          	<td><p style="padding: 1px 2px 1px 30px; font-size:15px">75</b></td>
+	        <td><p style="padding: 1px 20px 1px 15px; font-size:15px">PARALLEL LINE FREQ LOW LD:</b></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap121"  onchange='handleChange(this);'>
+			
+			</label></td>
+
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap122"  onchange='handleChange(this);'>
+			</label></td>
+		
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap123"  onchange='handleChange(this);'>
+			</label></td>
+      	</tr>
+
+        <tr>
+          	<td><p style="padding: 1px 2px 1px 30px; font-size:15px">76</b></td>
+	        <td><p style="padding: 1px 20px 1px 15px; font-size:15px">PARALLEL LINE FREQ HIGH LD:</b></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap124"  onchange='handleChange(this);' >
+			
+			</label></td>
+
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap125"  onchange='handleChange(this);'>
+			</label></td>
+
+			<td><p style="padding: 1px 20px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap126"  onchange='handleChange(this);'>
+			</label></td>
+      	</tr>
+
+        <tr>
+          	<td><p style="padding: 1px 2px 1px 30px; font-size:15px">77</b></td>
+	        <td><p style="padding: 1px 20px 1px 15px; font-size:15px">PARALLEL BYPASS VOLT LOW LD:</b></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap127"  onchange='handleChange(this);'>
+			
+			</label></td>
+
+			<td><p style="padding: 1px 20px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap128"  onchange='handleChange(this);'>
+			</label></td>
+
+			<td><p style="padding: 1px 20px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap129"  onchange='handleChange(this);'>
+			</label></td>
+      	</tr>
+
+        <tr>
+          	<td><p style="padding: 1px 2px 1px 30px; font-size:15px">78</b></td>
+	        <td><p style="padding: 1px 20px 1px 15px; font-size:15px">PARALLEL BYPASS VOLT HIGH LD:</b></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap130"  onchange='handleChange(this);'>
+			
+			</label></td>
+
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap131"  onchange='handleChange(this);'>
+			</label></td>
+
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap132"  onchange='handleChange(this);'>
+			</label></td>
+      	</tr>
+
+        <tr>
+          	<td><p style="padding: 1px 2px 1px 30px; font-size:15px">79</b></td>
+	        <td><p style="padding: 1px 20px 1px 15px; font-size:15px">PARALLEL BYPASS FREQ LOW LD:</b></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap133"  onchange='handleChange(this);'>
+			</label></td>
+
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap134"  onchange='handleChange(this);'>
+			</label></td>
+		
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap135"  onchange='handleChange(this);'>
+			</label></td>
+      	</tr>
+        <tr>
+          	<td><p style="padding: 1px 2px 1px 30px; font-size:15px">80</b></td>
+	        <td><p style="padding: 1px 20px 1px 15px; font-size:15px">PARALLEL BYPASS FREQ HIGH LD:</b></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap136"  onchange='handleChange(this);'>
+			</label></td>
+
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap137"  onchange='handleChange(this);'>
+			</label></td>
+
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap138"  onchange='handleChange(this);'>
+			</label></td>
+      	</tr>
+    	<tr>
+           	<td><p style="padding: 1px 2px 1px 30px; font-size:15px">81</b></td>
+	        <td><p style="padding: 1px 20px 1px 15px; font-size:15px">PARALLEL OUTPUT PARALLEL DIFF:</b></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap139"  onchange='handleChange(this);'>
+			
+			</label></td>
+
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap140"  onchange='handleChange(this);'>
+			</label></td>
+
+	      	<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap141"  onchange='handleChange(this);'>
+			</label></td>
+      	</tr>
+
+        <tr>
+          	<td><p style="padding: 1px 2px 1px 30px; font-size:15px">82</b></td>
+	        <td><p style="padding: 1px 20px 1px 15px; font-size:15px">OVER LOAD WARNING:</b></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap142"  onchange='handleChange(this);'>
+			</label></td>
+
+	      	<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap143"  onchange='handleChange(this);'>
+			</label></td>
+
+	      	<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap144"  onchange='handleChange(this);'>
+			</label></td>
+      	</tr>
+
+        <tr>
+           	<td><p style="padding: 1px 2px 1px 30px; font-size:15px">83</b></td>
+	        <td><p style="padding: 1px 20px 1px 15px; font-size:15px">PARALLEL PROTECT WARNING:</b></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap145"  onchange='handleChange(this);'>
+			</label></td>
+
+	     	<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap146"  onchange='handleChange(this);'>
+			</label></td>
+
+	      	<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap147"  onchange='handleChange(this);'>
+			</label></td>
+      	</tr>
+
+        <tr>
+          	<td><p style="padding: 1px 2px 1px 30px; font-size:15px">85</b></td>
+	        <td><p style="padding: 1px 20px 1px 15px; font-size:15px">BATTERY CONN DIFFERENCE:</b></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap148"  onchange='handleChange(this);'>
+			</label></td>
+
+	      	<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap149"  onchange='handleChange(this);'>
+			</label></td>
+
+	      	<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap150"  onchange='handleChange(this);'>
+			</label></td>
+      	</tr>
+
+        <tr>
+          	<td><p style="padding: 1px 2px 1px 30px; font-size:15px">86</b></td>
+	        <td><p style="padding: 1px 20px 1px 15px; font-size:15px">PARALLEL CONVERTER ENABLE DIFF:</b></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap151"  onchange='handleChange(this);'>
+			</label></td>
+
+	      	<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap152"  onchange='handleChange(this);'>
+			</label></td>
+
+	      	<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap153"  onchange='handleChange(this);'>
+			</label></td>
+      	</tr>
+
+        <tr>
+           	<td><p style="padding: 1px 2px 1px 30px; font-size:15px">87</b></td>
+	        <td><p style="padding: 1px 20px 1px 15px; font-size:15px">PARALLEL BYPASS FORBIDDEN DIFF:</b></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap154"  onchange='handleChange(this);'>
+			</label></td>
+
+	      	<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap155"  onchange='handleChange(this);'>
+			</label></td>
+
+	      	<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap156"  onchange='handleChange(this);'>
+			</label></td>
+      	</tr>
+
+     	<tr>
+           	<td><p style="padding: 1px 2px 1px 30px; font-size:15px">89</b></td>
+	        <td><p style="padding: 1px 20px 1px 15px; font-size:15px">UTILITY EXTREMELY UNBALANCED:</b></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap157"  onchange='handleChange(this);'>
+			</label></td>
+
+	      	<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap158"  onchange='handleChange(this);'>
+			</label></td>
+
+	      	<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap159"  onchange='handleChange(this);'>
+			</label></td>
+      	</tr>
+
+        <tr>
+          	<td><p style="padding: 1px 2px 1px 30px; font-size:15px">90</b></td>
+	        <td><p style="padding: 1px 20px 1px 15px; font-size:15px">BYPASS CONN DIFF:</b></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap160"  onchange='handleChange(this);'>
+			</label></td>
+
+	      	<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap161"  onchange='handleChange(this);'>
+			</label></td>
+
+	      	<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap162"  onchange='handleChange(this);'>
+			</label></td>
+      	</tr>
+        <tr>
+          	<td><p style="padding: 1px 100px 1px 30px; font-size:15px">93</b></td>
+	        <td><p style="padding: 1px 190px 1px 15px; font-size:15px">MODE TYPE DIFF:</b></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap163"  onchange='handleChange(this);'>
+			</label></td>
+
+	      	<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap164"  onchange='handleChange(this);'>
+			</label></td>
+
+	      	<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap165"  onchange='handleChange(this);'>
+			</label></td>
+      	</tr>
+
+        <tr>
+          	<td><p style="padding: 1px 2px 1px 30px; font-size:15px">94</b></td>
+	        <td><p style="padding: 1px 20px 1px 15px; font-size:15px">BYPASS UNSTABLE :</b></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap166"  onchange='handleChange(this);'>
+			</label></td>
+
+	      	<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap167"  onchange='handleChange(this);'>
+			</label></td>
+
+	      	<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap168"  onchange='handleChange(this);'>
+			</label></td>
+      	</tr>
+
+        <tr>
+           	<td><p style="padding: 1px 2px 1px 30px; font-size:15px">96</b></td>
+	        <td><p style="padding: 1px 20px 1px 15px; font-size:15px">PHASE AUTO ADAPT FAILED:</b></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap169"  onchange='handleChange(this);'>
+			</label></td>
+
+	      	<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap170"  onchange='handleChange(this);'>
+			</label></td>
+
+	      	<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap171"  onchange='handleChange(this);'>
+			</label></td>
+      	</tr>
+
+        <tr>
+          	<td><p style="padding: 1px 2px 1px 30px; font-size:15px">97</b></td>
+	        <td><p style="padding: 1px 20px 1px 15px; font-size:15px">BATTERY REPLACE:</b></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap172"  onchange='handleChange(this);'>
+			</label></td>
+
+	      	<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap173"  onchange='handleChange(this);'>
+			</label></td>
+
+	      	<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap174"  onchange='handleChange(this);'>
+			</label></td>
+      	</tr>
+
+        <tr>
+          	<td><p style="padding: 1px 2px 1px 30px; font-size:15px">106</b></td>
+	        <td><p style="padding: 1px 20px 1px 15px; font-size:15px">REMOTE SHUTDOWN:</b></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap175"  onchange='handleChange(this);'>
+			</label></td>
+
+	      	<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap176"  onchange='handleChange(this);'>
+			</label></td>
+
+	      	<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap177"  onchange='handleChange(this);'>
+			</label></td>
+      	</tr>
+
+        <tr>
+           	<td><p style="padding: 1px 2px 1px 30px; font-size:15px">109</b></td>
+	        <td><p style="padding: 1px 20px 1px 15px; font-size:15px">EEPROM ERROR:</b></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap178"  onchange='handleChange(this);'>
+			</label></td>
+
+	      	<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap179"  onchange='handleChange(this);'>
+			</label></td>
+
+	      	<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap180"  onchange='handleChange(this);'>
+			</label></td>
+      	</tr>
+
+        <tr>
+           	<td><p style="padding: 1px 2px 1px 30px; font-size:15px">122</b></td>
+	        <td><p style="padding: 1px 20px 1px 15px; font-size:15px">DISCHARGER OVERLY:</b></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap181"  onchange='handleChange(this);'>
+			</label></td>
+
+	      	<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap182"  onchange='handleChange(this);'>
+			</label></td>
+
+	      	<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap183"  onchange='handleChange(this);'>
+			</label></td>
+      	</tr>
+
+        <tr>
+          	<td><p style="padding: 1px 2px 1px 30px; font-size:15px">127</b></td>
+	        <td><p style="padding: 1px 20px 1px 15px; font-size:15px">P1 CUTOFF PREALARM:</b></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap184"  onchange='handleChange(this);'>
+			</label></td>
+
+	      	<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap185"  onchange='handleChange(this);'>
+			</label></td>
+
+	      	<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap186"  onchange='handleChange(this);'>
+			</label></td>
+      	</tr>
+
+        <tr>
+          	<td><p style="padding: 1px 2px 1px 30px; font-size:15px">128</b></td>
+	        <td><p style="padding: 1px 20px 1px 15px; font-size:15px">INPUT PHASE ERROR:</b></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap187"  onchange='handleChange(this);'>
+			</label></td>
+
+	      	<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap188"  onchange='handleChange(this);'>
+			</label></td>
+
+	      	<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap189"  onchange='handleChange(this);'>
+			</label></td>
+      	</tr>
+
+        <tr>
+          	<td><p style="padding: 1px 2px 1px 30px; font-size:15px">129</b></td>
+	        <td><p style="padding: 1px 20px 1px 15px; font-size:15px">COVER OF MAINTAIN SW OPEN:</b></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap190"  onchange='handleChange(this);'>
+			</label></td>
+
+			<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap191"  onchange='handleChange(this);'>
+			</label></td>
+
+	      	<td><p style="padding: 1px 200px 1px 2px;"></p></td>
+			<td><label >
+			<input type="checkbox" id="SnmpTrap192"  onchange='handleChange(this);'>
+			</label></td>
+      	</tr>
+	</table>
+
+<div id="footer" style="padding: 10px 1px 10px 1px;">FEI - Copyright &copy; 2024 Fuji Electric India Pvt Ltd </div>
+</div></div></div></div>
+
+<div id="Diagnostics" class="tabcontent">
+	<div style="width:100%;background-color: #ddd;overflow: auto;">
+		<div id = "DiagLeftbox">
+			<h3><center>MODBUS TCP</center></h3>
+			<table style="margin-left:1px;width:100%;border: none;">
+			<tr >
+				<td>Frames Recived</td>
+				<td><input type="text" class="tdstyle" id="BE001" size="15" readonly /></td>
+			</tr>
+			<tr >
+				<td>Frames Sent</td>
+				<td><input type="text" class="tdstyle" id="BE002"  size="15" readonly /></td>
+			</tr>
+			<tr >
+				<td>Good Transactions</td>
+				<td><input type="text" id="BE003" class="tdstyle" size="15" readonly /></td>
+			</tr>
+			<tr >
+				<td>Good Exceptions</td>
+				<td><input type="text" id="BE004" class="tdstyle" size="15" readonly /></td>
+			</tr>
+			<tr >
+				<td>Clients Connected</td>
+				<td><input type="text" id="BE005" class="tdstyle" size="15" readonly /></td>
+			</tr>
+			<tr >
+				<td>Other Errors</td>
+				<td><input type="text" id="BE006" class="tdstyle" size="15"readonly /></td>
+			</tr>
+			<tr >
+				<td><input type="hidden" id="reset1" name="reset1"  size="15" value="1"/></td>
+			</tr>
+			</table>
+			<input type="hidden" id="reset" name="reset" value="1" />
+			<input type="button" style="border: 1;background-color:#69F;color: white;padding: 11px 18px;text-align: center;text-decoration: none;font-size: 20px;margin: 20px 100px 4px 100px; cursor: pointer;" value="Reset" style="width:10%;" onclick="ClickMODTCPResetSetting_Request()"/>	
+		</div>
+
+		<div id = "DiagMiddlebox">
+			<h3><center>HARD FAULT</center></h3>
+			<table style="margin-left:5px;width:100%;border: none;">
+				<tr >
+					<td>TIMESTAMP 1</td>
+					<td><input type="text" class="tdstyle" id="HFTIMESTAMP1" readonly/></td>
+				</tr>
+				<tr >
+					<td>OS-BOOT VER 1</td>
+					<td><input type="text" class="tdstyle" id="HFOSBOOTVER1" readonly /></td>
+				</tr>
+				<tr >
+					<td>FAULT CODE 1</td>
+					<td><input type="text" id="HFFAULTCODE1" class="tdstyle" readonly /></td>
+				</tr>
+			</table>
+			<div>&nbsp;</div>
+			<div>&nbsp;</div>
+			<div>&nbsp;</div>
+			<table style="margin-left:5px;width:100%;border: none;">
+				<tr >
+					<td>TIMESTAMP 2</td>
+					<td><input type="text" class="tdstyle" id="HFTIMESTAMP2"  readonly/></td>
+				</tr>
+				<tr >
+					<td>OS-BOOT VER 2</td>
+					<td><input type="text" class="tdstyle" id="HFOSBOOTVER2" readonly /></td>
+				</tr>
+				<tr >
+					<td>FAULT CODE 2</td>
+					<td><input type="text" id="HFFAULTCODE2" class="tdstyle" readonly /></td>
+				</tr>
+			</table>
+			<div>&nbsp;</div>
+			<div>&nbsp;</div>
+			<div>&nbsp;</div>
+			<table style="margin-left:5px;width:100%;border: none;">
+				<tr >
+					<td>TIMESTAMP 3</td>
+					<td><input type="text" class="tdstyle" id="HFTIMESTAMP3"  readonly/></td>
+				</tr>
+				<tr >
+					<td>OS-BOOT VER 3</td>
+					<td><input type="text" class="tdstyle" id="HFOSBOOTVER3" readonly /></td>
+				</tr>
+				<tr >
+					<td>FAULT CODE 3</td>
+					<td><input type="text" id="HFFAULTCODE3" class="tdstyle" readonly /></td>
+				</tr>
+			</table>
+			<div>&nbsp;</div>
+		</div>
+
+		<div id = "DiagRightbox">
+			<h3><center> EXECPTION FAULT </center></h3>
+			<table style="margin-left:5px;width:100%;border:none;">
+			<tr >
+				<td>TIMESTAMP 1</td>
+				<td><input type="text" id="EFTIMESTAMP1" class="tdstyle" readonly /></td>
+			</tr>
+			<tr >
+				<td>OS-BOOT VER 1</td>
+				<td><input type="text" id="EFOSBOOTVER1" class="tdstyle" readonly /></td>
+			</tr>
+			<tr >
+				<td>FAULT CODE 1</td>
+				<td><input type="text" id="EFFAULTCODE1" class="tdstyle" readonly /></td>
+			</tr>
+			<tr >
+				<td>FAULT ADDRESS 1</td>
+				<td><input type="text" id="EFFAULTADDR1" class="tdstyle" readonly /></td>
+			</tr>
+			</table>
+			<div>&nbsp;</div>
+			<table style="margin-left:5px;width:100%;border:none;">
+			<tr >
+				<td>TIMESTAMP 2</td>
+				<td><input type="text" id="EFTIMESTAMP2" class="tdstyle" readonly /></td>
+			</tr>
+			<tr >
+				<td>OS-BOOT VER 2</td>
+				<td><input type="text" id="EFOSBOOTVER2" class="tdstyle" readonly /></td>
+			</tr>
+			<tr >
+				<td>FAULT CODE 2</td>
+				<td><input type="text" id="EFFAULTCODE2" class="tdstyle" readonly /></td>
+			</tr>
+			<tr >
+				<td>FAULT ADDRESS 2</td>
+				<td><input type="text" id="EFFAULTADDR2" class="tdstyle" readonly /></td>
+			</tr>
+			</table>
+			<div>&nbsp;</div>
+			<table style="margin-left:5px;width:100%;border:none;">
+			<tr >
+				<td>TIMESTAMP 3</td>
+				<td><input type="text" id="EFTIMESTAMP3" class="tdstyle" readonly /></td>
+			</tr>
+			<tr >
+				<td>OS-BOOT VER 3</td>
+				<td><input type="text" id="EFOSBOOTVER3" class="tdstyle" readonly /></td>
+			</tr>
+			<tr >
+				<td>FAULT CODE 3</td>
+				<td><input type="text" id="EFFAULTCODE3" class="tdstyle" readonly /></td>
+			</tr>
+			<tr >
+				<td>FAULT ADDRESS 3</td>
+				<td><input type="text" id="EFFAULTADDR3" class="tdstyle" readonly /></td>
+			</tr>
+			</table>
+		</div>
+
+		<div id = "DiagRightbox1">
+			<h3><center>WebSocket</center></h3>
+			<table style="margin-left:10px;width:95%;border:none;">
+				<tr >
+					<td>Connected Client</td>
+					<td><input type="text" id="CONNCLIENT" class="tdstyle"  readonly/></td>
+				</tr>
+				<tr ></tr>
+				<tr >
+					<td>Client 1 IP</td>
+					<td><input type="text" id="CLIENT1IP" class="tdstyle"  readonly/></td>
+				</tr>
+				<tr ></tr>
+				<tr >
+					<td>Client 2 IP</td>
+					<td><input type="text" id="CLIENT2IP" class="tdstyle"  readonly/></td>
+				</tr>
+				<tr ></tr>
+				<tr >
+					<td>Client 3 IP</td>
+					<td><input type="text" id="CLIENT3IP" class="tdstyle"  readonly/></td>
+				</tr>
+				<tr ></tr>
+				<tr >
+					<td>Parameter 5</td>
+					<td><input type="text" id="RESPAR5" class="tdstyle" value="0"  readonly/></td>
+				</tr>
+				<tr ></tr>
+				<tr >
+					<td>Parameter 6</td>
+					<td><input type="text" id="RESPAR6" class="tdstyle" value="0"  readonly/></td>
+				</tr>
+				<tr ></tr>
+				<tr >
+					<td>Parameter 7</td>
+					<td><input type="text" id="RESPAR7" class="tdstyle" value="0"  readonly/></td>
+				</tr>
+				<tr ></tr>
+				<tr >
+					<td>Parameter 8</td>
+					<td><input type="text" id="RESPAR8" class="tdstyle" value="0"  readonly/></td>
+				</tr>
+				<tr ></tr>
+				<tr >
+					<td>Parameter 9</td>
+					<td><input type="text" id="RESPAR9" class="tdstyle" value="0"  readonly/></td>
+				</tr>
+				<tr ></tr>
+				<tr >
+					<td>Parameter 10</td>
+					<td><input type="text" id="RESPAR10" class="tdstyle" value="0"  readonly/></td>
+				</tr>
+				<tr ></tr>
+			</table>
+			<div>&nbsp;</div>
+			<div>&nbsp;</div>
+			<div>&nbsp;</div>
+			<div>&nbsp;</div>
+			<div>&nbsp;</div>
+			<div>&nbsp;</div>
+		</div>
+
+		<div class="spacer" style="padding: 80px 20px 10px 20px">&nbsp;</div>
+		<div id="footer">FCN - Copyright &copy; 2023 Fuji Electric India Pvt Ltd </div>   
+	</div>
+</div>
+</div>
+
+</body>
+<script language="javascript">
+var ReadOnce = 1;
+
+function DHCPChange(checkbox)
+{
+    if(checkbox.checked == true)
+    {
+        document.getElementById('ip').disabled = true;
+		document.getElementById('sub').disabled = true;
+		document.getElementById('gw').disabled = true;
+		document.getElementById('dns1').disabled = true;
+		document.getElementById('dns2').disabled = true;
+    }
+    else
+    {
+        document.getElementById('ip').disabled = false;
+		document.getElementById('sub').disabled = false;
+		document.getElementById('gw').disabled = false;
+		document.getElementById('dns1').disabled = false;
+		document.getElementById('dns2').disabled = false;
+   	}
+}
+
+
+function ClickEthernetSetting_Request()
+{
+	let i = 0;
+
+	var hostName = document.getElementById("host").value;
+	for ( i = 0; i < 16; i++)
+	{
+		NewEthernetSettingStruct.HostName[i] = hostName.charCodeAt(i);
+	}
+
+	NewEthernetSettingStruct.EnableDHCP = (document.getElementById("DHCP").checked ? 1 : 0);
+
+	var IPAddress = document.getElementById("ip").value;
+	var octets = IPAddress.split('.');
+	for ( i = 0; i < octets.length; i++)
+	{
+    	NewEthernetSettingStruct.IPAddress[i] = parseInt(octets[i], 10);
+	}
+
+	var SubnetMask = document.getElementById("sub").value;
+	octets = SubnetMask.split('.');
+	for ( i = 0; i < octets.length; i++)
+	{
+    	NewEthernetSettingStruct.SubnetMask[i] = parseInt(octets[i], 10);
+	}
+
+	var Gateway = document.getElementById("gw").value;
+	octets = Gateway.split('.');
+	for ( i = 0; i < octets.length; i++)
+	{
+		NewEthernetSettingStruct.Gateway[i] = parseInt(octets[i], 10);
+	}
+
+	var PrimaryDNS = document.getElementById("dns1").value;
+	octets = PrimaryDNS.split('.');
+	for ( i = 0; i < octets.length; i++)
+	{
+		NewEthernetSettingStruct.PrimaryDNS[i] = parseInt(octets[i], 10);
+	}
+
+	var SecondaryDNS = document.getElementById("dns2").value;
+	octets = SecondaryDNS.split('.');
+	for ( i = 0; i < octets.length; i++)
+	{
+    	NewEthernetSettingStruct.SecondaryDNS[i] = parseInt(octets[i], 10);
+	}
+
+	SaveEthernetSetting_Request();
+}
+
+function ClickSNMPSetting_Request()
+{
+	NewSNMPSettingStruct.Port = document.getElementById("SNMPPORT").value;
+
+	var TrapIP = document.getElementById("TRAPIPADDR").value;
+	var octets = TrapIP.split('.');
+	for ( i = 0; i < octets.length; i++)
+	{
+    	NewSNMPSettingStruct.TrapIPAddress[i] = parseInt(octets[i], 10);
+	}
+
+	SaveSNMPSetting_Request();
+}
+
+
+function ClickModbusTCPSetting_Request()
+{
+	NewMODBUSSettingStruct.SocketTimeOut = document.getElementById("MODBUSTIMEOUT").value;
+	NewMODBUSSettingStruct.Port = document.getElementById("MODBUSPORT").value;
+
+	SaveModbusTCPSetting_Request();
+}
+
+function GetCombinedValue(checkbox1, checkbox2, checkbox3)
+{
+    return ((document.getElementById(checkbox3).checked ? 1 : 0) << 2) |
+           ((document.getElementById(checkbox2).checked ? 1 : 0) << 1) |
+           (document.getElementById(checkbox1).checked ? 1 : 0);
+}
+
+function ClickSNMPTrapSetting_Request()
+{
+/*
+	// Combine the values of the checkboxes into a 3-bit value
+	NewSNMPTrapSettingStruct.TRAP1_BATTERY_OPEN 			       	= GetCombinedValue("SnmpTrap1", "SnmpTrap2", "SnmpTrap3");
+	NewSNMPTrapSettingStruct.TRAP2_IP_N_LOSS 			       		= GetCombinedValue("SnmpTrap4", "SnmpTrap5", "SnmpTrap6");
+	NewSNMPTrapSettingStruct.TRAP3_IP_SITE_FAIL 			       	= GetCombinedValue("SnmpTrap7", "SnmpTrap8", "SnmpTrap9");
+	NewSNMPTrapSettingStruct.TRAP4_LINEPHASEERROR 			       	= GetCombinedValue("SnmpTrap10", "SnmpTrap11", "SnmpTrap12");
+	NewSNMPTrapSettingStruct.TRAP5_BYPASSPHASEERROR 		       	= GetCombinedValue("SnmpTrap13", "SnmpTrap14", "SnmpTrap15");
+	NewSNMPTrapSettingStruct.TRAP6_BYPASSFREQUENCYUNSTABLE 		   	= GetCombinedValue("SnmpTrap16", "SnmpTrap17", "SnmpTrap18");
+	NewSNMPTrapSettingStruct.TRAP7_BATT_OVERCHARGE 			       	= GetCombinedValue("SnmpTrap19", "SnmpTrap20", "SnmpTrap21");
+	NewSNMPTrapSettingStruct.TRAP8_BATTLOW  			       		= GetCombinedValue("SnmpTrap22", "SnmpTrap23", "SnmpTrap24");
+	NewSNMPTrapSettingStruct.TRAP9_OVER_LOADWARNING 		       	= GetCombinedValue("SnmpTrap25", "SnmpTrap26", "SnmpTrap27");
+	NewSNMPTrapSettingStruct.TRAP10_FAN_LOCKWARNING	 		       	= GetCombinedValue("SnmpTrap28", "SnmpTrap29", "SnmpTrap30");
+	NewSNMPTrapSettingStruct.TRAP11_EPO_ACTIVE		 	       		= GetCombinedValue("SnmpTrap31", "SnmpTrap32", "SnmpTrap33");
+	NewSNMPTrapSettingStruct.TRAP12_TURN_ON_ABNORMAL	 	       	= GetCombinedValue("SnmpTrap34", "SnmpTrap35", "SnmpTrap36");
+	NewSNMPTrapSettingStruct.TRAP13_OVER_TEMPERATURE	 	       	= GetCombinedValue("SnmpTrap37", "SnmpTrap38", "SnmpTrap39");
+	NewSNMPTrapSettingStruct.TRAP14_CHARGER_FAIL      	 	       	= GetCombinedValue("SnmpTrap40", "SnmpTrap41", "SnmpTrap42");
+	NewSNMPTrapSettingStruct.TRAP15_REMOTE_SHUTDOWN   	 	       	= GetCombinedValue("SnmpTrap43", "SnmpTrap44", "SnmpTrap45");
+	NewSNMPTrapSettingStruct.TRAP16_L1_IP_FUSE_FAIL   	 	       	= GetCombinedValue("SnmpTrap46", "SnmpTrap47", "SnmpTrap48");
+	NewSNMPTrapSettingStruct.TRAP17_L2_IP_FUSE_FAIL   	 	       	= GetCombinedValue("SnmpTrap49", "SnmpTrap50", "SnmpTrap51");
+	NewSNMPTrapSettingStruct.TRAP18_L3_IP_FUSE_FAIL   	 	      	= GetCombinedValue("SnmpTrap52", "SnmpTrap53", "SnmpTrap54");
+	NewSNMPTrapSettingStruct.TRAP19_L1_PFC_PERROR     	 	       	= GetCombinedValue("SnmpTrap55", "SnmpTrap56", "SnmpTrap57");
+	NewSNMPTrapSettingStruct.TRAP20_L1_PFC_NERROR     	 	       	= GetCombinedValue("SnmpTrap58", "SnmpTrap59", "SnmpTrap60");
+	NewSNMPTrapSettingStruct.TRAP21_L2_PFC_PERROR     	 	       	= GetCombinedValue("SnmpTrap61", "SnmpTrap62", "SnmpTrap63");
+	NewSNMPTrapSettingStruct.TRAP22_L2_PFC_NERROR     	 	       	= GetCombinedValue("SnmpTrap64", "SnmpTrap65", "SnmpTrap66");
+	NewSNMPTrapSettingStruct.TRAP23_L3_PFC_PERROR     	 	       	= GetCombinedValue("SnmpTrap67", "SnmpTrap68", "SnmpTrap69");
+	NewSNMPTrapSettingStruct.TRAP24_L3_PFC_NERROR     	 	       	= GetCombinedValue("SnmpTrap70", "SnmpTrap71", "SnmpTrap72");
+	NewSNMPTrapSettingStruct.TRAP25_CAN_COMM_ERROR    	 	       	= GetCombinedValue("SnmpTrap73", "SnmpTrap74", "SnmpTrap75");
+	NewSNMPTrapSettingStruct.TRAP26_SYNCH_LINE_ERROR  	 	       	= GetCombinedValue("SnmpTrap76", "SnmpTrap77", "SnmpTrap78");
+	NewSNMPTrapSettingStruct.TRAP27_SYNCH_PULSE_ERROR 	 	       	= GetCombinedValue("SnmpTrap79", "SnmpTrap80", "SnmpTrap81");
+	NewSNMPTrapSettingStruct.TRAP28_HOST_LINE_ERROR   	 	       	= GetCombinedValue("SnmpTrap82", "SnmpTrap83", "SnmpTrap84");
+	NewSNMPTrapSettingStruct.TRAP29_MALE_CONN_ERROR   	 	       	= GetCombinedValue("SnmpTrap85", "SnmpTrap86", "SnmpTrap87");
+	NewSNMPTrapSettingStruct.TRAP30_FEMALE_CONN_ERROR    		    = GetCombinedValue("SnmpTrap88", "SnmpTrap89", "SnmpTrap90");
+	NewSNMPTrapSettingStruct.TRAP31_PARALLEL_LINE_CONNERROR  	    = GetCombinedValue("SnmpTrap91", "SnmpTrap92", "SnmpTrap93");
+	NewSNMPTrapSettingStruct.TRAP32_BATT_CONNDIFF            	    = GetCombinedValue("SnmpTrap94", "SnmpTrap95", "SnmpTrap96");
+	NewSNMPTrapSettingStruct.TRAP33_LINE_CONNDIFF            	    = GetCombinedValue("SnmpTrap97", "SnmpTrap98", "SnmpTrap99");
+	NewSNMPTrapSettingStruct.TRAP34_BYPASS_CONNDIFF              	= GetCombinedValue("SnmpTrap100", "SnmpTrap101", "SnmpTrap102");
+	NewSNMPTrapSettingStruct.TRAP35_MODE_TYPEDIFF              	    = GetCombinedValue("SnmpTrap103", "SnmpTrap104", "SnmpTrap105");
+	NewSNMPTrapSettingStruct.TRAP36_PARALLEL_INV_VOLTDIFF          	= GetCombinedValue("SnmpTrap106", "SnmpTrap107", "SnmpTrap108");
+	NewSNMPTrapSettingStruct.TRAP37_PARALLEL_OUTPUT_FREQDIFF       	= GetCombinedValue("SnmpTrap109", "SnmpTrap110", "SnmpTrap111");
+	NewSNMPTrapSettingStruct.TRAP38_BATT_CELL_OVERCHARGE             = GetCombinedValue("SnmpTrap112", "SnmpTrap113", "SnmpTrap114");
+	NewSNMPTrapSettingStruct.TRAP39_PARALLEL_OUTPUT_PARALLELDIFF   	 = GetCombinedValue("SnmpTrap115", "SnmpTrap116", "SnmpTrap117");
+	NewSNMPTrapSettingStruct.TRAP40_PARALLEL_OUTPUT_PHASEDIFF      	 = GetCombinedValue("SnmpTrap118", "SnmpTrap119", "SnmpTrap120");
+	NewSNMPTrapSettingStruct.TRAP41_PARALLEL_BYPASS_FORBIDDENDIFF  	  = GetCombinedValue("SnmpTrap121", "SnmpTrap122", "SnmpTrap123");
+	NewSNMPTrapSettingStruct.TRAP42_PARALLEL_CONVERTER_ENABLEDIFF  	       = GetCombinedValue("SnmpTrap124", "SnmpTrap125", "SnmpTrap126");
+	NewSNMPTrapSettingStruct.TRAP43_PARALLEL_BYP_FREQ_HLD	       = GetCombinedValue("SnmpTrap127", "SnmpTrap128", "SnmpTrap129");
+	NewSNMPTrapSettingStruct.TRAP44_PARALLEL_BYP_FREQ_LLD	       = GetCombinedValue("SnmpTrap130", "SnmpTrap131", "SnmpTrap132");
+	NewSNMPTrapSettingStruct.TRAP45_PARALLEL_BYP_VOLT_HLD	       = GetCombinedValue("SnmpTrap133", "SnmpTrap134", "SnmpTrap135");
+	NewSNMPTrapSettingStruct.TRAP46_PARALLEL_BYP_VOLT_LLD	       = GetCombinedValue("SnmpTrap136", "SnmpTrap137", "SnmpTrap138");
+	NewSNMPTrapSettingStruct.TRAP47_PARALLEL_LINE_FREQ_HLD      = GetCombinedValue("SnmpTrap139", "SnmpTrap140", "SnmpTrap141");
+	NewSNMPTrapSettingStruct.TRAP48_PARALLEL_LINE_FREQ_LLD       = GetCombinedValue("SnmpTrap142", "SnmpTrap143", "SnmpTrap144");
+	NewSNMPTrapSettingStruct.TRAP49_PARALLEL_LINE_VOLT_HLD      = GetCombinedValue("SnmpTrap145", "SnmpTrap146", "SnmpTrap147");
+	NewSNMPTrapSettingStruct.TRAP32_BATT_CONNDIFF                 = GetCombinedValue("SnmpTrap148", "SnmpTrap149", "SnmpTrap150");
+	
+	NewSNMPTrapSettingStruct.TRAP50_PARALLEL_LINE_VOLT_LLD       = GetCombinedValue("SnmpTrap151", "SnmpTrap152", "SnmpTrap153");
+	NewSNMPTrapSettingStruct.TRAP51_LOCKED_IN_BYPASS              	         = GetCombinedValue("SnmpTrap154", "SnmpTrap155", "SnmpTrap156");
+	NewSNMPTrapSettingStruct.TRAP53_BATTERY_FUSE_BROKEN            	       = GetCombinedValue("SnmpTrap157", "SnmpTrap158", "SnmpTrap159");
+	NewSNMPTrapSettingStruct.TRAP54_INV_CURRENT_UNBALANCE          	       = GetCombinedValue("SnmpTrap160", "SnmpTrap161", "SnmpTrap162");
+	NewSNMPTrapSettingStruct.TRAP55_P1_CUTOFF_PREALARM             	       = GetCombinedValue("SnmpTrap163", "SnmpTrap164", "SnmpTrap165");
+	NewSNMPTrapSettingStruct.TRAP61_BYPASS_UNSTABLE                = GetCombinedValue("SnmpTrap166", "SnmpTrap167", "SnmpTrap168");
+	NewSNMPTrapSettingStruct.TRAP57_INPUT_PHAS_EERROR              	       = GetCombinedValue("SnmpTrap169", "SnmpTrap170", "SnmpTrap171");
+	NewSNMPTrapSettingStruct.TRAP56_BATTERY_REPLACE     			   	   = GetCombinedValue("SnmpTrap172", "SnmpTrap173", "SnmpTrap174");
+	NewSNMPTrapSettingStruct.TRAP64_DISCHARGER_OVERLY     			   	   = GetCombinedValue("SnmpTrap181", "SnmpTrap182", "SnmpTrap183");
+	NewSNMPTrapSettingStruct.TRAP59_PHASE_AUTO_ADAPTFAILED         	       = GetCombinedValue("SnmpTrap175", "SnmpTrap176", "SnmpTrap177");
+	NewSNMPTrapSettingStruct.TRAP60_UTILITY_EXTREMELY_UNBALANCED   	       = GetCombinedValue("SnmpTrap184", "SnmpTrap185", "SnmpTrap186");  
+	NewSNMPTrapSettingStruct.TRAP61_BYPASS_UNSTABLE              	       = GetCombinedValue("SnmpTrap181", "SnmpTrap182", "SnmpTrap183");
+	NewSNMPTrapSettingStruct.TRAP62_EEPROM_ERROR              	       	= GetCombinedValue("SnmpTrap178", "SnmpTrap179", "SnmpTrap180"); 
+	NewSNMPTrapSettingStruct.TRAP57_INPUT_PHAS_EERROR       	       	= GetCombinedValue("SnmpTrap187", "SnmpTrap188", "SnmpTrap189");
+	NewSNMPTrapSettingStruct.TRAP58_COVER_OF_MAINTAIN_SW_OPEN       	= GetCombinedValue("SnmpTrap190", "SnmpTrap191", "SnmpTrap192");
+
+
+	SaveSNMPTrapSetting_Request();
+	*/
+	
+	// Combine the values of the checkboxes into a 3-bit value
+	
+	NewSNMPTrapSettingStruct.TRAP14_CHARGER_FAIL      	 	       	= GetCombinedValue("SnmpTrap1", "SnmpTrap2", "SnmpTrap3");
+	NewSNMPTrapSettingStruct.TRAP53_BATTERY_FUSE_BROKEN             = GetCombinedValue("SnmpTrap4", "SnmpTrap5", "SnmpTrap6");
+	NewSNMPTrapSettingStruct.TRAP8_BATTLOW  			       		= GetCombinedValue("SnmpTrap7", "SnmpTrap8", "SnmpTrap9");
+	NewSNMPTrapSettingStruct.TRAP3_IP_SITE_FAIL 			       	= GetCombinedValue("SnmpTrap10", "SnmpTrap11", "SnmpTrap12");
+	NewSNMPTrapSettingStruct.TRAP4_LINEPHASEERROR 			       	= GetCombinedValue("SnmpTrap13", "SnmpTrap14", "SnmpTrap15");
+	NewSNMPTrapSettingStruct.TRAP5_BYPASSPHASEERROR 		       	= GetCombinedValue("SnmpTrap16", "SnmpTrap17", "SnmpTrap18");
+	NewSNMPTrapSettingStruct.TRAP10_FAN_LOCKWARNING	 		       	= GetCombinedValue("SnmpTrap19", "SnmpTrap20", "SnmpTrap21");
+	NewSNMPTrapSettingStruct.TRAP11_EPO_ACTIVE		 	       		= GetCombinedValue("SnmpTrap22", "SnmpTrap23", "SnmpTrap24");
+	NewSNMPTrapSettingStruct.TRAP12_TURN_ON_ABNORMAL	 	       	= GetCombinedValue("SnmpTrap25", "SnmpTrap26", "SnmpTrap27");
+	NewSNMPTrapSettingStruct.TRAP13_OVER_TEMPERATURE 			       	= GetCombinedValue("SnmpTrap28", "SnmpTrap29", "SnmpTrap30");
+	NewSNMPTrapSettingStruct.TRAP6_BYPASSFREQUENCYUNSTABLE 		   	= GetCombinedValue("SnmpTrap31", "SnmpTrap32", "SnmpTrap33");
+	NewSNMPTrapSettingStruct.TRAP16_L1_IP_FUSE_FAIL   	 	       	= GetCombinedValue("SnmpTrap34", "SnmpTrap35", "SnmpTrap36");
+	NewSNMPTrapSettingStruct.TRAP2_IP_N_LOSS 			       		= GetCombinedValue("SnmpTrap37", "SnmpTrap38", "SnmpTrap39");
+	NewSNMPTrapSettingStruct.TRAP17_L2_IP_FUSE_FAIL   	 	       	= GetCombinedValue("SnmpTrap40", "SnmpTrap41", "SnmpTrap42");
+	NewSNMPTrapSettingStruct.TRAP18_L3_IP_FUSE_FAIL   	 	      	= GetCombinedValue("SnmpTrap43", "SnmpTrap44", "SnmpTrap45");
+	
+	NewSNMPTrapSettingStruct.TRAP19_L1_PFC_PERROR     	 	       	= GetCombinedValue("SnmpTrap46", "SnmpTrap47", "SnmpTrap48");
+	NewSNMPTrapSettingStruct.TRAP20_L1_PFC_NERROR     	 	       	= GetCombinedValue("SnmpTrap49", "SnmpTrap50", "SnmpTrap51");
+	NewSNMPTrapSettingStruct.TRAP21_L2_PFC_PERROR     	 	       	= GetCombinedValue("SnmpTrap52", "SnmpTrap53", "SnmpTrap54");
+	NewSNMPTrapSettingStruct.TRAP22_L2_PFC_NERROR     	 	       	= GetCombinedValue("SnmpTrap55", "SnmpTrap56", "SnmpTrap57");
+	NewSNMPTrapSettingStruct.TRAP23_L3_PFC_PERROR     	 	       	= GetCombinedValue("SnmpTrap58", "SnmpTrap59", "SnmpTrap60");
+	NewSNMPTrapSettingStruct.TRAP24_L3_PFC_NERROR     	 	       	= GetCombinedValue("SnmpTrap61", "SnmpTrap62", "SnmpTrap63");
+	NewSNMPTrapSettingStruct.TRAP36_PARALLEL_INV_VOLTDIFF          	= GetCombinedValue("SnmpTrap64", "SnmpTrap65", "SnmpTrap66");
+	NewSNMPTrapSettingStruct.TRAP33_LINE_CONNDIFF            	    = GetCombinedValue("SnmpTrap67", "SnmpTrap68", "SnmpTrap69");
+	NewSNMPTrapSettingStruct.TRAP25_CAN_COMM_ERROR    	 	       	= GetCombinedValue("SnmpTrap70", "SnmpTrap71", "SnmpTrap72");
+	NewSNMPTrapSettingStruct.TRAP40_PARALLEL_OUTPUT_PHASEDIFF       = GetCombinedValue("SnmpTrap73", "SnmpTrap74", "SnmpTrap75");
+	NewSNMPTrapSettingStruct.TRAP37_PARALLEL_OUTPUT_FREQDIFF       	= GetCombinedValue("SnmpTrap76", "SnmpTrap77", "SnmpTrap78");
+	NewSNMPTrapSettingStruct.TRAP52_THREE_PHASE_CURRENT_UNBALANCE   = GetCombinedValue("SnmpTrap79", "SnmpTrap80", "SnmpTrap81");
+	NewSNMPTrapSettingStruct.TRAP54_INV_CURRENT_UNBALANCE          	= GetCombinedValue("SnmpTrap82", "SnmpTrap83", "SnmpTrap84");
+	NewSNMPTrapSettingStruct.TRAP1_BATTERY_OPEN 			       	= GetCombinedValue("SnmpTrap85", "SnmpTrap86", "SnmpTrap87");
+	NewSNMPTrapSettingStruct.TRAP7_BATT_OVERCHARGE                   = GetCombinedValue("SnmpTrap88", "SnmpTrap89", "SnmpTrap90");
+	NewSNMPTrapSettingStruct.TRAP38_BATT_CELL_OVERCHARGE             = GetCombinedValue("SnmpTrap91", "SnmpTrap92", "SnmpTrap93");   
+	NewSNMPTrapSettingStruct.TRAP30_FEMALE_CONN_ERROR 	 	       	= GetCombinedValue("SnmpTrap94", "SnmpTrap95", "SnmpTrap96");
+	NewSNMPTrapSettingStruct.TRAP29_MALE_CONN_ERROR      		    = GetCombinedValue("SnmpTrap97", "SnmpTrap98", "SnmpTrap99");
+	NewSNMPTrapSettingStruct.TRAP51_LOCKED_IN_BYPASS              	= GetCombinedValue("SnmpTrap100", "SnmpTrap101", "SnmpTrap102");
+	NewSNMPTrapSettingStruct.TRAP31_PARALLEL_LINE_CONNERROR  	    = GetCombinedValue("SnmpTrap103", "SnmpTrap104", "SnmpTrap105");
+	NewSNMPTrapSettingStruct.TRAP27_SYNCH_PULSE_ERROR 	 	       	= GetCombinedValue("SnmpTrap106", "SnmpTrap107", "SnmpTrap108");
+	NewSNMPTrapSettingStruct.TRAP26_SYNCH_LINE_ERROR  	 	       	= GetCombinedValue("SnmpTrap109", "SnmpTrap110", "SnmpTrap111");
+	NewSNMPTrapSettingStruct.TRAP28_HOST_LINE_ERROR   	 	       	= GetCombinedValue("SnmpTrap112", "SnmpTrap113", "SnmpTrap114");
+	NewSNMPTrapSettingStruct.TRAP50_PARALLEL_LINE_VLLD	           = GetCombinedValue("SnmpTrap115", "SnmpTrap116", "SnmpTrap117");
+	NewSNMPTrapSettingStruct.TRAP49_PARALLEL_LINE_VHLD	            = GetCombinedValue("SnmpTrap118", "SnmpTrap119", "SnmpTrap120");
+	NewSNMPTrapSettingStruct.TRAP48_PARALLEL_LINE_FLLD	       = GetCombinedValue("SnmpTrap121", "SnmpTrap122", "SnmpTrap123");
+	NewSNMPTrapSettingStruct.TRAP47_PARALLEL_LINE_FHLD	       = GetCombinedValue("SnmpTrap124", "SnmpTrap125", "SnmpTrap126");
+
+	NewSNMPTrapSettingStruct.TRAP46_PARALLEL_BYPASS_VLLD	       = GetCombinedValue("SnmpTrap127", "SnmpTrap128", "SnmpTrap129");
+	NewSNMPTrapSettingStruct.TRAP45_PARALLEL_BYPASS_VHLD           = GetCombinedValue("SnmpTrap130", "SnmpTrap131", "SnmpTrap132");
+	NewSNMPTrapSettingStruct.TRAP44_PARALLEL_BYPASS_FLLD	       = GetCombinedValue("SnmpTrap133", "SnmpTrap134", "SnmpTrap135");
+	NewSNMPTrapSettingStruct.TRAP43_PARALLEL_BYPASS_FHLD	       = GetCombinedValue("SnmpTrap136", "SnmpTrap137", "SnmpTrap138");
+	NewSNMPTrapSettingStruct.TRAP39_PARALLEL_OUTPUT_PD            = GetCombinedValue("SnmpTrap139", "SnmpTrap140", "SnmpTrap141");
+	NewSNMPTrapSettingStruct.TRAP9_OVER_LOADWARNING 		       	= GetCombinedValue("SnmpTrap142", "SnmpTrap143", "SnmpTrap144");
+	NewSNMPTrapSettingStruct.TRAP63_PARALLEL_PROTECT_WARNING        = GetCombinedValue("SnmpTrap145", "SnmpTrap146", "SnmpTrap147");
+	NewSNMPTrapSettingStruct.TRAP32_BATT_CONNDIFF            	    = GetCombinedValue("SnmpTrap148", "SnmpTrap149", "SnmpTrap150");
+	NewSNMPTrapSettingStruct.TRAP42_PARALLEL_CONVERTER_ENABLEDIFF  	 = GetCombinedValue("SnmpTrap151", "SnmpTrap152", "SnmpTrap153");
+	NewSNMPTrapSettingStruct.TRAP41_PARALLEL_BYPASS_FORBIDDENDIFF  	       = GetCombinedValue("SnmpTrap154", "SnmpTrap155", "SnmpTrap156");
+	NewSNMPTrapSettingStruct.TRAP60_UTILITY_EXTREMELY_UNBALANCED   	       = GetCombinedValue("SnmpTrap157", "SnmpTrap158", "SnmpTrap159");  
+	NewSNMPTrapSettingStruct.TRAP34_BYPASS_CONNDIFF              	= GetCombinedValue("SnmpTrap160", "SnmpTrap161", "SnmpTrap162");
+	NewSNMPTrapSettingStruct.TRAP35_MODE_TYPEDIFF              	    = GetCombinedValue("SnmpTrap163", "SnmpTrap164", "SnmpTrap165");
+	NewSNMPTrapSettingStruct.TRAP61_BYPASS_UNSTABLE              	       = GetCombinedValue("SnmpTrap166", "SnmpTrap167", "SnmpTrap168");
+	NewSNMPTrapSettingStruct.TRAP59_PHASE_AUTO_ADAPTFAILED         	       = GetCombinedValue("SnmpTrap169", "SnmpTrap170", "SnmpTrap171");
+	NewSNMPTrapSettingStruct.TRAP56_BATTERY_REPLACE                = GetCombinedValue("SnmpTrap172", "SnmpTrap173", "SnmpTrap174");
+	NewSNMPTrapSettingStruct.TRAP15_REMOTE_SHUTDOWN   	 	       	= GetCombinedValue("SnmpTrap175", "SnmpTrap176", "SnmpTrap177");
+	NewSNMPTrapSettingStruct.TRAP62_EEPROM_ERROR              	       	= GetCombinedValue("SnmpTrap178", "SnmpTrap179", "SnmpTrap180"); 
+	NewSNMPTrapSettingStruct.TRAP64_DISCHARGER_OVERLY     			   	   = GetCombinedValue("SnmpTrap181", "SnmpTrap182", "SnmpTrap183");
+	NewSNMPTrapSettingStruct.TRAP55_P1_CUTOFF_PREALARM             	       = GetCombinedValue("SnmpTrap184", "SnmpTrap185", "SnmpTrap186");
+	NewSNMPTrapSettingStruct.TRAP57_INPUT_PHAS_EERROR              	       = GetCombinedValue("SnmpTrap187", "SnmpTrap188", "SnmpTrap189");
+    NewSNMPTrapSettingStruct.TRAP58_COVER_OF_MAINTAIN_SW_OPEN       	= GetCombinedValue("SnmpTrap190", "SnmpTrap191", "SnmpTrap192");
+	
+	SaveSNMPTrapSetting_Request();
+}
+
+document.getElementById("ETHERNET").click();
+
+function SettingDiagnostic()
+{
+	var osver=0;
+	document.getElementById('BE001').value = AllParameterPageStruct.framesRecv;
+	document.getElementById('BE002').value = AllParameterPageStruct.frameSent;
+	document.getElementById('BE003').value = AllParameterPageStruct.goodTransaction;
+	document.getElementById('BE004').value = AllParameterPageStruct.goodException;
+	document.getElementById('BE005').value = AllParameterPageStruct.clientConnections;
+	document.getElementById('BE006').value = AllParameterPageStruct.otherError;
+
+	document.getElementById('HFTIMESTAMP1').value = HardFaultSettingStruct.TimeStamp_1[0] +"/"+ HardFaultSettingStruct.TimeStamp_1[1] +"/"+ HardFaultSettingStruct.TimeStamp_1[2] +"  "+ HardFaultSettingStruct.TimeStamp_1[3] +":"+ HardFaultSettingStruct.TimeStamp_1[4] +":"+ HardFaultSettingStruct.TimeStamp_1[5];
+	
+	osver = HardFaultSettingStruct.OSVer_1[1]+ "." +HardFaultSettingStruct.OSVer_1[0];
+	document.getElementById('HFOSBOOTVER1').value = osver  +" - "+ HardFaultSettingStruct.BootVer_1;
+	
+	document.getElementById('HFFAULTCODE1').value = HardFaultSettingStruct.FaultCode_1;
+	document.getElementById('HFTIMESTAMP2').value = HardFaultSettingStruct.TimeStamp_2[0] +"/"+ HardFaultSettingStruct.TimeStamp_2[1] +"/"+ HardFaultSettingStruct.TimeStamp_2[2] +"  "+ HardFaultSettingStruct.TimeStamp_2[3] +":"+ HardFaultSettingStruct.TimeStamp_2[4] +":"+ HardFaultSettingStruct.TimeStamp_2[5];
+	//document.getElementById('HFOSBOOTVER2').value = Formated_Values(HardFaultSettingStruct.OSVer_2/100)  +" - "+ HardFaultSettingStruct.BootVer_2;
+	
+	osver = HardFaultSettingStruct.OSVer_2[1]+ "." +HardFaultSettingStruct.OSVer_1[0];
+	document.getElementById('HFOSBOOTVER2').value = osver  +" - "+ HardFaultSettingStruct.BootVer_2;
+	
+	document.getElementById('HFFAULTCODE2').value = HardFaultSettingStruct.FaultCode_2;
+	document.getElementById('HFTIMESTAMP3').value = HardFaultSettingStruct.TimeStamp_3[0] +"/"+ HardFaultSettingStruct.TimeStamp_3[1] +"/"+ HardFaultSettingStruct.TimeStamp_3[2] +"  "+ HardFaultSettingStruct.TimeStamp_3[3] +":"+ HardFaultSettingStruct.TimeStamp_3[4] +":"+ HardFaultSettingStruct.TimeStamp_3[5];
+	
+	osver = HardFaultSettingStruct.OSVer_3[1]+ "." +HardFaultSettingStruct.OSVer_3[0];
+	document.getElementById('HFOSBOOTVER3').value = osver  +" - "+ HardFaultSettingStruct.BootVer_3;
+	
+	
+	document.getElementById('HFFAULTCODE3').value = HardFaultSettingStruct.FaultCode_3;
+
+	
+	document.getElementById('EFTIMESTAMP1').value = ExceptionFaultSettingStruct.TimeStamp_1[0] +"/"+ ExceptionFaultSettingStruct.TimeStamp_1[1] +"/"+ ExceptionFaultSettingStruct.TimeStamp_1[2] +"  "+ ExceptionFaultSettingStruct.TimeStamp_1[3] +":"+ ExceptionFaultSettingStruct.TimeStamp_1[4] +":"+ ExceptionFaultSettingStruct.TimeStamp_1[5];
+	
+	osver = ExceptionFaultSettingStruct.OSVer_1[1] + "." + ExceptionFaultSettingStruct.OSVer_1[0];
+	document.getElementById('EFOSBOOTVER1').value = osver  +" - "+ ExceptionFaultSettingStruct.BootVer_1;
+	
+	document.getElementById('EFFAULTCODE1').value = ExceptionFaultSettingStruct.FaultCode_1;	
+	document.getElementById('EFFAULTADDR1').value = ExceptionFaultSettingStruct.FaultAddress_1;
+	document.getElementById('EFTIMESTAMP2').value = ExceptionFaultSettingStruct.TimeStamp_2[0] +"/"+ ExceptionFaultSettingStruct.TimeStamp_2[1] +"/"+ ExceptionFaultSettingStruct.TimeStamp_2[2] +"  "+ ExceptionFaultSettingStruct.TimeStamp_2[3] +":"+ ExceptionFaultSettingStruct.TimeStamp_2[4] +":"+ ExceptionFaultSettingStruct.TimeStamp_2[5];
+	
+	//document.getElementById('EFOSBOOTVER2').value = Formated_Values(ExceptionFaultSettingStruct.OSVer_2/100)  +" - "+ ExceptionFaultSettingStruct.BootVer_2;
+	osver = ExceptionFaultSettingStruct.OSVer_2[1]+ "." +ExceptionFaultSettingStruct.OSVer_2[0];
+	document.getElementById('EFOSBOOTVER2').value = osver  +" - "+ ExceptionFaultSettingStruct.BootVer_2;
+	
+	document.getElementById('EFFAULTCODE2').value = ExceptionFaultSettingStruct.FaultCode_2;
+	document.getElementById('EFFAULTADDR2').value = ExceptionFaultSettingStruct.FaultAddress_2;
+	document.getElementById('EFTIMESTAMP3').value = ExceptionFaultSettingStruct.TimeStamp_3[0] +"/"+ ExceptionFaultSettingStruct.TimeStamp_3[1] +"/"+ ExceptionFaultSettingStruct.TimeStamp_3[2] +"  "+ ExceptionFaultSettingStruct.TimeStamp_3[3] +":"+ ExceptionFaultSettingStruct.TimeStamp_3[4] +":"+ ExceptionFaultSettingStruct.TimeStamp_3[5];
+	//document.getElementById('EFOSBOOTVER3').value = Formated_Values(ExceptionFaultSettingStruct.OSVer_3/100)  +" - "+ ExceptionFaultSettingStruct.BootVer_3;
+	
+	osver = ExceptionFaultSettingStruct.OSVer_3[1]+ "." +ExceptionFaultSettingStruct.OSVer_3[0];
+	document.getElementById('EFOSBOOTVER3').value = osver  +" - "+ ExceptionFaultSettingStruct.BootVer_3;
+	
+	
+	document.getElementById('EFFAULTCODE3').value = ExceptionFaultSettingStruct.FaultCode_3;
+	document.getElementById('EFFAULTADDR3').value = ExceptionFaultSettingStruct.FaultAddress_3;
+
+	document.getElementById('CONNCLIENT').value = DiagnosticParameterStruct.ClientConnected;
+	document.getElementById('CLIENT1IP').value = DiagnosticParameterStruct.Client1.join('.');
+	document.getElementById('CLIENT2IP').value = DiagnosticParameterStruct.Client2.join('.');
+	document.getElementById('CLIENT3IP').value = DiagnosticParameterStruct.Client3.join('.');
+
+}
+
+function SettingShow()
+{
+	if(socket.readyState==WebSocket.OPEN)
+	{
+		if(FlagSettingStruct.WEBEmail_Enable == 1)
+		{
+			toggleEmailSetting();
+		}
+
+		SettingDiagnostic();
+		
+		document.getElementById('MODBUSCLIENT').value = MODBUSSettingStruct.ClientConnected;
+
+		if(EthernetSettingStruct.Updated == 1)
+		{
+			document.getElementById('host').value = EthernetSettingStruct.HostName.filter(value => value !== 0).map(value => String.fromCharCode(value)).join('');
+			if(EthernetSettingStruct.EnableDHCP == 1)
+			{
+				document.getElementById("DHCP").checked = true;
+			}
+			else
+			{
+				document.getElementById("DHCP").checked = false;
+			}
+
+			document.getElementById('ip').value = EthernetSettingStruct.IPAddress.join('.');
+			document.getElementById('sub').value = EthernetSettingStruct.SubnetMask.join('.');
+			document.getElementById('gw').value = EthernetSettingStruct.Gateway.join('.');
+			document.getElementById('dns1').value = EthernetSettingStruct.PrimaryDNS.join('.');
+			document.getElementById('dns2').value = EthernetSettingStruct.SecondaryDNS.join('.');
+
+			const MACAddressBytes = EthernetSettingStruct.MACAddress;
+			document.getElementById('macaddress').value = MACAddressBytes.map(byte => byte.toString(16).padStart(2, '0')).join(':');
+
+			document.getElementById('TRAPIPADDR').value = SNMPSettingStruct.TrapIPAddress.join('.');
+			document.getElementById('SNMPPORT').value = SNMPSettingStruct.Port;
+			document.getElementById('MODBUSTIMEOUT').value = MODBUSSettingStruct.SocketTimeOut;
+			document.getElementById('MODBUSPORT').value = MODBUSSettingStruct.Port;
+			
+			document.getElementById("SnmpTrap1").value = SNMPTrapSettingStruct.TRAP14_CHARGER_FAIL & 1;
+			document.getElementById("SnmpTrap2").value = (SNMPTrapSettingStruct.TRAP14_CHARGER_FAIL >> 1) & 1;
+			document.getElementById("SnmpTrap3").value = (SNMPTrapSettingStruct.TRAP14_CHARGER_FAIL >> 2) & 1;
+			
+		    document.getElementById("SnmpTrap4").value = SNMPTrapSettingStruct.TRAP53_BATTERY_FUSE_BROKEN & 1;
+			document.getElementById("SnmpTrap5").value = (SNMPTrapSettingStruct.TRAP53_BATTERY_FUSE_BROKEN >> 1) & 1;
+			document.getElementById("SnmpTrap6").value = (SNMPTrapSettingStruct.TRAP53_BATTERY_FUSE_BROKEN >> 2) & 1;
+			
+			document.getElementById("SnmpTrap7").value = SNMPTrapSettingStruct.TRAP8_BATTLOW & 1;
+			document.getElementById("SnmpTrap8").value = (SNMPTrapSettingStruct.TRAP8_BATTLOW >> 1) & 1;
+			document.getElementById("SnmpTrap9").value = (SNMPTrapSettingStruct.TRAP8_BATTLOW >> 2) & 1;
+			
+			document.getElementById("SnmpTrap10").value = SNMPTrapSettingStruct.TRAP3_IP_SITE_FAIL & 1;
+			document.getElementById("SnmpTrap11").value = (SNMPTrapSettingStruct.TRAP3_IP_SITE_FAIL >> 1) & 1;
+			document.getElementById("SnmpTrap12").value = (SNMPTrapSettingStruct.TRAP3_IP_SITE_FAIL >> 2) & 1;
+			
+			document.getElementById("SnmpTrap13").value = SNMPTrapSettingStruct.TRAP4_LINEPHASEERROR & 1;
+			document.getElementById("SnmpTrap14").value = (SNMPTrapSettingStruct.TRAP4_LINEPHASEERROR >> 1) & 1;
+			document.getElementById("SnmpTrap15").value = (SNMPTrapSettingStruct.TRAP4_LINEPHASEERROR >> 2) & 1;
+			
+			document.getElementById("SnmpTrap16").value = SNMPTrapSettingStruct.TRAP5_BYPASSPHASEERROR  & 1;
+			document.getElementById("SnmpTrap17").value = (SNMPTrapSettingStruct.TRAP5_BYPASSPHASEERROR  >> 1) & 1;
+			document.getElementById("SnmpTrap18").value = (SNMPTrapSettingStruct.TRAP5_BYPASSPHASEERROR  >> 2) & 1;
+			
+			document.getElementById("SnmpTrap19").value = SNMPTrapSettingStruct.TRAP10_FAN_LOCKWARNING & 1;
+			document.getElementById("SnmpTrap20").value = (SNMPTrapSettingStruct.TRAP10_FAN_LOCKWARNING>> 1) & 1;
+			document.getElementById("SnmpTrap21").value = (SNMPTrapSettingStruct.TRAP10_FAN_LOCKWARNING >> 2) & 1;
+			
+			document.getElementById("SnmpTrap22").value = SNMPTrapSettingStruct.TRAP11_EPO_ACTIVE & 1;
+			document.getElementById("SnmpTrap23").value = (SNMPTrapSettingStruct.TRAP11_EPO_ACTIVE >> 1) & 1;
+			document.getElementById("SnmpTrap24").value = (SNMPTrapSettingStruct.TRAP11_EPO_ACTIVE >> 2) & 1;
+			
+			document.getElementById("SnmpTrap25").value = SNMPTrapSettingStruct.TRAP12_TURN_ON_ABNORMAL & 1;
+			document.getElementById("SnmpTrap26").value = (SNMPTrapSettingStruct.TRAP12_TURN_ON_ABNORMAL >> 1) & 1;
+			document.getElementById("SnmpTrap27").value = (SNMPTrapSettingStruct.TRAP12_TURN_ON_ABNORMAL >> 2) & 1;
+	        
+	        document.getElementById("SnmpTrap28").value = SNMPTrapSettingStruct.TRAP13_OVER_TEMPERATURE  & 1;
+			document.getElementById("SnmpTrap29").value = (SNMPTrapSettingStruct.TRAP13_OVER_TEMPERATURE  >> 1) & 1;
+			document.getElementById("SnmpTrap30").value = (SNMPTrapSettingStruct.TRAP13_OVER_TEMPERATURE  >> 2) & 1;
+
+			document.getElementById("SnmpTrap31").value = SNMPTrapSettingStruct.TRAP6_BYPASSFREQUENCYUNSTABLE & 1;
+			document.getElementById("SnmpTrap32").value = (SNMPTrapSettingStruct.TRAP6_BYPASSFREQUENCYUNSTABLE >> 1) & 1;
+			document.getElementById("SnmpTrap33").value = (SNMPTrapSettingStruct.TRAP6_BYPASSFREQUENCYUNSTABLE >> 2) & 1;
+			
+			document.getElementById("SnmpTrap34").value = SNMPTrapSettingStruct.TRAP16_L1_IP_FUSE_FAIL & 1;
+			document.getElementById("SnmpTrap35").value = (SNMPTrapSettingStruct.TRAP16_L1_IP_FUSE_FAIL >> 1) & 1;
+			document.getElementById("SnmpTrap36").value = (SNMPTrapSettingStruct.TRAP16_L1_IP_FUSE_FAIL >> 2) & 1;
+			
+			document.getElementById("SnmpTrap37").value = SNMPTrapSettingStruct.TRAP2_IP_N_LOSS & 1;
+			document.getElementById("SnmpTrap38").value = (SNMPTrapSettingStruct.TRAP2_IP_N_LOSS >> 1) & 1;
+			document.getElementById("SnmpTrap39").value = (SNMPTrapSettingStruct.TRAP2_IP_N_LOSS >> 2) & 1;
+
+			document.getElementById("SnmpTrap40").value = SNMPTrapSettingStruct.TRAP17_L2_IP_FUSE_FAIL & 1;
+			document.getElementById("SnmpTrap41").value = (SNMPTrapSettingStruct.TRAP17_L2_IP_FUSE_FAIL >> 1) & 1;
+			document.getElementById("SnmpTrap42").value = (SNMPTrapSettingStruct.TRAP17_L2_IP_FUSE_FAIL >> 2) & 1;
+
+			document.getElementById("SnmpTrap43").value = SNMPTrapSettingStruct.TRAP18_L3_IP_FUSE_FAIL & 1;
+			document.getElementById("SnmpTrap44").value = (SNMPTrapSettingStruct.TRAP18_L3_IP_FUSE_FAIL >> 1) & 1;
+			document.getElementById("SnmpTrap45").value = (SNMPTrapSettingStruct.TRAP18_L3_IP_FUSE_FAIL >> 2) & 1;
+		
+		
+			document.getElementById("SnmpTrap46").value = SNMPTrapSettingStruct.TRAP19_L1_PFC_PERROR & 1;
+			document.getElementById("SnmpTrap47").value = (SNMPTrapSettingStruct.TRAP19_L1_PFC_PERROR >> 1) & 1;
+			document.getElementById("SnmpTrap48").value = (SNMPTrapSettingStruct.TRAP19_L1_PFC_PERROR >> 2) & 1;
+
+			document.getElementById("SnmpTrap49").value = SNMPTrapSettingStruct.TRAP20_L1_PFC_NERROR & 1;
+			document.getElementById("SnmpTrap50").value = (SNMPTrapSettingStruct.TRAP20_L1_PFC_NERROR >> 1) & 1;
+			document.getElementById("SnmpTrap52").value = (SNMPTrapSettingStruct.TRAP20_L1_PFC_NERROR >> 2) & 1;
+
+			document.getElementById("SnmpTrap52").value = SNMPTrapSettingStruct.TRAP21_L2_PFC_PERROR & 1;
+			document.getElementById("SnmpTrap53").value = (SNMPTrapSettingStruct.TRAP21_L2_PFC_PERROR >> 1) & 1;
+			document.getElementById("SnmpTrap54").value = (SNMPTrapSettingStruct.TRAP21_L2_PFC_PERROR >> 2) & 1;
+
+			document.getElementById("SnmpTrap55").value = SNMPTrapSettingStruct.TRAP22_L2_PFC_NERROR  & 1;
+			document.getElementById("SnmpTrap56").value = (SNMPTrapSettingStruct.TRAP22_L2_PFC_NERROR  >> 1) & 1;
+			document.getElementById("SnmpTrap57").value = (SNMPTrapSettingStruct.TRAP22_L2_PFC_NERROR >> 2) & 1;
+
+			document.getElementById("SnmpTrap58").value = SNMPTrapSettingStruct.TRAP23_L3_PFC_PERROR & 1;
+			document.getElementById("SnmpTrap59").value = (SNMPTrapSettingStruct.TRAP23_L3_PFC_PERROR >> 1) & 1;
+			document.getElementById("SnmpTrap60").value = (SNMPTrapSettingStruct.TRAP23_L3_PFC_PERROR >> 2) & 1;
+
+			document.getElementById("SnmpTrap61").value = SNMPTrapSettingStruct.TRAP24_L3_PFC_NERROR & 1;
+			document.getElementById("SnmpTrap62").value = (SNMPTrapSettingStruct.TRAP24_L3_PFC_NERROR >> 1) & 1;
+			document.getElementById("SnmpTrap63").value = (SNMPTrapSettingStruct.TRAP24_L3_PFC_NERROR >> 2) & 1;
+		
+		    document.getElementById("SnmpTrap64").value = SNMPTrapSettingStruct.TRAP36_PARALLEL_INV_VOLTDIFF & 1;
+			document.getElementById("SnmpTrap65").value = (SNMPTrapSettingStruct.TRAP36_PARALLEL_INV_VOLTDIFF >> 1) & 1;
+			document.getElementById("SnmpTrap66").value = (SNMPTrapSettingStruct.TRAP36_PARALLEL_INV_VOLTDIFF >> 2) & 1;
+	    
+	    	document.getElementById("SnmpTrap67").value = SNMPTrapSettingStruct.TRAP33_LINE_CONNDIFF & 1;
+			document.getElementById("SnmpTrap68").value = (SNMPTrapSettingStruct.TRAP33_LINE_CONNDIFF >> 1) & 1;
+			document.getElementById("SnmpTrap69").value = (SNMPTrapSettingStruct.TRAP33_LINE_CONNDIFF >> 2) & 1;
+			
+			document.getElementById("SnmpTrap70").value = SNMPTrapSettingStruct.TRAP25_CAN_COMM_ERROR & 1;
+			document.getElementById("SnmpTrap71").value = (SNMPTrapSettingStruct.TRAP25_CAN_COMM_ERROR >> 1) & 1;
+			document.getElementById("SnmpTrap72").value = (SNMPTrapSettingStruct.TRAP25_CAN_COMM_ERROR >> 2) & 1;
+		
+		   document.getElementById("SnmpTrap73").value = SNMPTrapSettingStruct.TRAP40_PARALLEL_OUTPUT_PHASEDIFF & 1;
+			document.getElementById("SnmpTrap74").value = (SNMPTrapSettingStruct.TRAP40_PARALLEL_OUTPUT_PHASEDIFF >> 1) & 1;
+			document.getElementById("SnmpTrap75").value = (SNMPTrapSettingStruct.TRAP40_PARALLEL_OUTPUT_PHASEDIFF >> 2) & 1;
+		
+			document.getElementById("SnmpTrap76").value = SNMPTrapSettingStruct.TRAP37_PARALLEL_OUTPUT_FREQDIFF & 1;
+			document.getElementById("SnmpTrap77").value = (SNMPTrapSettingStruct.TRAP37_PARALLEL_OUTPUT_FREQDIFF >> 1) & 1;
+			document.getElementById("SnmpTrap78").value = (SNMPTrapSettingStruct.TRAP37_PARALLEL_OUTPUT_FREQDIFF >> 2) & 1;
+		
+			document.getElementById("SnmpTrap79").value = SNMPTrapSettingStruct.TRAP52_THREE_PHASE_CURRENT_UNBALANCE  & 1;
+			document.getElementById("SnmpTrap80").value = (SNMPTrapSettingStruct.TRAP52_THREE_PHASE_CURRENT_UNBALANCE  >> 1) & 1;
+			document.getElementById("SnmpTrap81").value = (SNMPTrapSettingStruct.TRAP52_THREE_PHASE_CURRENT_UNBALANCE  >> 2) & 1;
+
+			document.getElementById("SnmpTrap82").value = SNMPTrapSettingStruct.TRAP54_INV_CURRENT_UNBALANCE & 1;
+			document.getElementById("SnmpTrap83").value = (SNMPTrapSettingStruct.TRAP54_INV_CURRENT_UNBALANCE >> 1) & 1;
+			document.getElementById("SnmpTrap84").value = (SNMPTrapSettingStruct.TRAP54_INV_CURRENT_UNBALANCE >> 2) & 1;
+					
+			document.getElementById("SnmpTrap85").value = SNMPTrapSettingStruct.TRAP1_BATTERY_OPEN & 1;
+			document.getElementById("SnmpTrap86").value = (SNMPTrapSettingStruct.TRAP1_BATTERY_OPEN >> 1) & 1;
+			document.getElementById("SnmpTrap87").value = (SNMPTrapSettingStruct.TRAP1_BATTERY_OPEN >> 2) & 1;
+			
+	      
+			document.getElementById("SnmpTrap88").value = SNMPTrapSettingStruct.TRAP7_BATT_OVERCHARGE  & 1;
+			document.getElementById("SnmpTrap89").value = (SNMPTrapSettingStruct.TRAP7_BATT_OVERCHARGE  >> 1) & 1;
+			document.getElementById("SnmpTrap90").value = (SNMPTrapSettingStruct.TRAP7_BATT_OVERCHARGE  >> 2) & 1;
+
+		    document.getElementById("SnmpTrap91").value = SNMPTrapSettingStruct.TRAP38_BATT_CELL_OVERCHARGE & 1;
+			document.getElementById("SnmpTrap92").value = (SNMPTrapSettingStruct.TRAP38_BATT_CELL_OVERCHARGE >> 1) & 1;
+			document.getElementById("SnmpTrap93").value = (SNMPTrapSettingStruct.TRAP38_BATT_CELL_OVERCHARGE >> 2) & 1;
+			
+			document.getElementById("SnmpTrap94").value = SNMPTrapSettingStruct.TRAP30_FEMALE_CONN_ERROR & 1;
+			document.getElementById("SnmpTrap95").value = (SNMPTrapSettingStruct.TRAP30_FEMALE_CONN_ERROR >> 1) & 1;
+			document.getElementById("SnmpTrap96").value = (SNMPTrapSettingStruct.TRAP30_FEMALE_CONN_ERROR >> 2) & 1;
+		
+		    document.getElementById("SnmpTrap97").value = SNMPTrapSettingStruct.TRAP29_MALE_CONN_ERROR & 1;
+			document.getElementById("SnmpTrap98").value = (SNMPTrapSettingStruct.TRAP29_MALE_CONN_ERROR >> 1) & 1;
+			document.getElementById("SnmpTrap99").value = (SNMPTrapSettingStruct.TRAP29_MALE_CONN_ERROR >> 2) & 1;
+
+			document.getElementById("SnmpTrap100").value = SNMPTrapSettingStruct.TRAP51_LOCKED_IN_BYPASS  & 1;
+			document.getElementById("SnmpTrap101").value = (SNMPTrapSettingStruct.TRAP51_LOCKED_IN_BYPASS >> 1) & 1;
+			document.getElementById("SnmpTrap102").value = (SNMPTrapSettingStruct.TRAP51_LOCKED_IN_BYPASS  >> 2) & 1;
+		
+	        document.getElementById("SnmpTrap103").value = SNMPTrapSettingStruct.TRAP31_PARALLEL_LINE_CONNERROR & 1;
+			document.getElementById("SnmpTrap104").value = (SNMPTrapSettingStruct.TRAP31_PARALLEL_LINE_CONNERROR >> 1) & 1;
+			document.getElementById("SnmpTrap105").value = (SNMPTrapSettingStruct.TRAP31_PARALLEL_LINE_CONNERROR >> 2) & 1;
+
+			document.getElementById("SnmpTrap106").value = SNMPTrapSettingStruct.TRAP27_SYNCH_PULSE_ERROR & 1;
+			document.getElementById("SnmpTrap107").value = (SNMPTrapSettingStruct.TRAP27_SYNCH_PULSE_ERROR >> 1) & 1;
+			document.getElementById("SnmpTrap108").value = (SNMPTrapSettingStruct.TRAP27_SYNCH_PULSE_ERROR >> 2) & 1;
+		
+			document.getElementById("SnmpTrap109").value = SNMPTrapSettingStruct.TRAP26_SYNCH_LINE_ERROR & 1;
+			document.getElementById("SnmpTrap110").value = (SNMPTrapSettingStruct.TRAP26_SYNCH_LINE_ERROR >> 1) & 1;
+			document.getElementById("SnmpTrap111").value = (SNMPTrapSettingStruct.TRAP26_SYNCH_LINE_ERROR >> 2) & 1;
+
+			document.getElementById("SnmpTrap112").value = SNMPTrapSettingStruct.TRAP28_HOST_LINE_ERROR & 1;
+			document.getElementById("SnmpTrap113").value = (SNMPTrapSettingStruct.TRAP28_HOST_LINE_ERROR >> 1) & 1;
+			document.getElementById("SnmpTrap114").value = (SNMPTrapSettingStruct.TRAP28_HOST_LINE_ERROR >> 2) & 1;
+		
+			document.getElementById("SnmpTrap115").value = SNMPTrapSettingStruct.TRAP50_PARALLEL_LINE_VOLT_LLD & 1;
+			document.getElementById("SnmpTrap116").value = (SNMPTrapSettingStruct.TRAP50_PARALLEL_LINE_VOLT_LLD >> 1) & 1;
+			document.getElementById("SnmpTrap117").value = (SNMPTrapSettingStruct.TRAP50_PARALLEL_LINE_VOLT_LLD>> 2) & 1;
+		    
+		    document.getElementById("SnmpTrap118").value = SNMPTrapSettingStruct.TRAP49_PARALLEL_LINE_VOLT_HLD & 1;
+			document.getElementById("SnmpTrap119").value = (SNMPTrapSettingStruct.TRAP49_PARALLEL_LINE_VOLT_HLD >> 1) & 1;
+			document.getElementById("SnmpTrap120").value = (SNMPTrapSettingStruct.TRAP49_PARALLEL_LINE_VOLT_HLD >> 2) & 1;
+		
+			document.getElementById("SnmpTrap121").value = SNMPTrapSettingStruct.TRAP48_PARALLEL_LINE_FREQ_LLD & 1;
+			document.getElementById("SnmpTrap122").value = (SNMPTrapSettingStruct.TRAP48_PARALLEL_LINE_FREQ_LLD >> 1) & 1;
+			document.getElementById("SnmpTrap123").value = (SNMPTrapSettingStruct.TRAP48_PARALLEL_LINE_FREQ_LLD >> 2) & 1;
+					
+			document.getElementById("SnmpTrap124").value = SNMPTrapSettingStruct.TRAP47_PARALLEL_LINE_FREQ_HLD & 1;
+			document.getElementById("SnmpTrap125").value = (SNMPTrapSettingStruct.TRAP47_PARALLEL_LINE_FREQ_HLD >> 1) & 1;
+			document.getElementById("SnmpTrap126").value = (SNMPTrapSettingStruct.TRAP47_PARALLEL_LINE_FREQ_HLD >> 2) & 1;
+
+		    document.getElementById("SnmpTrap127").value = SNMPTrapSettingStruct.TRAP46_PARALLEL_BYP_VOLT_LLD & 1;
+			document.getElementById("SnmpTrap128").value = (SNMPTrapSettingStruct.TRAP46_PARALLEL_BYP_VOLT_LLD >> 1) & 1;
+			document.getElementById("SnmpTrap129").value = (SNMPTrapSettingStruct.TRAP46_PARALLEL_BYP_VOLT_LLD >> 2) & 1;
+		    
+		    document.getElementById("SnmpTrap130").value = SNMPTrapSettingStruct.TRAP45_PARALLEL_BYP_VOLT_HLD & 1;
+			document.getElementById("SnmpTrap131").value = (SNMPTrapSettingStruct.TRAP45_PARALLEL_BYP_VOLT_HLD >> 1) & 1;
+			document.getElementById("SnmpTrap132").value = (SNMPTrapSettingStruct.TRAP45_PARALLEL_BYP_VOLT_HLD >> 2) & 1;
+			
+			document.getElementById("SnmpTrap133").value = SNMPTrapSettingStruct.TRAP44_PARALLEL_BYP_FREQ_LLD & 1;
+			document.getElementById("SnmpTrap134").value = (SNMPTrapSettingStruct.TRAP44_PARALLEL_BYP_FREQ_LLD >> 1) & 1;
+			document.getElementById("SnmpTrap135").value = (SNMPTrapSettingStruct.TRAP44_PARALLEL_BYP_FREQ_LLD >> 2) & 1;
+	
+			document.getElementById("SnmpTrap136").value = SNMPTrapSettingStruct.TRAP43_PARALLEL_BYP_FREQ_HLD & 1;
+			document.getElementById("SnmpTrap137").value = (SNMPTrapSettingStruct.TRAP43_PARALLEL_BYP_FREQ_HLD >> 1) & 1;
+			document.getElementById("SnmpTrap138").value = (SNMPTrapSettingStruct.TRAP43_PARALLEL_BYP_FREQ_HLD >> 2) & 1;
+
+			document.getElementById("SnmpTrap139").value = SNMPTrapSettingStruct.TRAP39_PARALLEL_OUTPUT_PARALLELDIFF & 1;
+			document.getElementById("SnmpTrap140").value = (SNMPTrapSettingStruct.TRAP39_PARALLEL_OUTPUT_PARALLELDIFF >> 1) & 1;
+			document.getElementById("SnmpTrap141").value = (SNMPTrapSettingStruct.TRAP39_PARALLEL_OUTPUT_PARALLELDIFF >> 2) & 1;
+		
+			document.getElementById("SnmpTrap142").value = SNMPTrapSettingStruct.TRAP9_OVER_LOADWARNING & 1;
+			document.getElementById("SnmpTrap143").value = (SNMPTrapSettingStruct.TRAP9_OVER_LOADWARNING >> 1) & 1;
+			document.getElementById("SnmpTrap144").value = (SNMPTrapSettingStruct.TRAP9_OVER_LOADWARNING >> 2) & 1;
+
+		    document.getElementById("SnmpTrap145").value = SNMPTrapSettingStruct.TRAP63_PARALLEL_PROTECT_WARNING & 1;
+			document.getElementById("SnmpTrap146").value = (SNMPTrapSettingStruct.TRAP63_PARALLEL_PROTECT_WARNING >> 1) & 1;
+			document.getElementById("SnmpTrap147").value = (SNMPTrapSettingStruct.TRAP63_PARALLEL_PROTECT_WARNING >> 2) & 1;
+		
+			document.getElementById("SnmpTrap148").value = SNMPTrapSettingStruct.TRAP32_BATT_CONNDIFF & 1;
+			document.getElementById("SnmpTrap149").value = (SNMPTrapSettingStruct.TRAP32_BATT_CONNDIFF >> 1) & 1;
+			document.getElementById("SnmpTrap150").value = (SNMPTrapSettingStruct.TRAP32_BATT_CONNDIFF >> 2) & 1;
+			
+			document.getElementById("SnmpTrap151").value = SNMPTrapSettingStruct.TRAP42_PARALLEL_CONVERTER_ENABLEDIFF & 1;
+			document.getElementById("SnmpTrap152").value = (SNMPTrapSettingStruct.TRAP42_PARALLEL_CONVERTER_ENABLEDIFF >> 1) & 1;
+			document.getElementById("SnmpTrap153").value = (SNMPTrapSettingStruct.TRAP42_PARALLEL_CONVERTER_ENABLEDIFF >> 2) & 1;
+		
+			document.getElementById("SnmpTrap154").value = SNMPTrapSettingStruct.TRAP41_PARALLEL_BYPASS_FORBIDDENDIFF & 1;
+			document.getElementById("SnmpTrap155").value = (SNMPTrapSettingStruct.TRAP41_PARALLEL_BYPASS_FORBIDDENDIFF >> 1) & 1;
+			document.getElementById("SnmpTrap156").value = (SNMPTrapSettingStruct.TRAP41_PARALLEL_BYPASS_FORBIDDENDIFF >> 2) & 1;
+	        
+	        document.getElementById("SnmpTrap157").value = SNMPTrapSettingStruct.TRAP60_UTILITY_EXTREMELY_UNBALANCED  & 1;
+			document.getElementById("SnmpTrap158").value = (SNMPTrapSettingStruct.TRAP60_UTILITY_EXTREMELY_UNBALANCED  >> 1) & 1;
+			document.getElementById("SnmpTrap159").value = (SNMPTrapSettingStruct.TRAP60_UTILITY_EXTREMELY_UNBALANCED  >> 2) & 1;
+
+			document.getElementById("SnmpTrap160").value = SNMPTrapSettingStruct.TRAP34_BYPASS_CONNDIFF & 1;
+			document.getElementById("SnmpTrap161").value = (SNMPTrapSettingStruct.TRAP34_BYPASS_CONNDIFF >> 1) & 1;
+			document.getElementById("SnmpTrap162").value = (SNMPTrapSettingStruct.TRAP34_BYPASS_CONNDIFF >> 2) & 1;
+		
+			document.getElementById("SnmpTrap163").value = SNMPTrapSettingStruct.TRAP35_MODE_TYPEDIFF  & 1;
+			document.getElementById("SnmpTrap164").value = (SNMPTrapSettingStruct.TRAP35_MODE_TYPEDIFF  >> 1) & 1;
+			document.getElementById("SnmpTrap165").value = (SNMPTrapSettingStruct.TRAP35_MODE_TYPEDIFF  >> 2) & 1;
+		
+			document.getElementById("SnmpTrap166").value = SNMPTrapSettingStruct.TRAP61_BYPASS_UNSTABLE & 1;
+			document.getElementById("SnmpTrap167").value = (SNMPTrapSettingStruct.TRAP61_BYPASS_UNSTABLE >> 1) & 1;
+			document.getElementById("SnmpTrap168").value = (SNMPTrapSettingStruct.TRAP61_BYPASS_UNSTABLE >> 2) & 1;
+		
+			document.getElementById("SnmpTrap169").value = SNMPTrapSettingStruct.TRAP59_PHASE_AUTO_ADAPTFAILED & 1;
+			document.getElementById("SnmpTrap170").value = (SNMPTrapSettingStruct.TRAP59_PHASE_AUTO_ADAPTFAILED >> 1) & 1;
+			document.getElementById("SnmpTrap171").value = (SNMPTrapSettingStruct.TRAP59_PHASE_AUTO_ADAPTFAILED >> 2) & 1;
+		
+		    document.getElementById("SnmpTrap172").value = SNMPTrapSettingStruct.TRAP56_BATTERY_REPLACE  & 1;
+			document.getElementById("SnmpTrap173").value = (SNMPTrapSettingStruct.TRAP56_BATTERY_REPLACE  >> 1) & 1;
+			document.getElementById("SnmpTrap174").value = (SNMPTrapSettingStruct.TRAP56_BATTERY_REPLACE  >> 2) & 1;
+		
+		    document.getElementById("SnmpTrap175").value = SNMPTrapSettingStruct.TRAP15_REMOTE_SHUTDOWN  & 1;
+			document.getElementById("SnmpTrap176").value = (SNMPTrapSettingStruct.TRAP15_REMOTE_SHUTDOWN  >> 1) & 1;
+			document.getElementById("SnmpTrap177").value = (SNMPTrapSettingStruct.TRAP15_REMOTE_SHUTDOWN  >> 2) & 1;
+
+			
+			document.getElementById("SnmpTrap178").value = SNMPTrapSettingStruct.TRAP62_EEPROM_ERROR & 1;
+			document.getElementById("SnmpTrap179").value = (SNMPTrapSettingStruct.TRAP62_EEPROM_ERROR >> 1) & 1;
+			document.getElementById("SnmpTrap180").value = (SNMPTrapSettingStruct.TRAP62_EEPROM_ERROR >> 2) & 1;
+		
+			document.getElementById("SnmpTrap181").value = SNMPTrapSettingStruct.TRAP64_DISCHARGER_OVERLY & 1;
+			document.getElementById("SnmpTrap182").value = (SNMPTrapSettingStruct.TRAP64_DISCHARGER_OVERLY >> 1) & 1;
+			document.getElementById("SnmpTrap183").value = (SNMPTrapSettingStruct.TRAP64_DISCHARGER_OVERLY >> 2) & 1;
+		
+		
+			document.getElementById("SnmpTrap184").value = SNMPTrapSettingStruct.TRAP55_P1_CUTOFF_PREALARM & 1;
+			document.getElementById("SnmpTrap185").value = (SNMPTrapSettingStruct.TRAP55_P1_CUTOFF_PREALARM >> 1) & 1;
+			document.getElementById("SnmpTrap186").value = (SNMPTrapSettingStruct.TRAP55_P1_CUTOFF_PREALARM >> 2) & 1;
+
+			
+			document.getElementById("SnmpTrap187").value = SNMPTrapSettingStruct.TRAP57_INPUT_PHAS_EERROR  & 1;
+			document.getElementById("SnmpTrap188").value = (SNMPTrapSettingStruct.TRAP57_INPUT_PHAS_EERROR  >> 1) & 1;
+			document.getElementById("SnmpTrap189").value = (SNMPTrapSettingStruct.TRAP57_INPUT_PHAS_EERROR  >> 2) & 1;
+
+
+			document.getElementById("SnmpTrap190").value = SNMPTrapSettingStruct.TRAP58_COVER_OF_MAINTAIN_SW_OPEN & 1;
+			document.getElementById("SnmpTrap191").value = (SNMPTrapSettingStruct.TRAP58_COVER_OF_MAINTAIN_SW_OPEN >> 1) & 1;
+			document.getElementById("SnmpTrap192").value = (SNMPTrapSettingStruct.TRAP58_COVER_OF_MAINTAIN_SW_OPEN >> 2) & 1;
+				
+			str = 0;
+
+			for (var i = 1;i <= 192;i++)
+			{
+				if(document.getElementById("SnmpTrap"+i).value == 1)
+				{
+					document.getElementById("SnmpTrap"+i).checked = true;
+				}
+				else
+				{
+					document.getElementById("SnmpTrap"+i).checked = false;
+				}
+			}
+				EthernetSettingStruct.Updated = 0;
+		}
+	}
+}
+	setInterval(SettingShow, 500);
+</script>
+</html>

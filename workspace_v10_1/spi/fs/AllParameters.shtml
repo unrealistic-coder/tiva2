@@ -1,0 +1,536 @@
+<html>
+<head>
+<title>Fuji Electric India Pvt Ltd</title>
+<link href="CSS/Main.css" rel="stylesheet" type="text/css" />
+<link href="CSS/Tab.css" rel="stylesheet" type="text/css" />
+<script src="Script/WebSocket.js" type="text/javascript" defer ></script>
+<script src="Script/AllParameter.js" ></script>
+<script src="Script/MainPage.js" type="text/javascript" defer ></script>
+<script src="Script/ScheduleSetting.js" ></script>
+<style>
+	.tablink
+	{
+		background-color: #DFDFDF;
+		color: black;
+		float: left;
+		border: none;
+		outline: 5px;
+		cursor: pointer;
+		padding: 10px 10px;
+		font-size: 15px;
+		width: 33%;
+		height: 35px;
+	}
+
+	.tablink:hover
+	{
+		background-color: #A9A9A9;
+	}
+
+	.tabcontent
+	{
+		color: black;
+		display: none;
+		padding: 45px 5px;
+		height: 75%;
+	}
+
+	#OutputGroup
+	{
+		background-color: #DFDFDF;
+	}
+
+	#BatteryGroup
+	{
+		background-color: #DFDFDF;
+	}
+
+	#InputGroup
+	{
+		background-color: #DFDFDF;
+	}
+
+	#SystemGroup
+	{
+		background-color: #DFDFDF;
+	}
+	input
+	{
+		text-align: center;
+	}
+
+</style>
+</head>
+<body onload="SocketCreation()">
+<div id="page" >
+
+<div style="padding:0 0 1px 3px"><img src="images/blue.jpg" alt="WELCOME" style="width: 130px;"/>
+	<table style="float:right;margin-top:10px;margin-left:-300px;">
+		<tr>
+			<td style="font-size:13px;">UPS FW VER :</td>
+			<td><input type="button" id="Ctlversion" style="font-size:14px; width:70px; margin-left:1px; text-align: left; border:none; background-color: #fff;"/></td>
+			
+			<td style="font-size:13px;">SNMP CARD FW VER :</td>
+			<td><input type="button" id="OSversion" style="font-size:14px; width:50px; margin-left:0px; text-align: left; border:none; background-color: #fff;"/></td>
+			
+			<td style="font-size:13px;">BOOT VER :</td>
+			<td><input type="button" id="bootversion" style="width:30px; font-size:14px; border:none; text-align: left; background-color: #fff;"/></td>
+			
+			<td><input type="button" id="dateTimeValue" onclick="confirmAction()" style="font-size:14px; border:none; background-color: #fff;" /></td>
+		</tr>
+	</table>
+</div>
+
+<div>
+	<ul class = "menuul">
+	<li><a href="MainPage.shtml" class="menuList">MAIN PAGE</a></li>
+	<li><a href="AllParameters.shtml" class="menuList active" style="pointer-events: none;">ALL PARAMETERS</a></li>
+	<li><a href="EthernetSetting.shtml" class="menuList">ETHERNET SETTING</a></li>
+	<li><a href="SerialSetting.shtml" class="menuList">SERIAL SETTING</a></li>
+	<li><a href="javascript:void(0);" id="openModalBtn" class="menuList">COMMAND SETTING</a></li>
+	<li><a href="/ScheduleSetting.shtml" class="menuList active" style="pointer-events: none;">SCHEDULE SETTING</a></li>
+	<li><a href="DataLog.shtml" class="menuList" >DATA LOGS</a></li>
+	<li><a href="RTCSetting.shtml" class="menuList" >CLOCK SETTING</a></li>
+	<li id="emailSetting" style="display:none;"><a href="EmailConfig.shtml" class="menuList">EMAIL SETTING</a></li>
+	</ul><br/>
+</div>
+
+<!-- Custom modal -->
+<form id="customModal" class="modal">
+    <div class="modal-content">
+        <h2>Enter Password to Access Command Setting</h2>
+        <input type="password" id="passwordInput" placeholder="Password">
+        <button  type="submit" id="submitPassword">Submit</button>
+    </div>
+</form>
+
+<div style="background:#dddddd;overflow: auto;">
+
+<div style="float: left; width: 70%; height: 90%; padding: 5px;padding: 2px;border-style: ridge;overflow: auto;">
+			<button class="tablink" onclick="openPage('UPSDB', this, '#69F')" id="defaultOpen">UPS DB PARAMETERS</button>
+			<button class="tablink" onclick="openPage('UPSID', this, '#69F')">UPS IDs</button>
+			<button class="tablink" onclick="openPage('UPSFAULT', this, '#69F')">UPS FAULTS</button>
+
+<div id="UPSDB" class="tabcontent">
+	<table>
+		<tr>
+			<td width="300px">PROTOCOL ID:</td>
+			<td width="150px"><input type="text" id="ProtocolId" size="5%" readonly /></td>
+			<td width="300px">UPS MANUFACTURER:</td>
+			<td width="150px"><input type="text" id="UpsManufactur" size="5%" readonly /></td>
+			<td width="300px">UPS MODEL:</td>
+			<td width="150px"><input type="text" id="upsModel" size="5%" readonly /></td>
+			<td width="300px">UPS CPU FW VER: </td>
+			<td width="150px"><input type="text" id="FWVer" size="5%" readonly /></td>
+		</tr>
+		<tr></tr><tr></tr><tr></tr><tr></tr>
+		<tr>
+			<td>UPS MODE:</td>
+			<td><input type="text" id="UPSMode" size="5%" readonly /></td>
+		</tr>
+		<tr></tr><tr></tr><tr></tr><tr></tr>
+		<tr>
+			<td colspan="8" style="color: White;width:10%;height:20px;background-color: #6699ff;font-size: 11pt;"><center> Output </center></td>
+		</tr>
+		<tr></tr><tr></tr><tr></tr><tr></tr>
+		<tr>
+			<td>RATED O/P VA:</td>
+			<td><input type="text" id="RTDOPVA" size="5%" readonly/></td>
+			<td>RATED O/P VOLT:</td>
+			<td><input type="text" id="RTDOPVLT" size="5%" readonly /></td>
+			<td>RATED O/P CURR: </td>
+			<td><input type="text" id="RTDOPCURR" size="5%" readonly /></td>
+			<td>RATED O/P FREQ:</td>
+			<td><input type="text" id="RTDOPFREQ" size="5%" readonly /></td>
+		</tr>
+		<tr></tr><tr></tr><tr></tr><tr></tr>
+		<tr>
+			<td>OUTPUT VOLT:</td>
+			<td><input type="text" id="OPVOLT" size="5%" readonly /></td>
+			<td>OUTPUT FREQ:</td>
+			<td><input type="text" id="OPFREQ" size="5%" readonly /></td>
+			<td>OUTPUT CURR:</td>
+			<td><input type="text" id="OPCURR" size="5%" readonly /></td>
+			<td>OUTPUT PWR FACTOR:</td>
+			<td><input type="text" id="OPPPWRFCTR" size="5%" readonly /></td>
+		</tr>
+		<tr></tr><tr></tr><tr></tr><tr></tr>
+		<tr>
+			<td>OUTPUT LOAD (%):</td>
+			<td><input type="text" id="OPLOAD" size="5%" readonly /></td>
+			<td>OUTPUT PHASE:</td>
+			<td><input type="text" id="OPPHASE" size="5%" readonly /></td>
+			<td>NOMINAL O/P VOLT:</td>
+			<td><input type="text" id="NMNLOPVOLT" size="5%" readonly /></td>
+			<td>MAX TEMP:</td>
+			<td><input type="text" id="MAXTEMP" size="5%" readonly /></td>
+		</tr>
+		<tr></tr><tr></tr><tr></tr><tr></tr>
+		<tr>
+			<td>VOLT HIGH LOSS PT:</td>
+			<td><input type="text" id="VLTHILPT" size="5%" readonly /></td>
+			<td>VOLT LOW LOSS PT:</td>
+			<td><input type="text" id="VLTLOLPT" size="5%" readonly /></td>
+			<td>FREQ HIGH LOSS PT:</td>
+			<td><input type="text" id="FREQHILPT" size="5%" readonly /></td>
+			<td>FREQ LOW LOSS PT:</td>
+			<td><input type="text" id="FREQLOLPT" size="5%" readonly /></td>
+		</tr>
+		<tr></tr><tr></tr><tr></tr><tr></tr>
+		<tr>
+			<td colspan="8" style="color: White;width:10%;height:20px;background-color: #6699ff;font-size: 11pt;"><center> Input </center></td>
+		</tr>
+		<tr></tr><tr></tr><tr></tr><tr></tr>
+		<tr>
+			<td>INPUT PHASE:</td>
+			<td><input type="text" id="IPPHASE" size="5%" readonly /></td>
+			<td>NOMINAL I/P VOLT:</td>
+			<td><input type="text" id="NMNLIPVLT" size="5%" readonly /></td>
+			<td>INPUT VOLT:</td>
+			<td><input type="text" id="IPVOLT" size="5%" readonly /></td>
+			<td>INPUT FREQ:</td>
+			<td><input type="text" id="IPFREQ" size="5%" readonly /></td>
+		</tr>
+		<tr></tr><tr></tr><tr></tr><tr></tr>
+		<tr>
+			<td colspan="8" style="color: White;width:10%;height:20px;background-color: #6699ff;font-size: 11pt;"><center> Battery </center></td>
+		</tr>
+		<tr></tr><tr></tr><tr></tr><tr></tr>
+		<tr>
+			<td>BATTERY VOLT:</td>
+			<td><input type="text" id="BATTVOLT" size="5%" readonly /></td>
+			<td>BATT TEST TYPE:</td>
+			<td><input type="text" id="BATTTEST" size="5%" readonly /></td>
+			<td>RATED BATT VOLT:</td>
+			<td><input type="text" id="RTDBATVOLT" size="5%" readonly /></td>
+			<td>BATT PIECE NUMBER:</td>
+			<td><input type="text" id="BATPIECENO" size="5%" readonly /></td>
+		</tr>
+		<tr></tr><tr></tr><tr></tr><tr></tr>
+		<tr>
+			<td>BATT VOLT PER UNIT:</td>
+			<td><input type="text" id="BATVLTUNT" size="5%" readonly /></td>
+			<td>BATT GROUP NUMBER:</td>
+			<td><input type="text" id="BATGRPNO" size="5%" readonly/></td>
+			<td>BATT CAPACITY:</td>
+			<td><input type="text" id="BATCPCTY" size="5%" readonly /></td>
+			<td>BATT REMAIN TIME:</td>
+			<td><input type="text" id="BATREMTIME" size="5%" readonly /></td>
+		</tr>
+		<tr></tr><tr></tr><tr></tr><tr></tr>
+		<tr>
+			<td>BATT NUMBER IN PARALLEL:</td>
+			<td><input type="text" id="BATNOLL" size="5%" readonly /></td>
+			<td>BATT NUMBER IN SERIES:</td>
+			<td><input type="text" id="BATNOSER" size="5%" readonly /></td>
+			<td>P BATT VOLT:</td>
+			<td><input type="text" id="PBATVOLT" size="5%" readonly /></td>
+			<td>N BATT VOLT:</td>
+			<td><input type="text" id="NBATVOLT" size="5%" readonly /></td>
+		</tr>
+		<tr></tr><tr></tr><tr></tr><tr></tr>
+		<tr>
+			<td>P BUS VOLT:</td>
+			<td><input type="text" id="PBUSVOLT" size="5%" readonly /></td>
+			<td>N BUS VOLT:</td>
+			<td><input type="text" id="NBUSVOLT" size="5%" readonly /></td>
+		</tr>
+		<tr></tr><tr></tr><tr></tr><tr></tr>
+		<tr>
+			<td colspan="8" style="color: White;width:10%;height:20px;background-color: #6699ff;font-size: 11pt;"><center> Bypass </center></td>
+		</tr>
+		<tr></tr><tr></tr><tr></tr><tr></tr>
+		<tr>
+			<td>BYPASS FREQ:</td>
+			<td><input type="text" id="BYPFREQ" size="5%" readonly /></td>
+			<td>BYPASS VOLT HIGH LOSS:</td>
+			<td><input type="text" id="BYPVLTHILS" size="5%" readonly /></td>
+			<td>BYPASS VOLT LOW LOSS:</td>
+			<td><input type="text" id="BYPVLTLOLS" size="5%" readonly /></td>
+		</tr>
+	</table>
+</div>
+
+<div id="UPSID" class="tabcontent">
+	<table style="width:100%">
+		<tr>
+			<td width="300px">TYPE : </td>
+			<td width="150px"><input type="text" id="TYPE" size="5%" readonly /></td>
+			<td width="300px">SUB TYPE: </td>
+			<td width="150px"><input type="text" id="SUBTYPE" size="5%" readonly /></td>
+			<td width="300px">VA TYPE: </td>
+			<td width="150px"><input type="text" id="VATYPE" size="5%" readonly /></td>
+			<td width="300px">H LV TYPE: </td>
+			<td width="150px"><input type="text" id="HLVTYPE" size="5%" readonly /></td>
+		</tr>
+		<tr></tr><tr></tr><tr></tr><tr></tr>
+		<tr>
+			<td>YEAR : </td>
+			<td><input type="text" id="YEAR" size="5%" readonly /></td>
+			<td>MONTH: </td>
+			<td><input type="text" id="MONTH" size="5%" readonly /></td>
+			<td>SERIAL NUMBER: </td>
+			<td><input type="text" id="SRNUM" size="5%" readonly /></td>
+		</tr>
+		<tr></tr><tr></tr><tr></tr><tr></tr>
+	</table>
+</div>
+
+<div id="UPSFAULT" class="tabcontent">
+    <table>
+        <tr>
+			<td width="300px">FAULT TYPE: </td>
+			<td width="150px"><input type="text" id="FALTTYP" size="5%" readonly /></td>
+			<td width="300px">INPUT VOLT BEFORE FAULT: </td>
+			<td width="150px"><input type="text" id="IPVOLTBEF" size="5%" readonly /></td>
+			<td width="300px">INPUT FREQ BEFORE FAULT: </td>
+			<td width="150px"><input type="text" id="IPFREQBEF" size="5%" readonly /></td>
+			<td width="300px">OUTPUT VOLT BEFORE FAULT: </td>
+			<td width="150px"><input type="text" id="OPVOLTBEF" size="5%" readonly /></td>
+		</tr>
+		<tr></tr><tr></tr><tr></tr><tr></tr>
+		<tr>
+			<td>OUTPUT FREQ BEFORE FAULT: </td>
+			<td><input type="text" id="OPFREQBEF" size="5%" readonly /></td>
+			<td>OUTPUT LOAD BEFORE FAULT: </td>
+			<td><input type="text" id="OPLOADBEF" size="5%" readonly /></td>
+			<td>OUTPUT CURR BEFORE FAULT: </td>
+			<td><input type="text" id="OPCURRBEF" size="5%" readonly /></td>
+			<td>PBUS VOLT BEFORE FAULT: </td>
+			<td><input type="text" id="PBUSVLTBEF" size="5%" readonly /></td>
+		</tr>
+		<tr></tr><tr></tr><tr></tr><tr></tr>
+		<tr>
+			<td>NBUS VOLT BEFORE FAULT: </td>
+			<td><input type="text" id="NBUSVLTBEF" size="5%" readonly /></td>
+			<td>BATT VOLT BEFORE FAULT: </td>
+			<td><input type="text" id="BATVOLTBEF" size="5%" readonly /></td>
+			<td>TEMP BEFORE FAULT: </td>
+			<td><input type="text" id="TEMPBEF" size="5%" readonly /></td>
+		</tr>
+		<tr></tr><tr></tr><tr></tr><tr></tr>
+	</table>
+</div>
+</div>
+
+<div style="float: right; background-color:#dddddd; width: 29%; padding: 3px;border-style: ridge;height:270px">
+ <center style="color: white;width:100%;height:20px;background-color: #69F;font-size: 11pt;">Alarms</center>
+<div style="width:100%;height: 200px;margin: 0;padding: 0;overflow-y: scroll">
+ <UL id="alarms" class="alarm" style="font-weight: lighter; font-size: 11pt;"></UL>
+</div>
+</div>
+
+<div style="float: right; background-color:#dddddd; width: 29%; padding: 6px;border-style: ridge;height:270px">
+	<center style="color: white;width:100%;height:20px;background-color: #69F;font-size: 11pt;">Status</center>
+<div style="width:100%;height: 200px; margin: 0;padding: 0;overflow-y: scroll">
+	<UL id="status" style="font-weight: lighter; font-size: 11pt;"></UL>
+</div>
+</div>
+</div>
+<div id="footer">FEI - Copyright &copy; 2024 Fuji Electric India Pvt Ltd </div>
+</div>
+</body>
+
+<script>
+function openPage(pageName,elmnt,color)
+{
+	var i, tabcontent, tablinks;
+	tabcontent = document.getElementsByClassName("tabcontent");
+	for (i = 0; i < tabcontent.length; i++) {
+		tabcontent[i].style.display = "none";
+	}
+	tablinks = document.getElementsByClassName("tablink");
+	for (i = 0; i < tablinks.length; i++) {
+		tablinks[i].style.backgroundColor = "";
+	}
+	document.getElementById(pageName).style.display = "block";
+	elmnt.style.backgroundColor = color;
+}
+
+document.getElementById("defaultOpen").click();
+
+function AllParameterPageUpdatevalue()
+{
+	document.getElementById("ProtocolId").value=AllParameterPageStruct.protocolID;
+	document.getElementById("UpsManufactur").value=AllParameterPageStruct.UPSManufacturer.filter(value => value !== 0).map(value => String.fromCharCode(value)).join('');
+	document.getElementById("upsModel").value = AllParameterPageStruct.UPSModel.filter(value => value !== 0).map(value => String.fromCharCode(value)).join('');
+	document.getElementById("FWVer").value = AllParameterPageStruct.UPSCPUFwVersion.filter(value => value !== 0).map(value => String.fromCharCode(value)).join('');
+
+	document.getElementById("UPSMode").value = AllParameterPageStruct.UPSMode;
+	document.getElementById("RTDOPVA").value =AllParameterPageStruct.RatedOutputVA;
+	document.getElementById("RTDOPVLT").value =  (AllParameterPageStruct.RatedOuputVolt/10).toFixed(2);
+	document.getElementById("RTDOPCURR").value = AllParameterPageStruct.RatedOuputCurr;
+	document.getElementById("RTDOPFREQ").value = (AllParameterPageStruct.RatedOuputFreq1/10).toFixed(2);
+	document.getElementById("RTDBATVOLT").value = (AllParameterPageStruct.RatedBattVolt/10).toFixed(2);
+	document.getElementById("IPPHASE").value = AllParameterPageStruct.InputPhase;
+
+	document.getElementById("NMNLIPVLT").value = AllParameterPageStruct.NominalInputVolt;
+	document.getElementById("IPVOLT").value = (AllParameterPageStruct.InputVolt/10).toFixed(2);
+	document.getElementById("IPFREQ").value = (AllParameterPageStruct.InputFreq/10).toFixed(2);
+	document.getElementById("BATTTEST").value = AllParameterPageStruct.BatteryTestType;
+	document.getElementById("BATTVOLT").value = (AllParameterPageStruct.BattVolt/10).toFixed(2);
+	document.getElementById("BATPIECENO").value = AllParameterPageStruct.BattPieceNumber;
+	document.getElementById("BATVLTUNT").value = AllParameterPageStruct.BattVoltPerUnit;
+	document.getElementById("BATGRPNO").value = AllParameterPageStruct.BattgroupNumber;
+	document.getElementById("BATCPCTY").value = AllParameterPageStruct.BattCapacity;
+	document.getElementById("BATREMTIME").value = AllParameterPageStruct.BattRemainTime;
+	document.getElementById("BATNOLL").value = AllParameterPageStruct.BatNumberInParallel;
+	document.getElementById("BATNOSER").value = AllParameterPageStruct.BatNumberInSeries;
+	document.getElementById("PBATVOLT").value = AllParameterPageStruct.PBattVolt;
+	document.getElementById("NBATVOLT").value = AllParameterPageStruct.NBattVolt;
+	document.getElementById("OPVOLT").value = (AllParameterPageStruct.OutputVolt/10).toFixed(2);
+	document.getElementById("OPFREQ").value = (AllParameterPageStruct.OutputFreq/10).toFixed(2);
+	document.getElementById("OPCURR").value = AllParameterPageStruct.OutputCurr;
+	document.getElementById("OPPPWRFCTR").value = AllParameterPageStruct.OutputPWRFactor;
+	document.getElementById("OPLOAD").value = AllParameterPageStruct.OutputLoadPercent;
+	document.getElementById("OPPHASE").value = AllParameterPageStruct.OutputPhase;
+	document.getElementById("NMNLOPVOLT").value = AllParameterPageStruct.NominalOutputVolt;
+	document.getElementById("BYPFREQ").value = (AllParameterPageStruct.bypassFreq/10).toFixed(2);
+	document.getElementById("MAXTEMP").value = (AllParameterPageStruct.MaxTemp/10).toFixed(2);
+	document.getElementById("BYPVLTHILS").value = AllParameterPageStruct.bypassVoltHighLossPt;
+	document.getElementById("BYPVLTLOLS").value = AllParameterPageStruct.bypassVoltLowLossPt;
+	document.getElementById("VLTHILPT").value = AllParameterPageStruct.voltHighLossPt;
+	document.getElementById("VLTLOLPT").value = AllParameterPageStruct.voltLowLossPt;
+	document.getElementById("FREQHILPT").value = (AllParameterPageStruct.freqHighLossPt/10).toFixed(2);
+	document.getElementById("FREQLOLPT").value = (AllParameterPageStruct.freqLowLossPt/10).toFixed(2);
+	document.getElementById("PBUSVOLT").value = (AllParameterPageStruct.PBusVolt/10).toFixed(2);
+	document.getElementById("NBUSVOLT").value = (AllParameterPageStruct.NBusVolt/10).toFixed(2);
+	document.getElementById("TYPE").value = AllParameterPageStruct.type;
+	document.getElementById("SUBTYPE").value = AllParameterPageStruct.subType;
+	document.getElementById("VATYPE").value = AllParameterPageStruct.VAType;
+	document.getElementById("HLVTYPE").value = AllParameterPageStruct.H_LV_Type;
+	document.getElementById("YEAR").value = AllParameterPageStruct.year;
+	document.getElementById("MONTH").value = AllParameterPageStruct.month;
+
+	document.getElementById("SRNUM").value = AllParameterPageStruct.serialNumber.filter(value => value !== 0).map(value => String.fromCharCode(value)).join('');
+	document.getElementById("FALTTYP").value = AllParameterPageStruct.FaultType;
+	document.getElementById("IPVOLTBEF").value = (AllParameterPageStruct.InputVoltBeforeFault/10).toFixed(2);
+	document.getElementById("IPFREQBEF").value = (AllParameterPageStruct.InputFreqBeforeFault/10).toFixed(2);
+	document.getElementById("OPVOLTBEF").value = (AllParameterPageStruct.OutputVoltBeforeFault/10).toFixed(2);
+	document.getElementById("OPFREQBEF").value = (AllParameterPageStruct.OutputFreqBeforeFault/10).toFixed(2);
+	document.getElementById("OPLOADBEF").value = (AllParameterPageStruct.OutputLoadBeforeFault/10).toFixed(2);
+	document.getElementById("OPCURRBEF").value = (AllParameterPageStruct.OutputCurrentBeforeFault/10).toFixed(2);
+	document.getElementById("PBUSVLTBEF").value = (AllParameterPageStruct.PBusVoltageBeforeFault/10).toFixed(2);
+	document.getElementById("NBUSVLTBEF").value = (AllParameterPageStruct.NBusVoltBeforeFault/10).toFixed(2);
+	document.getElementById("BATVOLTBEF").value = AllParameterPageStruct.BattVoltBeforeFault;
+	document.getElementById("TEMPBEF").value = (AllParameterPageStruct.TempBeforeFault/10).toFixed(2);
+}
+
+function UpdateParam()
+{
+	if(socket.readyState==WebSocket.OPEN)
+	{
+		if(FlagSettingStruct.WEBEmail_Enable == 1)
+		{
+			toggleEmailSetting();
+		}
+
+		AllParameterPageUpdatevalue();
+		
+		var AL001  = AlarmandStatusStruct.Alarms_1;
+		var AL002  = AlarmandStatusStruct.Alarms_2;
+		var AL003  = AlarmandStatusStruct.Alarms_3;
+		var AL004  = AlarmandStatusStruct.Alarms_4;
+		var HA001  = AlarmandStatusStruct.Status_1;
+		var alarmvalue = [AL001,AL002,AL003,AL004];
+		var allalarm = [FF1,FF2,FF3,FF4];
+
+		var Alarms = document.getElementById("alarms");
+		var Statusvalue = [HA001];
+		var allstatus = [SNMPState1];
+		var allstatus1 = [SNMPState2];
+		var statusvisibility = [0xE37F];
+		while (Alarms.hasChildNodes())
+		{
+			Alarms.removeChild(Alarms.firstChild);
+		}
+
+		for (var i = 0; i <= alarmvalue.length;i++)
+		{
+			var arr = [];
+			for(var m = 0; m < 16;m++)
+			{
+				arr[m] = ((alarmvalue[i] & (1<<m)) != 0);
+				if(arr[m] == 1)
+				{
+				//var checkVisi = ((alarmvisibility[i] & (1<<m)) != 0);
+					if(allalarm[i][m] != "")
+					{
+						var listitem=document.createElement("LI");
+						listitem.setAttribute("id", "alarms"+allalarm[i][m]);
+						listitem.appendChild(document.createTextNode(allalarm[i][m]));
+						Alarms.appendChild(listitem);
+
+					}
+					else
+					{
+					}
+				}
+			}
+		}
+		
+		var Status = document.getElementById("status");
+		
+		while (Status.hasChildNodes()) 
+		{
+			Status.removeChild(Status.firstChild);
+		}
+			
+		for (var i = 0; i < allstatus.length;i++)
+		{
+			var arr = [];
+			for(var m = 0; m < 14;m++)
+			{
+				arr[m] = ((Statusvalue[i] & (1<<m)) != 0); 
+				if(arr[m] == 1)
+				{
+					if(statusvisibility[i][m] != "")
+					{	
+						var listitem=document.createElement("LI");
+						listitem.setAttribute("id", "status"+allstatus[i][m]);
+						listitem.appendChild(document.createTextNode(allstatus[i][m]));
+						Status.appendChild(listitem);
+				
+					}
+					else
+					{
+					}
+				}	
+			}
+			
+			var arr = [];
+			
+			arr[0] = ((Statusvalue[0] & (1<<14)) != 0); 
+			arr[1] = ((Statusvalue[0] & (1<<15)) != 0); 
+			if(arr[0] == 0 && arr[1] == 0)
+			{
+				var listitem=document.createElement("LI");
+				listitem.setAttribute("id", "status"+allstatus1[0][0]);
+				listitem.appendChild(document.createTextNode(allstatus1[0][0]));
+				Status.appendChild(listitem);
+		
+			}
+			else if(arr[0] == 1 && arr[1] == 0)
+			{
+				var listitem=document.createElement("LI");
+				listitem.setAttribute("id", "status"+allstatus1[0][1]);
+				listitem.appendChild(document.createTextNode(allstatus1[0][1]));
+				Status.appendChild(listitem);
+		
+			}
+			else if(arr[0] == 0 && arr[1] == 1)
+			{
+				var listitem=document.createElement("LI");
+				listitem.setAttribute("id", "status"+allstatus1[0][2]);
+				listitem.appendChild(document.createTextNode(allstatus1[0][2]));
+				Status.appendChild(listitem);
+		
+			}
+		}
+		}
+	
+}
+
+setInterval(UpdateParam,500);
+</script>
+</html>

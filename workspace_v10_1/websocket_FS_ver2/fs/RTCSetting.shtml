@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Fuji Electric India Pvt Ltd</title>
+<link href="CSS/Main.css" rel="stylesheet" type="text/css" />
+<link href="CSS/Tab.css" rel="stylesheet" type="text/css" />
+<script src="Script/WebSocket.js" type="text/javascript"></script>
+<script src="Script/AllParameter.js" ></script>
+<script src="Script/RTCsetting.js" type="text/javascript"></script>
+<script src="Script/MainPage.js" type="text/javascript" defer ></script>
+<script src="Script/ScheduleSetting.js" ></script>
+
+<script type="text/javascript">
+	window.history.pushState(null, null, window.location.href);
+	window.onpopstate = function () {
+		window.history.go(1);
+	};
+</script>
+
+<style>
+.clock-container {
+    text-align: center;
+    border: 5px solid #dddddd;
+    padding: 5px;
+    border-radius: 15px;
+    background-color: #dddddd;
+}
+
+#clock {
+    font-size: 35px;
+    font-weight: bold;
+}
+
+#date {
+    font-size: 20px;
+    margin-top: 10px;
+}
+
+.datetime-dropdown-container {
+    display: flex;
+    gap: 10px;
+}
+
+select {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+select:focus {
+    border-color: #61dafb;
+    outline: none;
+}
+
+</style>
+</head>
+
+<body onload="SocketCreation()">
+	<div id="page" >
+		<div style="padding:0 0 1px 3px"><img src="images/blue.jpg" alt="WELCOME" style="width: 130px;"/>
+			<table style="float:right;margin-top:10px;margin-left:-300px;">
+				<tr>
+					<td style="font-size:13px;">CONTROL VER :</td>
+					<td><input type="button" id="Ctlversion" style="font-size:14px; width:70px; margin-left:1px; text-align: left; border:none; background-color: #fff;"/></td>
+					
+					<td style="font-size:13px;">DISPLAY VER :</td>
+					<td><input type="button" id="OSversion" style="font-size:14px; width:50px; margin-left:0px; text-align: left; border:none; background-color: #fff;"/></td>
+					
+					<td style="font-size:13px;">BOOT VER :</td>
+					<td><input type="button" id="bootversion" style="width:30px; font-size:14px; border:none; text-align: left; background-color: #fff;"/></td>
+					
+					<td><input type="button" id="dateTimeValue" onclick="confirmAction()" style="font-size:14px; border:none; background-color: #fff;" /></td>
+				</tr>
+			</table>
+		</div>
+	
+		<div>
+			<ul class= "menuul">
+				<li><a href="MainPage.shtml" class="menuList">MAIN PAGE</a></li>
+				<li><a href="AllParameters.shtml" class="menuList">ALL PARAMETERS</a></li>
+				<li><a href="EthernetSetting.shtml" class="menuList">ETHERNET SETTING</a></li>
+				<li><a href="SerialSetting.shtml" class="menuList">SERIAL SETTING</a></li>
+				<li><a href="javascript:void(0);" id="openModalBtn" class="menuList">COMMAND SETTING</a></li>
+				<li><a href="/ScheduleSetting.shtml" class="menuList active" style="pointer-events: none;">SCHEDULE SETTING</a></li>
+				<li><a href="DataLog.shtml" class="menuList" >DATA LOGS</a></li>
+				<li><a href="RTCSetting.shtml" class="menuList active" style="pointer-events: none;">CLOCK SETTING</a></li>
+				<li id="emailSetting" style="display:none;"><a href="EmailConfig.shtml" class="menuList">EMAIL SETTING</a></li>	
+				</ul><br/>
+		</div>
+	
+		<!-- Custom modal -->
+		<form id="customModal" class="modal">
+	    <div class="modal-content">
+	        <h2>Enter Password to Access Feature Setting</h2>
+	        <input type="password" id="passwordInput" placeholder="Password">
+	        <button  type="submit" id="submitPassword">Submit</button>
+	    </div>
+		</form>
+		
+		<div style="background-color:#dddddd; float: left; width: 100%; height: 84%; padding-left: 150px; border-style: ridge;overflow: auto;">
+			
+			<table>
+				<tr>
+					
+					<td style="width: 50%; vertical-align: top;">
+						<div id="RTCTime" style="display: flex; flex-direction: column; justify-content: space-between; height: 100%;" >
+							<div style="display: flex; justify-content: center;">
+								<div class="clock-container">
+									<div id="clock">12:00:00</div>
+									<div id="date">01-01-2024</div>
+								</div>
+							</div>
+
+							<div style="display: flex; justify-content: center;">
+								<table>
+									<tr>
+										<td>
+											<h4 style="font-size: small; margin-right: 10px;">NTP Server Enable:</h4>
+										</td>
+										<td>
+											<label for="NTPEnable" style="font-size: 15px;"><input type="checkbox" value="1" id="NTPEnable" name="NTPEnable" onclick="NTPRadioButtons()"/></label>
+										</td>
+									</tr>
+									<tr>
+										<td style="display: flex; align-items: center;">
+											<h4 style="font-size: small; margin-right: 10px;">NTP SERVER:</h4>
+										</td>
+										<td>
+											<input type="text" id="NTPServer" value="pool.org.com">
+										</td>
+									</tr>
+								</table>
+							</div>
+
+							<div class="datetime-dropdown-container" style="display: flex; justify-content: center; margin: 10px 0;">
+								
+								<select id="day" name="day"></select>
+								<select id="month" name="month"></select>
+								<select id="year" name="year"></select>
+					
+								<select id="hour" name="hour"></select>
+								<select id="minute" name="minute"></select>
+								<select id="second" name="second"></select>
+							</div>
+							<div style="display: flex; justify-content: center; margin-top: 20px;">
+								<table>
+									<tr>
+										<td><b>RTC Compensate Interval (Hrs):</b></td>
+										<td>
+											<input type="number" id="RTCCompensateTimeInterval" style="width:100px; font-size:15px; border:none; margin:5px;" min="0" max="24" />
+										</td>
+									</tr>
+									<tr>
+										<td><b>RTC Compensate Time (Sec):</b></td>
+										<td>
+											<input type="number" id="RTCCompensateTime" style="width:100px; font-size:15px; border:none; margin:5px;" min="0" max="60" />
+										</td>
+									</tr>
+									<tr>
+										<td colspan="2" style="text-align: center;">
+											<input type="button" id="RTCSave" class="sm" onclick="ClickSetRTCCompensate_Request()" value="Save" style="border: 1; background-color:#69F; color: white; padding: 10px 20px; text-align: center; text-decoration: none; font-size: 20px; cursor: pointer;" />
+										</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</td>
+				</tr>
+			</table>
+
+			<div id="footer" style="margin: 12px 95px 10px -59px">FEI - Copyright &copy; 2024 Fuji Electric India Pvt Ltd </div>
+
+		</div>
+	</div>
+</body>
+
+<script>
+
+function NTPRadioButtons() {
+	var clickedRadio = document.getElementById('NTPEnable');
+    
+    if (clickedRadio.checked) {
+        document.getElementById('NTPEnable').checked = true;
+    
+        var inputs = document.querySelectorAll('#RTCTime input, #RTCTime select');
+        inputs.forEach(function(input) {
+            input.disabled = true;
+			document.getElementById('NTPServer').disabled = false;
+        });
+
+    } else {
+        document.getElementById('NTPEnable').checked = false;
+
+        var inputs = document.querySelectorAll('#RTCTime input, #RTCTime select');
+        inputs.forEach(function(input) {
+            input.disabled = false;
+			document.getElementById('NTPServer').disabled = true; 
+        });
+    }
+    document.getElementById('RTCSave').disabled = false;
+	document.getElementById('NTPEnable').disabled = false;
+}
+
+
+
+document.getElementById('RTCCompensateTimeInterval').addEventListener('input', function () {
+    let value = parseInt(this.value, 10);
+
+    if (value < 0) {
+        this.value = 0;
+    } else if (value > 24) {
+        this.value = 24;
+    }
+});
+
+document.getElementById('RTCCompensateTime').addEventListener('input', function () {
+    let value = parseInt(this.value, 10);
+
+    if (value < 0) {
+        this.value = 0;
+    } else if (value > 60) {
+        this.value = 60;
+    }
+});
+
+updateClockAndDate();
+
+function updateClockAndDate() {
+    const clockElement = document.getElementById('clock');
+    const dateElement = document.getElementById('date');
+	if(socket.readyState==WebSocket.OPEN)
+	{
+		const hours = DataBuffer.getUint8(11).toString().padStart(2, '0');
+		const minutes = DataBuffer.getUint8(12).toString().padStart(2, '0');
+		const seconds = DataBuffer.getUint8(13).toString().padStart(2, '0');
+		clockElement.textContent = `${hours}:${minutes}:${seconds}`;
+
+		// Format the date
+		const year = DataBuffer.getUint8(10).toString().padStart(2, '0');
+		const month = DataBuffer.getUint8(9).toString().padStart(2, '0');
+		const day = DataBuffer.getUint8(8).toString().padStart(2, '0');
+		dateElement.textContent = `${day}-${month}-20${year}`;
+	}
+}
+
+document.addEventListener('DOMContentLoaded', populateDropdowns);
+
+function UpdateRTCComepnsate_Response()
+{
+	if(socket.readyState==WebSocket.OPEN)
+	{
+		if(FlagSettingStruct.WEBEmail_Enable == 1)
+		{
+			toggleEmailSetting();
+		}
+		if(RTCCompensateSettingStruct.Updated==1)
+		{
+			document.getElementById("RTCCompensateTimeInterval").value =RTCCompensateSettingStruct.RTCCompensateInterval;
+			document.getElementById("RTCCompensateTime").value =RTCCompensateSettingStruct.RTCCompensateTime;
+			document.getElementById("NTPServer").value = RTCCompensateSettingStruct.NTPServer.filter(value => value !== 0).map(value => String.fromCharCode(value)).join('');
+
+			if(RTCCompensateSettingStruct.RTCCompenEnable == 1)
+			{
+				document.getElementById('NTPEnable').checked = true;
+			
+				var inputs = document.querySelectorAll('#RTCTime input, #RTCTime select');
+				inputs.forEach(function(input) {
+					input.disabled = true;
+					document.getElementById('NTPServer').disabled = false;
+				});
+
+			} else
+			{
+				document.getElementById('NTPEnable').checked = false;
+
+				var inputs = document.querySelectorAll('#RTCTime input, #RTCTime select');
+				inputs.forEach(function(input) {
+					input.disabled = false;
+					document.getElementById('NTPServer').disabled = true; 
+				});
+			}
+			document.getElementById('RTCSave').disabled = false;
+			document.getElementById('NTPEnable').disabled = false;
+
+			RTCCompensateSettingStruct.Updated=0;
+		}
+	}
+}
+			
+function ClickSetRTCCompensate_Request()
+{ 
+	NewRTCSettingStruct.Date = document.getElementById('day').value;
+    NewRTCSettingStruct.Month = document.getElementById('month').value;
+    NewRTCSettingStruct.Year = document.getElementById('year').value;
+    NewRTCSettingStruct.Hours = document.getElementById('hour').value;
+    NewRTCSettingStruct.Minute = document.getElementById('minute').value;
+    NewRTCSettingStruct.Seconds = document.getElementById('second').value;
+    
+ 	NewRTCSettingStruct.RTCCompensateInterval=document.getElementById("RTCCompensateTimeInterval").value;
+	NewRTCSettingStruct.RTCCompensateTime=document.getElementById("RTCCompensateTime").value;
+ 
+ 	var clickedRadio = document.getElementById('NTPEnable');
+    
+    if (clickedRadio.checked) {
+		NewRTCSettingStruct.RTCCompenEnable = 1;
+	}
+	else
+	{
+		NewRTCSettingStruct.RTCCompenEnable = 0;
+	}
+
+	var NTPServer = document.getElementById("NTPServer").value;
+	var maxLength = 32; 
+
+	for (var i = 0; i < NTPServer.length && i < maxLength; i++) {
+    NewRTCSettingStruct.NTPServer[i] = NTPServer.charCodeAt(i);
+	}
+	for (; i < maxLength; i++) {
+		NewRTCSettingStruct.NTPServer[i] = 0;
+	}
+
+	SaveRTCCompensateSetting_Request();
+}
+
+setInterval(UpdateRTCComepnsate_Response, 500);
+setInterval(updateClockAndDate, 1000);
+
+</script>
+</html>

@@ -1,0 +1,19 @@
+
+**** Build of configuration Debug for project modbus_tcp_client_LWIP ****
+
+"C:\\ti\\ccs1031\\ccs\\utils\\bin\\gmake" -k -j 8 all -O 
+ 
+Building file: "../main.c"
+Invoking: Arm Compiler
+"C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_20.2.4.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --include_path="C:/Users/14169/workspace_v10/modbus_tcp_client_LWIP" --include_path="C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_20.2.4.LTS/include" --define=ccs="ccs" --define=PART_TM4C1294NCPDT -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --abi=eabi --preproc_with_compile --preproc_dependency="main.d_raw"  "../main.c"
+Finished building: "../main.c"
+ 
+Building target: "modbus_tcp_client_LWIP.lib"
+Invoking: Arm Archiver
+"C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_20.2.4.LTS/bin/armar" r "modbus_tcp_client_LWIP.lib" "./main.obj" 
+  ==>  new archive 'modbus_tcp_client_LWIP.lib'
+  ==>  building archive 'modbus_tcp_client_LWIP.lib'
+Finished building target: "modbus_tcp_client_LWIP.lib"
+ 
+
+**** Build Finished ****

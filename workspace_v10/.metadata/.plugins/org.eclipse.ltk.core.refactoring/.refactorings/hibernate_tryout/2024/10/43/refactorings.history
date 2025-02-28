@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">&#x0A;<refactoring comment="Rename resource &apos;hibernate_tryout/main.c&apos; to &apos;hibernate_try.c&apos;" description="Rename resource &apos;main.c&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="main.c" name="hibernate_try.c" stamp="1729578003483" updateReferences="true"/>&#x0A;<refactoring comment="Rename resource &apos;hibernate_tryout/uart_functions&apos; to &apos;uart_functions.c&apos;" description="Rename resource &apos;uart_functions&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="uart_functions" name="uart_functions.c" stamp="1729591493299" updateReferences="true"/>
+</session>

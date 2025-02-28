@@ -1,0 +1,44 @@
+---- spiflashFileSystemStruct Matches (46 in 7 files) ----
+Error_TimerHandlerISR in ErrorHandler.c (Source\System) : 	if(spiflashFileSystemStruct.SPIFlashMount == 1)
+SPIFlashTask.c (Source\System\Memory\ExternalSPIFlash) line 44 : SPIFlashFatFs_FILESYSTEM_STRUCT spiflashFileSystemStruct;
+SPIFlashFileSystem_Init in SPIFlashTask.c (Source\System\Memory\ExternalSPIFlash) :     spiflashFileSystemStruct.g_eState=STATE_DEVICE_ENUM;
+SPIFlashFileSystem_StateHandler in SPIFlashTask.c (Source\System\Memory\ExternalSPIFlash) :     if((spiflashFileSystemStruct.g_eState != spiflashFileSystemStruct.g_eUIState) ||
+SPIFlashFileSystem_StateHandler in SPIFlashTask.c (Source\System\Memory\ExternalSPIFlash) :             (spiflashFileSystemStruct.g_eState == STATE_DEVICE_ENUM))
+SPIFlashFileSystem_StateHandler in SPIFlashTask.c (Source\System\Memory\ExternalSPIFlash) :         spiflashFileSystemStruct.g_eUIState = spiflashFileSystemStruct.g_eState;
+SPIFlashFileSystem_StateHandler in SPIFlashTask.c (Source\System\Memory\ExternalSPIFlash) :         switch(spiflashFileSystemStruct.g_eState)
+SPIFlashFileSystem_StateHandler in SPIFlashTask.c (Source\System\Memory\ExternalSPIFlash) :                 if(spiflashFileSystemStruct.SPIFlashMount!=TRUE)
+SPIFlashFileSystem_StateHandler in SPIFlashTask.c (Source\System\Memory\ExternalSPIFlash) :                      spiflashFileSystemStruct.SPIFlashMount = FALSE;
+SPIFlashFileSystem_StateHandler in SPIFlashTask.c (Source\System\Memory\ExternalSPIFlash) : 				fres = f_mount(&spiflashFileSystemStruct.g_sFatFs, "0", 1);
+SPIFlashFileSystem_StateHandler in SPIFlashTask.c (Source\System\Memory\ExternalSPIFlash) :                      spiflashFileSystemStruct.g_eState = STATE_DEVICE_READY;
+SPIFlashFileSystem_StateHandler in SPIFlashTask.c (Source\System\Memory\ExternalSPIFlash) :                 spiflashFileSystemStruct.SPIFlashMount = TRUE;
+SPIFalsh_Fatfs_Init in SPIFlashTask.c (Source\System\Memory\ExternalSPIFlash) :     fres = f_mount(&spiflashFileSystemStruct.g_sFatFs, "0", 1);
+SPIFalsh_Fatfs_Init in SPIFlashTask.c (Source\System\Memory\ExternalSPIFlash) :         spiflashFileSystemStruct.SPIFlashMount=1;
+SPIFalsh_Fatfs_Init in SPIFlashTask.c (Source\System\Memory\ExternalSPIFlash) :         spiflashFileSystemStruct.g_eState=STATE_DEVICE_ENUM;
+SPIFlashFileSystem_Task in SPIFlashTask.c (Source\System\Memory\ExternalSPIFlash) :         if(spiflashFileSystemStruct.SPIFlashMount == TRUE)
+SPIFlashTask.h (Source\System\Memory\ExternalSPIFlash) line 101 : extern SPIFlashFatFs_FILESYSTEM_STRUCT spiflashFileSystemStruct;
+SPIFLASHDataLog_CreateAndOpenFile in SPIFlash_Datalogger.c (Source\System\Memory\ExternalSPIFlash) : 		FileStatus = (FRESULT)(FatFS_fopen( &spiflashFileSystemStruct.File, (const char*)FileName, FA_OPEN_ALWAYS | FA_WRITE));
+SPIFLASHDataLog_CreateAndOpenFile in SPIFlash_Datalogger.c (Source\System\Memory\ExternalSPIFlash) : 		    temp= f_size(&spiflashFileSystemStruct.File);
+SPIFLASHDataLog_CreateAndOpenFile in SPIFlash_Datalogger.c (Source\System\Memory\ExternalSPIFlash) : 	    	FileStatus = (FRESULT)(FatFS_fseek( &spiflashFileSystemStruct.File, temp));//sizeof(&spiflashFileSystemStruct.File)));//File.fsize
+SPIFLASHDataLog_CreateAndOpenFile in SPIFlash_Datalogger.c (Source\System\Memory\ExternalSPIFlash) : 			    FileStatus =  (FRESULT)(f_write( &spiflashFileSystemStruct.File, (char*)&(pLogFileHeader->TravBuff[0]),
+SPIFLASHDataLog_CreateAndOpenFile in SPIFlash_Datalogger.c (Source\System\Memory\ExternalSPIFlash) : 			    f_close( &spiflashFileSystemStruct.File );
+SPIFLASHDataLog_OpenTodaysFile in SPIFlash_Datalogger.c (Source\System\Memory\ExternalSPIFlash) : 		FileStatus = (FRESULT)(f_open((FIL*)&spiflashFileSystemStruct.File, Filename,
+SPIFLASHDataLog_WriteDataLogFile in SPIFlash_Datalogger.c (Source\System\Memory\ExternalSPIFlash) : 		    temp= f_size(&spiflashFileSystemStruct.File);
+SPIFLASHDataLog_WriteDataLogFile in SPIFlash_Datalogger.c (Source\System\Memory\ExternalSPIFlash) : 			FileCheck = (FRESULT)(FatFS_fseek((FIL*)&spiflashFileSystemStruct.File,temp));//FatFS_fseek
+SPIFLASHDataLog_WriteDataLogFile in SPIFlash_Datalogger.c (Source\System\Memory\ExternalSPIFlash) : 						FileCheck = (FRESULT)(FatFS_fwrite( (FIL*)&spiflashFileSystemStruct.File,(uint8_t *)&pLogHoldPtr[index].TravBuff[0],(LogSize), (UINT *)&bw));
+SPIFLASHDataLog_WriteDataLogFile in SPIFlash_Datalogger.c (Source\System\Memory\ExternalSPIFlash) : 			FatFS_fclose( &spiflashFileSystemStruct.File );
+fsizebypath in SPIFlash_Datalogger.c (Source\System\Memory\ExternalSPIFlash) :     fres=FatFS_fopen( &spiflashFileSystemStruct.File, fpath, FA_READ);
+fsizebypath in SPIFlash_Datalogger.c (Source\System\Memory\ExternalSPIFlash) :         size = f_size(&spiflashFileSystemStruct.File);
+fsizebypath in SPIFlash_Datalogger.c (Source\System\Memory\ExternalSPIFlash) :         FatFS_fclose( &spiflashFileSystemStruct.File);
+SPIFlash_ReadData in SPIFlash_Datalogger.c (Source\System\Memory\ExternalSPIFlash) :     if(Latest != NULL && (spiflashFileSystemStruct.SPIFlashMount==1))
+SPIFlash_ReadData in SPIFlash_Datalogger.c (Source\System\Memory\ExternalSPIFlash) :             Status = !FatFS_fopen( &spiflashFileSystemStruct.File, Filename, FA_READ);
+SPIFlash_ReadData in SPIFlash_Datalogger.c (Source\System\Memory\ExternalSPIFlash) :             Status = !FatFS_fseek( &spiflashFileSystemStruct.File, Offset);
+SPIFlash_ReadData in SPIFlash_Datalogger.c (Source\System\Memory\ExternalSPIFlash) :             Status = !FatFS_fread( &spiflashFileSystemStruct.File, Latest, sizeof(LOG_HOLD_STRUCT));
+SPIFlash_ReadData in SPIFlash_Datalogger.c (Source\System\Memory\ExternalSPIFlash) :             FatFS_fclose( &spiflashFileSystemStruct.File );
+SPIFlash_GetRecordSize in SPIFlash_Datalogger.c (Source\System\Memory\ExternalSPIFlash) :     if(FileDate != NULL && (spiflashFileSystemStruct.SPIFlashMount==1))
+SPIFlash_GetRecordSize in SPIFlash_Datalogger.c (Source\System\Memory\ExternalSPIFlash) :         fres=FatFS_fopen( &spiflashFileSystemStruct.File, Filename, FA_READ);
+SPIFlash_GetRecordSize in SPIFlash_Datalogger.c (Source\System\Memory\ExternalSPIFlash) :            size = f_size(&spiflashFileSystemStruct.File);
+SPIFlash_GetRecordSize in SPIFlash_Datalogger.c (Source\System\Memory\ExternalSPIFlash) :            FatFS_fclose( &spiflashFileSystemStruct.File);
+FatFS_Init in user_diskio.c (External\FATFS\Target) :          //   f_mount(&spiflashFileSystemStruct.g_sFatFs, "0", 1);
+HttpConnServer_Init in websocket.c (Source\Communication\Ethernet\WebSocket) :        // pHttpServerStruct->ClientConnection[count].webspiflashFileSystemStruct.
+WebSocketServer_Task in websocket.c (Source\Communication\Ethernet\WebSocket) :        if(spiflashFileSystemStruct.SPIFlashMount == TRUE)
+{anonWEBSOCKET_TCP_RAM_STRUCT} in websocket.h (Source\Communication\Ethernet\WebSocket) :     SPIFlashFatFs_FILESYSTEM_STRUCT  webspiflashFileSystemStruct;

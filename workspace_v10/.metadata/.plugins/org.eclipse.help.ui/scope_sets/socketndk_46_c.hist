@@ -1,0 +1,4 @@
+#Mon Nov 18 09:29:08 IST 2024
+__DEFAULT__=false
+org.eclipse.help.ui.localSearch.master=true
+expression=socketndk.c

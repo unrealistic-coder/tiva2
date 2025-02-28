@@ -1,0 +1,18 @@
+
+**** Build of configuration Debug for project enet_tcpecho_client_lwip_old ****
+
+"C:\\ti\\ccs1031\\ccs\\utils\\bin\\gmake" -k all 
+ 
+Building file: "C:/ti/TivaWare_C_Series-2.2.0.295/utils/lwiplib.c"
+Invoking: ARM Compiler
+"C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_20.2.4.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me -Ooff --include_path="C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_20.2.4.LTS/include" --include_path="C:/Users/14169/Downloads/enet_tcpecho_client_lwip/enet_tcpecho_client_lwip" --include_path="C:/ti/TivaWare_C_Series-2.2.0.295/examples/boards/ek-tm4c1294xl" --include_path="C:/ti/TivaWare_C_Series-2.2.0.295" --include_path="C:/ti/TivaWare_C_Series-2.2.0.295/third_party/lwip-1.4.1/src/include" --include_path="C:/ti/TivaWare_C_Series-2.2.0.295/third_party/lwip-1.4.1/src/include/ipv4" --include_path="C:/ti/TivaWare_C_Series-2.2.0.295/third_party/lwip-1.4.1/ports/tiva-tm4c129/include" --include_path="C:/ti/TivaWare_C_Series-2.2.0.295/third_party/lwip-1.4.1/apps" --include_path="C:/ti/TivaWare_C_Series-2.2.0.295/third_party" --advice:power=all --define=ccs="ccs" --define=PART_TM4C1294NCPDT --define=TARGET_IS_TM4C129_RA0 --define=EK_TM4C129_BP1 -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --gen_func_subsections=on --abi=eabi --ual --preproc_with_compile --preproc_dependency="utils/lwiplib.d_raw" --obj_directory="utils"  "C:/ti/TivaWare_C_Series-2.2.0.295/utils/lwiplib.c"
+ 
+>> Compilation failure
+utils/subdir_rules.mk:16: recipe for target 'utils/lwiplib.obj' failed
+"C:/ti/TivaWare_C_Series-2.2.0.295/third_party/lwip-1.4.1/src/include/ipv4/lwip/autoip.h", line 53: fatal error #1965: cannot open source file "netif/etharp.h"
+1 catastrophic error detected in the compilation of "C:/ti/TivaWare_C_Series-2.2.0.295/utils/lwiplib.c".
+Compilation terminated.
+gmake: *** [utils/lwiplib.obj] Error 1
+gmake: Target 'all' not remade because of errors.
+
+**** Build Finished ****

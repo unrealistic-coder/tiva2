@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="org.eclipse.ui.texteditor.GotoLineAction$GotoLineDialog_dialogBounds">
+		<item key="DIALOG_X_ORIGIN" value="564"/>
+		<item key="DIALOG_Y_ORIGIN" value="302"/>
+	</section>
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
+		<item key="wrap" value="true"/>
+		<item key="casesensitive" value="true"/>
+		<item key="wholeword" value="false"/>
+		<item key="incremental" value="false"/>
+		<item key="isRegEx" value="false"/>
+		<item key="selection" value="WEBSOCKETPORT"/>
+		<list key="findhistory">
+			<item value="WEBSOCKETPORT"/>
+			<item value="Network Added"/>
+			<item value="vs"/>
+			<item value=" vasu"/>
+			<item value="vasu"/>
+			<item value="frameLength"/>
+			<item value="acceptKey"/>
+			<item value="TASKSTACKSIZE"/>
+			<item value="task0Struct"/>
+			<item value="plen"/>
+			<item value="addrlen"/>
+			<item value="FD"/>
+			<item value="write"/>
+			<item value="read"/>
+			<item value="seria"/>
+		</list>
+		<list key="replacehistory">
+			<item value="System_printf"/>
+			<item value="UARTprintf"/>
+			<item value="unsigned char"/>
+			<item value=".h"/>
+			<item value=""/>
+			<item value="lwip/"/>
+			<item value="CAN1"/>
+		</list>
+	</section>
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
+		<item key="DIALOG_X_ORIGIN" value="1157"/>
+		<item key="DIALOG_Y_ORIGIN" value="396"/>
+		<item key="DIALOG_WIDTH" value="284"/>
+		<item key="DIALOG_HEIGHT" value="391"/>
+		<item key="DIALOG_FONT_NAME" value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI"/>
+	</section>
+</section>

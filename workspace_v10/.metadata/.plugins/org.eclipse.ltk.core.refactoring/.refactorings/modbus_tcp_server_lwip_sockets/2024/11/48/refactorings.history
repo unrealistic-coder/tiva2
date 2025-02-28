@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;modbus_tcp_server_lwip_sockets/tcp_lwip_server&apos; to &apos;tcp_lwip_server.c&apos;" description="Rename resource &apos;tcp_lwip_server&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="tcp_lwip_server" name="tcp_lwip_server.c" stamp="1732776032726" updateReferences="true"/>
+</session>

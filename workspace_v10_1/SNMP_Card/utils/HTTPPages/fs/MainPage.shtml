@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Fuji Electric India Pvt Ltd</title>
+<link href="CSS/Main.css" rel="stylesheet" type="text/css" />
+<link href="CSS/Tab.css" rel="stylesheet" type="text/css" />
+<script src="Script/WebSocket.js" type="text/javascript" ></script>
+<script src="Script/AllParameter.js" ></script>
+<script src="Script/EthernetSetting.js"></script>
+<script src="Script/MainPage.js"></script>
+<script src="Script/ScheduleSetting.js" ></script>
+
+</head>
+<style>
+
+#tooltip {
+  background: #f2f2f2;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+#test {
+	background-image: url('');
+	background-size: cover; /* Adjust the background size */
+	background-repeat: no-repeat; /* Prevent the background from repeating */
+	background-attachment: fixed; /* Keep the background fixed while scrolling */
+	background-color: white; /* Fallback background color */
+}
+
+</style>
+
+<body style="background-color:white;" onload="SocketCreation()" >
+
+<div id="page" style="background-color:white;">
+
+	<div style="padding:0 0 1px 3px"><img src="images/blue.jpg" alt="WELCOME" style="width: 130px;"/>
+		<table style="float:right;margin-top:10px;margin-left:-300px;">
+			<tr>
+				<td style="font-size:13px;">CONTROL VER :</td>
+				<td><input type="button" id ="Ctlversion" style="font-size:14px; width:70px; margin-left:1px; text-align: left; border:none; background-color: #fff;"/></td>
+
+				<td style="font-size:13px;">FW VER :</td>
+				<td><input type="button" id ="OSversion" style="font-size:14px; width:50px; margin-left:0px; text-align: left; border:none; background-color: #fff;"/></td>
+
+				<td style="font-size:13px;">BOOT VER :</td>
+				<td><input type="button" id ="bootversion" style="width:30px; font-size:14px; border:none; text-align: left; background-color: #fff;"/></td>
+				
+				<td><input type="button" id="dateTimeValue" onclick="confirmAction()" style="font-size:14px; border:none; background-color: #fff;" /></td>
+			</tr>
+		</table>
+	</div>
+
+<div style="width:100%;background-color:white;">
+	<ul class = "menuul">
+		<li><a href="MainPage.shtml" class="menuList active" style="pointer-events: none;">MAIN PAGE</a></li>
+		<li><a href="AllParameters.shtml" class="menuList ">ALL PARAMETERS</a></li>
+		<li><a href="EthernetSetting.shtml" class="menuList">ETHERNET SETTING</a></li>
+		<li><a href="SerialSetting.shtml" class="menuList">SERIAL SETTING</a></li>
+		<li><a href="javascript:void(0);" id="openModalBtn" class="menuList">COMMAND SETTING</a></li>
+		<li><a href="/ScheduleSetting.shtml" class="menuList active" style="pointer-events: none;">SCHEDULE SETTING</a></li>
+		<li><a href="DataLog.shtml" class="menuList" >DATA LOGS</a></li>
+		<li><a href="RTCSetting.shtml" class="menuList" >CLOCK SETTING</a></li>
+		<li id="emailSetting" style="display:none;"><a href="EmailConfig.shtml" class="menuList">EMAIL SETTING</a></li>
+		</ul><br/>
+</div>
+
+<!-- Custom modal -->
+<form id="customModal" class="modal">
+    <div class="modal-content">
+        <h2>Enter Password to Access Feature Setting</h2>
+        <input type="password" id="passwordInput" placeholder="Password">
+        <button  type="submit" id="submitPassword">Submit</button>
+    </div>
+</form>
+
+<div style="background:white;overflow: auto;">
+
+<div style="float: left; width: 70.3%; padding: 1px;border-style: ridge;height:490px;overflow: auto;">
+
+<svg width="93.3%" height="99.5%" style=" overflow: visible; padding: 1px 1px 1px 60px; display: block;background-color:#fff">
+    <text x="-30" y="15" style="font-size:15px" fill="#69F" id="UPSMODE">UPS Mode</text>
+	<text x="-30" y="30" style="font-size:15px" fill="#69F" id="UPSTEMP">UPS Temp</text>
+
+	<path stroke="gray" stroke-width="15" id="inputl1" d="M20 250 H100" />
+	<path stroke="gray" stroke-width="15" id="inputl2" d="M160 250 H230" />
+	<path stroke="gray" stroke-width="15" id="inputl3" d="M240 250 H320" />
+	<path stroke="gray" stroke-width="15" id="inputl4" d="M380 250 H440" />
+	<path stroke="gray" stroke-width="15" id="inputl5" d="M450 250 H520" />
+	<path stroke="gray" stroke-width="15" id="inputl6" d="M580 250 H640" />
+	<path stroke="gray" stroke-width="15" id="inputl7" d="M650 250 H720" />
+	<path stroke="gray" stroke-width="15" id="inputl8" d="M730 250 H820" />
+
+	<circle cx="130" cy="250" r="30" stroke="black" stroke-width="2" id="ipcircle" fill="white" />
+	<circle cx="730" cy="250" r="30" stroke="black" stroke-width="2" id="opcircle" fill="white" />
+
+	<line x1="235" y1="255" x2="235" y2="80" stroke="gray" fill="skyblue" id="Bypv1" stroke-width="15"  />
+	<line x1="228" y1="88" x2="650" y2="88" stroke="gray" fill="skyblue" id="Bypl1" stroke-width="15"  />
+	<line x1="645" y1="255" x2="645" y2="80" stroke="gray" fill="skyblue" id="Bypv2" stroke-width="15"  />
+
+	<rect x="320" y="220" width="60" height="60" stroke="black" fill="white" id="Rectbox" stroke-width="2" />
+	<rect x="520" y="220" width="60" height="60" stroke="black" fill="white" id="Invbox" stroke-width="2" />
+	
+
+	<line x1="445" y1="245" x2="445" y2="360" stroke="gray" fill="skyblue" id="Battv1" stroke-width="15"  />
+
+	<circle cx="445" cy="390" r="30" stroke="black" stroke-width="2" id="Btcircle" fill="white" />
+
+	<line x1="320" y1="220" x2="380" y2="280" stroke="black" fill="skyblue" stroke-width="2"  />
+	<line x1="520" y1="220" x2="580" y2="280" stroke="black" fill="skyblue" stroke-width="2"  />
+	
+	
+	<path d="M 118 250 q 5 -20 12 0" stroke="black" stroke-width="2" fill="none" />
+	<path d="M 130 250 q 5 20 12 0" stroke="black" stroke-width="2" fill="none" />
+	<line x1="110" y1="250" x2="150" y2="250" stroke="black" fill="skyblue" stroke-width="2" d="M0 95 H100" />
+
+	<path d="M 718 250 q 5 -20 12 0" stroke="black" stroke-width="2" fill="none" />
+	<path d="M 730 250 q 5 20 12 0" stroke="black" stroke-width="2" fill="none" />
+	<line x1="710" y1="250" x2="750" y2="250" stroke="black" fill="skyblue" stroke-width="2" d="M0 95 H100" />
+	
+	
+	
+	<path d="M 329 265 q 5 -12 11 0" stroke="black" stroke-width="2" fill="none" />
+	<path d="M 340 265 q 5 12 11 0" stroke="black" stroke-width="2" fill="none" />
+	<line x1="350" y1="230" x2="370" y2="230" stroke="black" fill="White" stroke-width="2" d="M0 95 H100" />
+	<line x1="350" y1="240" x2="370" y2="240" stroke="black" fill="skyblue" stroke-width="2" d="M0 95 H100" />
+
+	<path d="M 549 240 q 5 -12 11 0" stroke="black" stroke-width="2" fill="none" />
+	<path d="M 560 240 q 5 12 11 0" stroke="black" stroke-width="2" fill="none" />
+	<line x1="530" y1="260" x2="550" y2="260" stroke="black" fill="skyblue" stroke-width="2" />
+	<line x1="530" y1="270" x2="550" y2="270" stroke="black" fill="skyblue" stroke-width="2" />
+
+	<rect x="425" y="382" width="40" height="28" stroke="black" fill="white" id="Btbox1" stroke-width="2" />
+	<rect x="430" y="377" width="5" height="5" stroke="black" fill="white" id="Btsbox1" stroke-width="2" />
+	<rect x="455" y="377" width="5" height="5" stroke="black" fill="white" id="Btsbox2" stroke-width="2" />
+
+	<line x1="430" y1="395" x2="440" y2="395" stroke="black" stroke-width="2" />
+	<line x1="435" y1="390" x2="435" y2="400" stroke="black" stroke-width="2" />
+	<line x1="450" y1="395" x2="460" y2="395" stroke="black" stroke-width="2" />
+   
+	<rect x="228" y="80" width="17" height="17" stroke="#aa95b9" fill="#aa95b9" stroke-width="2" />
+	<rect x="635" y="80" width="17" height="17" stroke="#aa95b9" fill="#aa95b9" stroke-width="2" />
+	<rect x="227" y="241" width="17" height="17" stroke="#aa95b9" fill="#aa95b9" stroke-width="2" />
+	<rect x="637" y="241" width="17" height="17" stroke="#aa95b9" fill="#aa95b9" stroke-width="2" />
+	<rect x="437" y="242" width="17" height="17" stroke="#aa95b9" fill="#aa95b9" stroke-width="2" />
+    
+	<text x="30" y="210" stroke="black" stroke-width="1.5" fill="black" style="font-size:20px " fill="black">INPUT</text>
+	<text x="410" y="40" stroke="black" stroke-width="1.5" fill="black" style="font-size:20px" fill="black">BYPASS</text>
+	<text x="740" y="210" stroke="black" stroke-width="1.5" fill="black" style="font-size:20px" fill="black">OUTPUT</text>
+	<text x="400" y="450" stroke="black" stroke-width="1.5" fill="black" style="font-size:20px" fill="black">BATTERY</text>
+
+<circle cx="130" cy="250" r="30" stroke="black" stroke-width="0" fill="transparent" id="INPUTGROUP" onmousemove="showTooltip(evt,'INPUTGROUP');" onmouseout="hideTooltip();">
+<title height="36" width="36" style="font-size:18px;font-weight:bold;"></title></text>
+</circle>	
+
+<circle cx="730" cy="250" r="30" stroke="black" stroke-width="0" fill="transparent" id="OUTPUTGROUP" onmousemove="showTooltip(evt,'OUTPUTGROUP');" onmouseout="hideTooltip();">
+<title height="36" width="36" style="font-size:18px;font-weight:bold;"></title></text>
+</circle>
+
+<circle cx="445" cy="390" r="30" stroke="black" stroke-width="0" fill="transparent" id="BATTERYGROUP" onmousemove="showTooltip(evt,'BATTERYGROUP');" onmouseout="hideTooltip();">
+<title height="36" width="36" style="font-size:18px;font-weight:bold;"></title></text>
+</circle>
+
+<rect x="420" y="60" width="60" height="60" stroke="black" fill="transparent" stroke-width="0" id="BYPASSGROUP" onmousemove="showTooltip(evt,'BYPASSGROUP');" onmouseout="hideTooltip();">
+<title height="36" width="36" style="font-size:18px;font-weight:bold;"></title></text>
+</rect>
+
+<rect x="315" y="215" width="70" height="70" stroke="black" fill="transparent" stroke-width="0" id="SYSTEMGROUP" onmousemove="showTooltip(evt,'SYSTEMGROUP');" onmouseout="hideTooltip();">
+<title height="36" width="36" style="font-size:18px;font-weight:bold;"></title></text>
+</rect>	
+
+<rect x="515" y="215" width="70" height="70" stroke="black" fill="transparent" stroke-width="0" id="SYSTEMGROUP1" onmousemove="showTooltip(evt,'SYSTEMGROUP1');" onmouseout="hideTooltip();">
+<title height="36" width="36" style="font-size:18px;font-weight:bold;"></title></text>
+</rect>
+
+</svg>
+
+</div>
+
+<div style="float: right; background-color:#dddddd; width: 28%; padding: 3px;border-style: ridge;height:240px">
+ <center style="color: white;width:100%;height:20px;background-color: #69F;font-size: 11pt;">Alarms</center>
+<div style="width:100%;height: 200px;margin: 0;padding: 0;overflow-y: scroll">
+ <UL id="alarms" class="alarm" style="font-weight: lighter; font-size: 11pt;"></UL>
+</div>
+</div>
+
+<div style="float: right; background-color:#dddddd; width: 27.6%; padding: 6px;border-style: ridge;height:238px">
+	<center style="color: white;width:100%;height:20px;background-color: #69F;font-size: 11pt;">Status</center>
+<div style="width:100%;height: 200px; margin: 0;padding: 0;overflow-y: scroll">
+	<UL id="status" style="font-weight: lighter; font-size: 11pt;"></UL>
+</div>
+</div>
+
+</div>
+
+<div id="footer">FEI - Copyright &copy; 2023 Fuji Electric India Pvt Ltd </div>
+</div>
+
+<div id="tooltip" display="none" style="position: absolute; display: none;">
+</div>
+</body>
+<script>
+
+function UPdatediagram()
+{
+
+	if(AllParameterPageStruct.UPSMode == 80 )//P
+	{	//Textret = "Power ON Mode";
+		document.getElementById('inputl1').style.stroke = "green";
+		document.getElementById('inputl2').style.stroke = "green";
+		document.getElementById('inputl3').style.stroke = "green";
+		document.getElementById('inputl4').style.stroke = "green";
+		document.getElementById('inputl5').style.stroke ="gray";
+		document.getElementById('inputl6').style.stroke = "gray";
+		document.getElementById('inputl7').style.stroke ="gray";
+		document.getElementById('inputl8').style.stroke ="gray";
+		document.getElementById('Battv1').style.stroke = "green";
+		document.getElementById('Bypl1').style.stroke = "gray";
+		document.getElementById('Bypv2').style.stroke = "gray";
+		document.getElementById('Bypv1').style.stroke = "gray";
+
+		document.getElementById('Btbox1').style.fill =  "gray";
+		document.getElementById('Rectbox').style.fill =  "gray";
+		document.getElementById('Invbox').style.fill =  "white";
+		document.getElementById('ipcircle').style.fill = "gray";
+		document.getElementById('opcircle').style.fill = "gray";
+		document.getElementById('Btcircle').style.fill = "gray";
+    }
+	else if(AllParameterPageStruct.UPSMode == 83 )//S
+	{
+		//Textret = "Standby Mode";
+		document.getElementById('inputl1').style.stroke = "green";
+		document.getElementById('inputl2').style.stroke = "green";
+		document.getElementById('inputl3').style.stroke = "green";
+		document.getElementById('inputl4').style.stroke = "green";
+		document.getElementById('inputl5').style.stroke ="gray";
+		document.getElementById('inputl6').style.stroke = "gray";
+		document.getElementById('inputl7').style.stroke ="gray";
+		document.getElementById('inputl8').style.stroke ="gray";
+		document.getElementById('Battv1').style.stroke = "green";
+		document.getElementById('Bypl1').style.stroke = "gray";
+		document.getElementById('Bypv2').style.stroke = "gray";
+		document.getElementById('Bypv1').style.stroke = "gray";
+
+		document.getElementById('Btbox1').style.fill =  "white";
+		document.getElementById('Rectbox').style.fill =  "white";
+		document.getElementById('Invbox').style.fill =  "white";
+		document.getElementById('ipcircle').style.fill = "gray";
+		document.getElementById('opcircle').style.fill = "gray";
+		document.getElementById('Btcircle').style.fill = "gray";
+	}
+	else if(AllParameterPageStruct.UPSMode == 89 )//Y
+	{
+		//Textret = "Bypass Mode";
+		document.getElementById('inputl1').style.stroke = "green";
+		document.getElementById('inputl2').style.stroke = "green";
+		document.getElementById('inputl3').style.stroke = "green";
+		document.getElementById('inputl4').style.stroke = "green";
+		document.getElementById('inputl5').style.stroke ="gray";
+		document.getElementById('inputl6').style.stroke = "gray";
+		document.getElementById('inputl7').style.stroke ="green";
+		document.getElementById('inputl8').style.stroke ="green";
+		document.getElementById('Battv1').style.stroke = "green";
+		document.getElementById('Rectbox').style.fill =  "white";
+		document.getElementById('Invbox').style.fill =  "white";
+	
+		document.getElementById('Invbox').style.fill ="white";
+		document.getElementById('Bypl1').style.stroke = "green";
+		document.getElementById('Bypv2').style.stroke = "green";
+		document.getElementById('Bypv1').style.stroke = "green";
+		document.getElementById('ipcircle').style.fill = "gray";
+		document.getElementById('opcircle').style.fill = "gray";
+		document.getElementById('Btcircle').style.fill = "gray";
+	}
+	else if(AllParameterPageStruct.UPSMode == 76 )//L
+	{
+		//Textret = "Line Mode";
+		document.getElementById('inputl1').style.stroke = "green";
+		document.getElementById('inputl2').style.stroke = "green";
+		document.getElementById('inputl3').style.stroke = "green";
+		document.getElementById('inputl4').style.stroke = "green";
+		document.getElementById('inputl5').style.stroke ="green";
+		document.getElementById('inputl6').style.stroke = "green";
+		document.getElementById('inputl7').style.stroke ="green";
+		document.getElementById('inputl8').style.stroke ="green";
+		if(AlarmandStatusStruct.Alarms_1 & 0x0001 == 0 && AlarmandStatusStruct.Alarms_1 & 0x0002 == 0 &&
+		AlarmandStatusStruct.Alarms_1 & 0x0080 == 0)
+		{
+		 	 document.getElementById('Battv1').style.stroke = "green";
+		}
+		else
+		{
+			document.getElementById('Battv1').style.stroke = "gray";
+		}
+		
+		document.getElementById('Rectbox').style.fill =  "white";
+		document.getElementById('Invbox').style.fill =  "white";
+	
+		document.getElementById('Invbox').style.fill ="white";
+		document.getElementById('Bypl1').style.stroke = "gray";
+		document.getElementById('Bypv2').style.stroke = "gray";
+		document.getElementById('Bypv1').style.stroke = "gray";
+		document.getElementById('ipcircle').style.fill = "white";
+		document.getElementById('opcircle').style.fill = "white";
+		document.getElementById('Btcircle').style.fill = "white";
+	}
+	else if(AllParameterPageStruct.UPSMode == 66 )//B
+	{
+		//Textret = "Battery Mode";
+		document.getElementById('inputl1').style.stroke = "gray";
+		document.getElementById('inputl2').style.stroke = "gray";
+		document.getElementById('inputl3').style.stroke = "gray";
+		document.getElementById('inputl4').style.stroke = "gray";
+		document.getElementById('inputl5').style.stroke ="green";
+		document.getElementById('inputl6').style.stroke = "green";
+		document.getElementById('inputl7').style.stroke ="green";
+		document.getElementById('inputl8').style.stroke ="green";
+		document.getElementById('Battv1').style.stroke = "green";
+		document.getElementById('Rectbox').style.fill =  "white";
+		document.getElementById('Invbox').style.fill =  "white";
+	
+		document.getElementById('Invbox').style.fill ="white";
+		document.getElementById('Bypl1').style.stroke = "gray";
+		document.getElementById('Bypv2').style.stroke = "gray";
+		document.getElementById('Bypv1').style.stroke = "gray";
+		document.getElementById('ipcircle').style.fill = "white";
+		document.getElementById('opcircle').style.fill = "white";
+		document.getElementById('Btcircle').style.fill = "white";
+	}
+	else if(AllParameterPageStruct.UPSMode == 84 )//T
+	{
+		//Textret = "Battery Test Mode";
+		document.getElementById('inputl1').style.stroke = "gray";
+		document.getElementById('inputl2').style.stroke = "gray";
+		document.getElementById('inputl3').style.stroke = "gray";
+		document.getElementById('inputl4').style.stroke = "green";
+		document.getElementById('inputl5').style.stroke ="green";
+		document.getElementById('inputl6').style.stroke = "green";
+		document.getElementById('inputl7').style.stroke ="green";
+		document.getElementById('inputl8').style.stroke ="green";
+		document.getElementById('Battv1').style.stroke = "green";
+		document.getElementById('Rectbox').style.fill =  "white";
+		document.getElementById('Invbox').style.fill =  "white";
+		
+		document.getElementById('Invbox').style.fill ="white";
+		document.getElementById('Bypl1').style.stroke = "gray";
+		document.getElementById('Bypv2').style.stroke = "gray";
+		document.getElementById('Bypv1').style.stroke = "gray";
+		document.getElementById('ipcircle').style.fill = "white";
+		document.getElementById('opcircle').style.fill = "white";
+		document.getElementById('Btcircle').style.fill = "white";
+	}
+	else if(AllParameterPageStruct.UPSMode == 70 )//F
+	{
+		//Textret = "Fault Mode";
+		document.getElementById('inputl1').style.stroke = "green";
+		document.getElementById('inputl2').style.stroke = "green";
+		document.getElementById('inputl3').style.stroke = "green";
+		document.getElementById('inputl4').style.stroke = "green";
+		document.getElementById('inputl5').style.stroke ="green";
+		document.getElementById('inputl6').style.stroke = "gray";
+		document.getElementById('inputl7').style.stroke ="gray";
+		document.getElementById('inputl8').style.stroke ="gray";
+		document.getElementById('Battv1').style.stroke = "green";
+		document.getElementById('Rectbox').style.fill =  "white";
+		document.getElementById('Invbox').style.fill =  "white";
+	
+		document.getElementById('Invbox').style.fill ="white";
+		document.getElementById('Bypl1').style.stroke = "gray";
+		document.getElementById('Bypv2').style.stroke = "gray";
+		document.getElementById('Bypv1').style.stroke = "gray";
+		document.getElementById('ipcircle').style.fill = "white";
+		document.getElementById('opcircle').style.fill = "white";
+		document.getElementById('Btcircle').style.fill = "white";
+	}
+	else if(AllParameterPageStruct.UPSMode == 69 )//E
+	{
+		//Textret = "HE/ECO Mode";
+		document.getElementById('inputl1').style.stroke = "green";
+		document.getElementById('inputl2').style.stroke = "green";
+		document.getElementById('inputl3').style.stroke = "green";
+		document.getElementById('inputl4').style.stroke = "green";
+		document.getElementById('inputl5').style.stroke ="green";
+		document.getElementById('inputl6').style.stroke = "green";
+		document.getElementById('inputl7').style.stroke ="green";
+		document.getElementById('inputl8').style.stroke ="green";
+		document.getElementById('Battv1').style.stroke = "green";
+		document.getElementById('Rectbox').style.fill =  "white";
+		document.getElementById('Invbox').style.fill =  "white";
+	
+		document.getElementById('Invbox').style.fill ="white";
+		document.getElementById('Bypl1').style.stroke = "gray";
+		document.getElementById('Bypv2').style.stroke = "gray";
+		document.getElementById('Bypv1').style.stroke = "gray";
+		document.getElementById('ipcircle').style.fill = "white";
+		document.getElementById('opcircle').style.fill = "white";
+		document.getElementById('Btcircle').style.fill = "white";
+	}
+	else if(AllParameterPageStruct.UPSMode == 67 )//C
+	{
+		//Textret = "Converter Mode";
+		document.getElementById('inputl1').style.stroke = "green";
+		document.getElementById('inputl2').style.stroke = "green";
+		document.getElementById('inputl3').style.stroke = "green";
+		document.getElementById('inputl4').style.stroke = "green";
+		document.getElementById('inputl5').style.stroke ="green";
+		document.getElementById('inputl6').style.stroke = "green";
+		document.getElementById('inputl7').style.stroke ="green";
+		document.getElementById('inputl8').style.stroke ="green";
+		document.getElementById('Battv1').style.stroke = "green";
+		document.getElementById('Rectbox').style.fill =  "white";
+		document.getElementById('Invbox').style.fill =  "white";
+	
+		document.getElementById('Invbox').style.fill ="white";
+		document.getElementById('Bypl1').style.stroke = "gray";
+		document.getElementById('Bypv2').style.stroke = "gray";
+		document.getElementById('Bypv1').style.stroke = "gray";
+		document.getElementById('ipcircle').style.fill = "white";
+		document.getElementById('opcircle').style.fill = "white";
+		document.getElementById('Btcircle').style.fill = "white";
+	}
+	else if(AllParameterPageStruct.UPSMode == 68 )//D
+	{
+		//Textret = "Shutdown Mode";
+		document.getElementById('inputl1').style.stroke = "green";
+		document.getElementById('inputl2').style.stroke = "gray";
+		document.getElementById('inputl3').style.stroke = "gray";
+		document.getElementById('inputl4').style.stroke = "gray";
+		document.getElementById('inputl5').style.stroke ="gray";
+		document.getElementById('inputl6').style.stroke = "gray";
+		document.getElementById('inputl7').style.stroke ="gray";
+		document.getElementById('inputl8').style.stroke ="gray";
+		document.getElementById('Battv1').style.stroke = "gray";
+		document.getElementById('Rectbox').style.fill =  "white";
+		document.getElementById('Invbox').style.fill =  "white";
+	
+		document.getElementById('Invbox').style.fill ="white";
+		document.getElementById('Bypl1').style.stroke = "gray";
+		document.getElementById('Bypv2').style.stroke = "gray";
+		document.getElementById('Bypv1').style.stroke = "gray";
+		document.getElementById('ipcircle').style.fill = "white";
+		document.getElementById('opcircle').style.fill = "white";
+		document.getElementById('Btcircle').style.fill = "white";
+	}
+	else
+	{
+		document.getElementById('inputl1').style.stroke = "gray";
+		document.getElementById('inputl2').style.stroke = "gray";
+		document.getElementById('inputl3').style.stroke = "gray";
+		document.getElementById('inputl4').style.stroke = "gray";
+		document.getElementById('inputl5').style.stroke ="gray";
+		document.getElementById('inputl6').style.stroke = "gray";
+		document.getElementById('inputl7').style.stroke ="gray";
+		document.getElementById('inputl8').style.stroke ="gray";
+		document.getElementById('Battv1').style.stroke = "gray";
+		document.getElementById('Rectbox').style.fill =  "white";
+		document.getElementById('Invbox').style.fill =  "white";
+	
+		document.getElementById('Invbox').style.fill ="white";
+		document.getElementById('Bypl1').style.stroke = "gray";
+		document.getElementById('Bypv2').style.stroke = "gray";
+		document.getElementById('Bypv1').style.stroke = "gray";
+		document.getElementById('ipcircle').style.fill = "white";
+		document.getElementById('opcircle').style.fill = "white";
+		document.getElementById('Btcircle').style.fill = "white";
+	}
+	
+}
+function UpsMode(Ascii_No)
+{
+	var Textret=""
+	
+	if(Ascii_No == 80 )//P
+		Textret = "Power ON Mode";
+	else if(Ascii_No == 83 )//S
+		Textret = "Standby Mode";
+	else if(Ascii_No == 89 )//Y
+		Textret = "Bypass Mode";
+	else if(Ascii_No == 76 )//L
+		Textret = "Line Mode";
+	else if(Ascii_No == 66 )//B
+		Textret = "Battery Mode";
+	else if(Ascii_No == 84 )//T
+		Textret = "Battery Test Mode";
+	else if(Ascii_No == 70 )//F
+		Textret = "Fault Mode";
+	else if(Ascii_No == 69 )//E
+		Textret = "HE/ECO Mode";
+	else if(Ascii_No == 67 )//C
+		Textret = "Converter Mode";
+	else if(Ascii_No == 68 )//D
+		Textret = "Shutdown Mode";
+		
+	return Textret
+}
+
+function UpdateSVGAndParam()
+{
+	if(socket.readyState==WebSocket.OPEN)
+	{
+		if(FlagSettingStruct.WEBEmail_Enable == 1)
+		{
+			toggleEmailSetting();
+		}
+		document.getElementById('UPSMODE').textContent= UpsMode(AllParameterPageStruct.UPSMode);
+		document.getElementById('UPSTEMP').textContent= SystemGroupStruct.SystemSrNo.filter(value=>value!==0).map(value=>String.fromCharCode(value)).join('');
+
+		document.getElementById('UPSMODE').value= UpsMode(AllParameterPageStruct.UPSMode);
+		document.getElementById('UPSTEMP').value= SystemGroupStruct.SystemSrNo.filter(value=>value!==0).map(value=>String.fromCharCode(value)).join('');
+
+		var AL001  = AlarmandStatusStruct.Alarms_1;
+		var AL002  = AlarmandStatusStruct.Alarms_2;
+		var AL003  = AlarmandStatusStruct.Alarms_3;
+		var AL004  = AlarmandStatusStruct.Alarms_4;
+		var HA001  = AlarmandStatusStruct.Status_1;
+		var alarmvalue = [AL001,AL002,AL003,AL004];
+		var allalarm = [FF1,FF2,FF3,FF4];
+		
+		var Statusvalue = [HA001];
+		var allstatus = [SNMPState1];
+		var allstatus1 = [SNMPState2];
+		var statusvisibility = [0xE37F];
+		
+		UPdatediagram();
+		UPdateFieldData();
+		
+		var Alarms = document.getElementById("alarms");
+		
+		while (Alarms.hasChildNodes()) 
+		{
+			Alarms.removeChild(Alarms.firstChild);
+		}
+			
+		for (var i = 0; i <= alarmvalue.length;i++)
+		{
+			var arr = [];
+			for(var m = 0; m < 16;m++)
+			{
+				arr[m] = ((alarmvalue[i] & (1<<m)) != 0); 
+				if(arr[m] == 1)
+				{
+				//var checkVisi = ((alarmvisibility[i] & (1<<m)) != 0);
+					if(allalarm[i][m] != "")
+					{	
+						var listitem=document.createElement("LI");
+						listitem.setAttribute("id", "alarms"+allalarm[i][m]);
+						listitem.appendChild(document.createTextNode(allalarm[i][m]));
+						Alarms.appendChild(listitem);
+				
+					}
+					else
+					{
+					}
+				}	
+			}
+		}
+		
+		var Status = document.getElementById("status");
+		
+		while (Status.hasChildNodes()) 
+		{
+			Status.removeChild(Status.firstChild);
+		}
+			
+		for (var i = 0; i < allstatus.length;i++)
+		{
+			var arr = [];
+			for(var m = 0; m < 14;m++)
+			{
+				arr[m] = ((Statusvalue[i] & (1<<m)) != 0); 
+				if(arr[m] == 1)
+				{
+					if(statusvisibility[i][m] != "")
+					{	
+						var listitem=document.createElement("LI");
+						listitem.setAttribute("id", "status"+allstatus[i][m]);
+						listitem.appendChild(document.createTextNode(allstatus[i][m]));
+						Status.appendChild(listitem);
+				
+					}
+					else
+					{
+					}
+				}	
+			}
+				var arr = [];
+			
+			arr[0] = ((Statusvalue[0] & (1<<14)) != 0); 
+			arr[1] = ((Statusvalue[0] & (1<<15)) != 0); 
+			
+			if(arr[0] == 0 && arr[1] == 0)
+			{
+				var listitem=document.createElement("LI");
+				listitem.setAttribute("id", "status"+allstatus1[0][0]);
+				listitem.appendChild(document.createTextNode(allstatus1[0][0]));
+				Status.appendChild(listitem);		
+			}
+			else if(arr[0] == 1 && arr[1] == 0)
+			{
+				var listitem=document.createElement("LI");
+				listitem.setAttribute("id", "status"+allstatus1[0][1]);
+				listitem.appendChild(document.createTextNode(allstatus1[0][1]));
+				Status.appendChild(listitem);		
+			}
+			else if(arr[0] == 0 && arr[1] == 1)
+			{
+				var listitem=document.createElement("LI");
+				listitem.setAttribute("id", "status"+allstatus1[0][2]);
+				listitem.appendChild(document.createTextNode(allstatus1[0][2]));
+				Status.appendChild(listitem);
+		
+			}
+		}
+	}
+		
+}
+
+setInterval(UpdateSVGAndParam,500);
+</script>
+</html>

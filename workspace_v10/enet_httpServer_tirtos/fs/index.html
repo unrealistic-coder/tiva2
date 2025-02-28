@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Output Box Example</title>
+    <link rel="stylesheet" type="text/css" href="styles.css"/>
+    <script src="javascript.js" language="JavaScript1.2"></script>
+</head>
+<body>
+
+<div class="container">
+    <!-- Input box and Send button -->
+
+    <div class="input-container">
+        <input type="text" id="inputBox" placeholder="Enter Command" onkeydown="checkEnter(event)">
+        <button id="sendButton" onclick="sendMessage()">Send</button>
+    </div>
+
+    <!-- Output box -->
+    <div class="output-box" id="outputBox">
+        <!-- Messages will be displayed here -->
+    </div>
+</div>
+</body>
+</html>

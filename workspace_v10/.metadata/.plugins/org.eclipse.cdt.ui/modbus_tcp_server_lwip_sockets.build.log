@@ -1,0 +1,12 @@
+
+**** Clean-only build of configuration Debug for project modbus_tcp_server_lwip_sockets ****
+
+"C:\\ti\\ccs1031\\ccs\\utils\\bin\\gmake" -k -j 8 clean -O 
+ 
+DEL /F  "modbus_tcp_server_lwip_sockets.lib" 
+DEL /F "tcp_lwip_server.obj" 
+DEL /F "tcp_lwip_server.d" 
+Finished clean
+ 
+
+**** Build Finished ****

@@ -1,0 +1,1 @@
+"./enet_sntp_lwip.obj" "./sntp.obj" "./startup_ccs.obj" "./drivers/pinout.obj" "./utils/lwiplib.obj" "./utils/uartstdio.obj" "./utils/ustdlib.obj" "../enet_sntp_lwip_ccs.cmd" -llibc.a -l"C:/ti/TivaWare_C_Series-2.2.0.295/driverlib/ccs/Debug/driverlib.lib" 

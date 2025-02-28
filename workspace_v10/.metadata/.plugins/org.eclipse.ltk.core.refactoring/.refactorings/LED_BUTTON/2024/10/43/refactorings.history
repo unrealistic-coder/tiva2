@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;LED_BUTTON/main.c&apos; to &apos;led_ctrl_byButton.c&apos;" description="Rename resource &apos;main.c&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="main.c" name="led_ctrl_byButton.c" stamp="1729568420481" updateReferences="true"/>
+</session>

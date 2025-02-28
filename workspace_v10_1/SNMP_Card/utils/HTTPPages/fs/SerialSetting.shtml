@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Fuji Electric India Pvt Ltd</title>
+<link href="CSS/Main.css" rel="stylesheet" type="text/css" />
+<link href="CSS/Tab.css" rel="stylesheet" type="text/css" />
+<script src="Script/WebSocket.js" type="text/javascript" defer ></script>
+<script src="Script/AllParameter.js" ></script>
+<script src="Script/SerialSetting.js"></script>
+<script src="Script/MainPage.js" type="text/javascript" defer ></script>
+<script src="Script/ScheduleSetting.js" ></script>
+<style>
+	#leftbox
+	{
+		float:left;
+		width:25%;
+		height:280px;
+		margin:20px 40px;
+	}
+	#middlebox
+	{
+		float:left;
+		width:25%;
+		height:280px;
+		margin:20px 40px;
+	}
+	#rightbox
+	{
+		float:left;
+		width:25%;
+		height:280px;
+		margin:20px 40px;
+	}
+
+	#leftbox2
+	{
+		float:left;
+		width:200px;
+		height:330px;
+		margin:10px 40px;
+	}
+	#middlebox2
+	{
+		float:left;
+		width:200px;
+		height:330px;
+		margin:10px 40px;
+	}
+	#rightbox2
+	{
+		float:left;
+		width:200px;
+		height:330px;
+		margin:10px 40px;
+	}
+	#rightbox12
+	{
+		float:left;
+		width:300px;
+		height:330px;
+		margin:10px 40px;
+	}
+	input:text
+	{
+		width:240px;
+	}
+
+	td, th
+	{
+		border: none;
+		text-align: left;
+		padding: 1px;
+	}
+</style>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+ h3 {font-family: Arial;}
+</style>
+</head>
+
+<body onload="SocketCreation()" style="background:#DCDCDC;overflow: auto;">
+
+<div id="page">
+	<div style="padding:0 0 1px 3px"><img src="images/blue.jpg" alt="WELCOME" style="width: 130px; height: auto;" />
+		<table style="float:right;margin-top:10px;margin-left:-300px;">
+			<tr>
+				<td style="font-size:13px;">CONTROL VER :</td>
+				<td><input type="button" id="Ctlversion" style="font-size:14px; width:70px; margin-left:1px; text-align: left; border:none; background-color: #fff;"/></td>
+				
+				<td style="font-size:13px;">FW VER :</td>
+				<td><input type="button" id="OSversion" style="font-size:14px; width:50px; margin-left:0px; text-align: left; border:none; background-color: #fff;"/></td>
+				
+				<td style="font-size:13px;">BOOT VER :</td>
+				<td><input type="button" id="bootversion" style="width:30px; font-size:14px; border:none; text-align: left; background-color: #fff;"/></td>
+				
+				<td><input type="button" id="dateTimeValue" onclick="confirmAction()" style="font-size:14px; border:none; background-color: #fff;" /></td>
+			</tr>
+		</table>
+	</div>
+
+<div class="menu">
+	<ul class = "menuul">
+		<li><a href="MainPage.shtml" class="menuList">MAIN PAGE</a></li>
+		<li><a href="AllParameters.shtml" class="menuList ">ALL PARAMETERS</a></li>
+		<li><a href="EthernetSetting.shtml" class="menuList">ETHERNET SETTING</a></li>
+		<li><a href="SerialSetting.shtml" class="menuList active" style="pointer-events: none;">SERIAL SETTING</a></li>
+		<li><a href="javascript:void(0);" id="openModalBtn" class="menuList">COMMAND SETTING</a></li>
+		<li><a href="/ScheduleSetting.shtml" class="menuList active" style="pointer-events: none;">SCHEDULE SETTING</a></li>
+		<li><a href="DataLog.shtml" class="menuList" >DATA LOGS</a></li>
+		<li><a href="RTCSetting.shtml" class="menuList" >CLOCK SETTING</a></li>
+		<li id="emailSetting" style="display:none;"><a href="EmailConfig.shtml" class="menuList">EMAIL SETTING</a></li>
+		</ul>
+</div><br/>
+
+<!-- Custom modal -->
+<form id="customModal" class="modal">
+    <div class="modal-content">
+        <h2>Enter Password to Access Feature Setting</h2>
+        <input type="password" id="passwordInput" placeholder="Password">
+        <button  type="submit" id="submitPassword">Submit</button>
+    </div>
+</form>
+
+<div class="tab">
+	<button class="tablinks" id="COM1" value="COM1" name="COM1" onclick="TabButtons(event, 'SerialCOM1', '#69F', '#ddd')" style="padding: 8px 30px;">COM 1</button>
+	<button class="tablinks" id="COM2" value="COM2" name="COM2" onclick="TabButtons(event, 'SerialCOM2', '#69F', '#ddd')" style="padding: 8px 30px;">COM 2</button>
+</div>
+
+<div style="background:white;overflow: auto;">
+
+<div id="SerialCOM1" class="tabcontent">
+<div style="width:100%; background-color: #ddd;overflow: auto;">
+
+<div id = "leftbox">
+<h3><center>BAUDRATE SETTINGS</center></h3>
+    <table style="margin-left:5px;width:100%;border: none;">
+	    <tr>
+			<td><label width= 70%>Protocol:&nbsp;&nbsp;&nbsp;</label></td>
+			<td><select id="Protocol" name="Protocol" style="width:100%; padding: 8px 0px;" disabled="disabled">
+		    <option >UPS PROTOCOL</option></select></td>
+	    </tr>
+
+  		<tr>
+		    <td><label width= 70%>Baud Rate:</label></td>
+		  	<td><select id="BaudRate" name="BaudRate" style="width:100%; padding: 8px 0px;">
+		  	<option value="0">2400</option>
+		    <option value="1">9600</option>
+		    <option value="2">14400</option>
+			<option value="3">19200</option>
+		    <option value="4">38400</option>
+		    <option value="5">57600</option>
+			<option value="6">115200</option>
+		  	</select></td>
+	  	</tr>
+
+   		<tr>
+			<td><label width= 70%>Data Bits:&nbsp;&nbsp;</label></td>
+			<td> <select id="DataBits" name="DataBits" style="width:100%; padding: 8px 0px;">
+		    <option value="0">7</option>
+		    <option value="1">8</option>
+			</select>
+		</tr>
+
+    	<tr>
+			<td><label width= 70%>Stop Bit: &nbsp;&nbsp;</label></td>
+			<td> <select id="StopBit" name="StopBit" style="width:100%; padding: 8px 0px;">
+		    <option value="0">1</option>
+		    <option value="1">2</option>
+		    </select></td>
+		</tr>
+
+		<tr>
+			<td><label width= 70%>Parity Bit:&nbsp;</label></td>
+			<td><select id="ParityBit" name="ParityBit" style="width:100%; padding: 8px 0px;">
+		    <option value="0">None</option>
+		    <option value="1">ODD</option>
+			<option value="2">EVEN</option>
+			</select></td>
+		</tr>
+
+		<tr display: 'none'>
+			<td><label width= 70% style="height:70%">Media:&nbsp;&nbsp;</label></td>
+			<td><select id="Media" name="Media" style="width:100%; padding: 8px 0px;" disabled="disabled">
+		    <option value="0">232</option>
+		    <option value="1">485</option>
+		    </select></td>
+	    </tr>
+	</table>
+	<br/>
+	<input type="button" value="Send" style="border:1;background-color:#69F;color: white;padding: 10px 20px;text-align: center;text-decoration: none;font-size: 20px;margin: 27px 120px; cursor: pointer;" onclick = "ClickCOM1Setting_Request()"/>
+</div>
+
+<div id = "middlebox" hidden>
+<h3 hidden><center>PROTOCOL SETTING</center></h3>
+	<table style="margin-left:5px;width:100%;border: none;">
+		<tr>
+			<td id="Sid" name="Sid" hidden>Slave Id</td>
+			<td><input type="text" id="SlaveId" name="SlaveId" onkeypress="return onlyNumberKey(event)"  style="width:80%;" step="0.01"/></td>
+	   	</tr>
+   		<tr>
+	   		<td id="ResponseTimer" hidden>Response Timer</td>
+	  		<td><input type="text" id="ResponseTime" name="ResponseTime" onkeypress="return onlyNumberKey(event)" style="width:80%;" step="0.01" /><label>msec</label></td>
+	  	</tr>
+  		<tr>
+	  		<td id="FrameRate" hidden >Interframe Delay</td>
+	  		<td><input type="text" id="FramRate" name="FramRate" onkeypress="return onlyNumberKey(event)" style="width:80%;" step="0.01"  /><label>msec</label></td>
+	  	</tr>
+	</table>
+	<br/>
+	<input type="button" style="border:1;background-color:#69F;color: white;padding: 10px 20px;text-align: center;text-decoration: none;font-size: 20px;margin: 210px 100px 50px 120px; cursor: pointer;" value="Send" style="width:10%;" hidden onclick = "ClickProtocolSetting_Request()"/>
+</div>
+<div id = "rightbox">
+<h3><center>DIAGNOSTIC</center></h3>
+	<table style="margin-left:5px;width:100%;border: none;">
+		<tr>
+			<td id="charReceive" name="charReceive">Char Receive</td>
+			<td><input type="text" id="charRecv_COM1" style="width:80%;"  step="0.01" /><br/></td>
+	    </tr>
+	    <tr></tr>
+		<tr>
+			<td id="charSent" name="charSent">Char Sent</td>
+			<td><input type="text" id="charSent_COM1" style="width:80%;"  step="0.01" /></td>
+		</tr>
+	    <tr></tr>
+		<tr>
+			<td id="frameReceive" name="frameReceive">Frames Receive</td>
+			<td><input type="text" id="framesRecv_COM1" style="width:80%;"  step="0.01" /></td>
+	    </tr>
+	    <tr></tr>
+		<tr>
+			<td id="frameSent" name="frameSent">Frames Sent</td>
+			<td><input type="text" id="frameSent_COM1" style="width:80%;" step="0.01" /></td>
+		</tr>
+	    <tr></tr>
+		<tr>
+			<td id="goodTransaction" name="goodTransaction">Good Transaction</td>
+			<td><input type="text" id="goodTransaction_COM1" style="width:80%;"  step="0.01" /></td>
+	    </tr>
+	    <tr></tr>
+		<tr>
+			<td id="goodException" name="goodException">Good Exception</td>
+			<td><input type="text" id="goodException_COM1" style="width:80%;"  step="0.01" /></td>
+		</tr>
+	    <tr></tr>
+		<tr>
+			<td id="mismatchError" name="mismatchError">Request Timeout</td>
+			<td><input type="text" id="ReqTimedout_COM1" style="width:80%;"  step="0.01" /></td>
+	    </tr>
+		<tr></tr>
+		<tr>
+			<td id="noResponse" name="noResponse">Cmd Passed</td>
+			<td><input type="text" id="cntrlCmdPassCntr_COM1" style="width:80%;"  step="0.01" /></td>
+	    </tr>
+	    <tr></tr>
+		<tr>
+			<td id="otherError" name="otherError">Cmd Failed</td>
+			<td><input type="text" id="cntrlCmdFailCntr_COM1" style="width:80%;"  step="0.01" /></td>
+		</tr>
+	</table>
+	<br/>
+	
+<input type="hidden" id="reset" name="reset" value="1" />
+<input type="button" style="border: 1;background-color:#69F;color: white;padding: 10px 20px;text-align: center;text-decoration: none;font-size: 20px;margin: 20px 70px 20px 60px; cursor: pointer;" value="Reset" style="width:10%;" onclick="ClickCOM1ResetSetting_Request()"/>
+</div>
+
+<div class="spacer" style="padding: 50px 20px 10px 20px" >&nbsp;</div>
+<div id="footer" style="padding: 10px 20px 10px 20px" >FEI - Copyright &copy; 2024 Fuji Electric India Pvt Ltd </div>
+</div>
+</div>
+
+
+
+<div id="SerialCOM2" class="tabcontent">
+<div style="width:100%;background-color: #ddd;overflow: auto;">
+
+<div id = "leftbox2">
+<h3><center>BAUDRATE SETTINGS</center></h3>
+	<table style="margin-left:5px;width:100%;border: none;">
+		<tr>
+			<td><label width= 70%>Protocol:&nbsp;&nbsp;&nbsp;</label></td>
+			<td><select id="Protocol1" name="Protocol1" style="width:100%; padding: 1px 1px;">
+			<option value="0">GSM</option>
+			</select></td>
+		</tr>
+
+		<tr>
+			<td><label width= 70%>Baud Rate:</label></td>
+			<td> <select id="BaudRate1" name="BaudRate1" style="width:100%; padding: 1px 1px;">
+			<option value="0">9600</option>
+			<option value="1">14400</option>
+			<option value="2">19200</option>
+			<option value="3">38400</option>
+			<option value="4">57600</option>
+			<option value="5">115200</option>
+			</select></td>
+		</tr>
+
+   		<tr>
+			<td><label width= 70%>Data Bits:&nbsp;&nbsp;</label></td>
+			<td> <select id="DataBits1" name="DataBits1" style="width:100%; padding: 1px 1px;">
+		    <option value="0">7</option>
+		    <option value="1">8</option>
+			</select>
+		</tr>
+
+		<tr>
+			<td><label width= 70%>Stop Bit: &nbsp;&nbsp;</label></td>
+			<td> <select id="StopBit1" name="StopBit1" style="width:100%; padding: 1px 1px;">
+		    <option value="0">1</option>
+		    <option value="1">2</option>
+		    </select></td>
+		</tr>
+
+		<tr>
+			<td><label width= 70%>Parity Bit:&nbsp;</label></td>
+			<td><select id="ParityBit1" name="ParityBit1" style="width:100%; padding: 1px 1px;">
+		    <option value="0">None</option>
+		    <option value="1">ODD</option>
+			<option value="2">EVEN</option>
+			</select></td>
+		</tr>
+
+		<tr display: 'none'>
+			<td><label width= 70% style="height:70%">Media:&nbsp;&nbsp;</label></td>
+			<td><select id="Media1" name="Media1" style="width:100%; padding: 1px 1px;" disabled="disabled">
+		    <option value="0">232</option>
+		    <option value="1">485</option>
+		    </select></td>
+    	</tr>
+	</table>
+	<br/>
+</div>
+
+<div id = "middlebox2">
+<h3><center>GSM SETTING</center></h3>
+	<table style="margin-left:5px;width:100%;border: none;">
+	    	<td><center>Mobile Numbers</center></td>
+	    <tr>
+	  		<td><center><input type="text" name="Mobilenum1" id="MobNo1" onkeypress="return onlyNumberKey(event)" style="width: 120px"  maxlength="12"minlength="10"/></center></td>
+	  	</tr>
+	  	<tr>
+	  		<td><center><input type="text" name="Mobilenum2" id="MobNo2" onkeypress="return onlyNumberKey(event)" style="width: 120px" maxlength="12"minlength="10"/></center></td>
+	  	</tr>
+	  	<tr>
+	  		<td><center><input type="text" name="Mobilenum3" id="MobNo3" onkeypress="return onlyNumberKey(event)" style="width: 120px" maxlength="12"minlength="10"/></center></td>
+	  	</tr>
+	  	<tr>
+	  		<td><center><input type="text" name="Mobilenum4" id="MobNo4" onkeypress="return onlyNumberKey(event)" style="width: 120px" maxlength="12" minlength="10"/></center></td>
+	  	</tr>
+	  	<tr>
+	  		<td><center><input type="text" name="Mobilenum5" id="MobNo5" onkeypress="return onlyNumberKey(event)" style="width: 120px" maxlength="12" minlength="10" /></center></td>
+	  	</tr>
+	</table>
+</div>
+
+<div id = "rightbox2">
+<h3><center>SMS Setting</center></h3>
+	<table style="margin-left:5px;width:50%;border: none;">
+	    <tr>
+			<td><b>Group 1</b></td>
+			<td>	<label class="switch">
+			<input type="checkbox" id="Salarm1"  name="Group1" style="padding: 1px 1px"	onchange='handleChange(this);'>
+			<span class="slider round" onmouseover="MouseOver(event,'divtoshow','1')" onmouseout="Mouseout()"></span>
+			</label></td>
+
+			<td><b>Group 2</b></td>
+			<td>	<label class="switch" >
+			<input type="checkbox" id="Salarm2"  name="Group2" style="padding: 1px 1px" onchange='handleChange(this);'>
+			<span class="slider round" onmouseover="MouseOver(event,'divtoshow','2')" onmouseout="Mouseout()"></span>
+			</label></td>
+	    </tr>
+	    <tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr>
+	    <tr>
+			<td><b>Group 3</b></td>
+			<td>	<label class="switch">
+			<input type="checkbox" id="Salarm3"  name="Group3" style="padding: 1px 1px" onchange='handleChange(this);'>
+			<span class="slider round" onmouseover="MouseOver(event,'divtoshow','3')" onmouseout="Mouseout()"></span>
+			</label></td>
+
+			<td><b>Group 4</b></td>
+			<td>	<label class="switch">
+			<input type="checkbox" id="Salarm4"  name="Group4" style="padding: 1px 1px" onchange='handleChange(this);'>
+			<span class="slider round" onmouseover="MouseOver(event,'divtoshow','4')" onmouseout="Mouseout()"></span>
+			</label></td>
+		</tr>
+		<tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr>
+	    <tr>
+			<td><b>Group 5</b></td>
+			<td><label class="switch">
+			<input type="checkbox" id="Salarm5"  name="Group5" style="padding: 1px 1px" onchange='handleChange(this);'>
+			<span class="slider round" onmouseover="MouseOver(event,'divtoshow','5')" onmouseout="Mouseout()"></span>
+			</label></td>
+		</tr>
+		<tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr>
+
+
+    </table>
+	<div id="divtoshow" style="float:none;position: fixed;display:none;height:80%;width:25%;background:#eee"><UL id="alarms" class="alarm" style="font-size:13px;"></UL></div>
+	</div>
+
+<div id = "rightbox12">
+<h3><center>DIAGNOSTIC</center></h3>
+	<table style="margin-left:5px;width:100%;border: none;">
+		  <tr>
+			<td id="charReceive" name="charReceive">Char Receive</td>
+			<td><input type="text" id="CharRece1" style="width:100%;"  step="0.01" /><br/></td>
+		  </tr>
+		  <tr></tr>
+		  <tr>
+			<td id="charSent" name="charSent">Char Sent</td>
+			<td><input type="text" id="CharSent1"  style="width:100%;"  step="0.01" /></td>
+		  </tr>
+		  <tr></tr>
+		  <tr>
+			<td id="frameReceive" name="frameReceive">Frames Receive</td>
+			<td><input type="text" id="FramRece1"  style="width:100%;"  step="0.01" /></td>
+		  </tr>
+		  <tr></tr>
+		  <tr>
+			<td id="frameSent" name="frameSent">Frames Sent</td>
+			<td><input type="text" id="FramSent1"  style="width:100%;" step="0.01" /></td>
+		  </tr>
+		  <tr></tr>
+		  <tr>
+			<td id="goodTransaction" name="goodTransaction">SMS Sent Count</td>
+			<td><input type="text" id="GoodTran1"  style="width:100%;"  step="0.01" /></td>
+		  </tr>
+		  <tr></tr>
+		  <tr>
+			<td id="goodException" name="goodException">SMS not Sent</td>
+			<td><input type="text" id="GoodExce1" style="width:100%;"  step="0.01" /></td>
+		  </tr>
+		  <tr></tr>
+		  <tr>
+			<td id="mismatchError" name="mismatchError">Modem State</td>
+			<td><input type="text" id="MismaErr1"  style="width:100%;"  step="0.01" /></td>
+		  </tr>
+		  <tr></tr>
+		  <tr>
+			<td id="badCrc" name="badCrc">Modem Connected</td>
+			<td><input type="text" id="BadCRC1" style="width:100%;"  step="0.01" /></td><td></td>
+		  </tr>
+		  <tr></tr>
+		  <tr>
+			<td id="noResponse" name="noResponse">Transaction Pass</td>
+			<td><input type="text" id="NoRespon1" style="width:100%;"  step="0.01" /></td>
+		  </tr>
+		  <tr></tr>
+		  <tr>
+			<td id="otherError" name="otherError">Transaction Fail</td>
+			<td><input type="text" id="OtherErr1"  style="width:100%;"  step="0.01" /></td>
+		  </tr>
+	</table>
+</div>
+<div>
+	<table>
+		<tr>
+			<td><input type="button" style="border: 1;background-color:#69F;color: white;padding: 10px 20px;align-items:center;text-align: center;text-decoration: none;font-size: 20px;margin: 1px 70px 1px 90px; cursor: pointer;" value="Send" style="width:10%;" onclick = "ClickCOM2Setting_Request()"/></td>
+			<td><input type="button" style="border: 1;background-color:#69F;color: white;padding: 10px 20px;align-items:center;text-align: center;text-decoration: none;font-size: 20px;margin: 1px 70px 1px 120px; cursor: pointer;" value="Send" style="width:10%;" onclick = "ClickGSMSMSSetting_Request()"/></td>
+			<td><input type="button" style="border: 1;background-color:#69F;color: white;padding: 10px 20px;align-items:center;text-align: center;text-decoration: none;font-size: 20px;margin: 1px 70px 1px 140px; cursor: pointer;" value="Send" style="width:10%;" onclick = "ClickGSMSMSSetting_Request()"/></td>
+			<td><input type="button" style="border: 1;background-color:#69F;color: white;padding: 10px 20px;align-items:center;text-align: center;text-decoration: none;font-size: 20px;margin: 1px 10px 1px 140px; cursor: pointer;" value="Reset" style="width:10%;" onclick="ClickCOM2ResetSetting_Request()"/></td>
+		</tr>
+	</table>
+</div>
+
+<div id="footer" style="padding: 10px 20px 10px 20px" >FEI - Copyright &copy; 2024 Fuji Electric India Pvt Ltd </div>
+</div>
+</div>
+</div>
+</div>
+
+</body>
+<script language="javascript">
+
+	document.getElementById("COM1").click();
+
+function loaddata()
+{
+	if(COM1settingStruct.Updated == 1)
+	{
+		SerialFunction();
+		SerialFunction1();
+		COM1settingStruct.Updated =0;
+	}
+}
+function SerialFunction1()
+{
+	document.getElementById("Protocol1").selectedIndex  =    0;
+	document.getElementById("BaudRate1").selectedIndex 	=    COM2settingStruct.COM2_BaudRate;
+	document.getElementById("DataBits1").selectedIndex  =    COM2settingStruct.COM2_DataBits;
+	document.getElementById("StopBit1").selectedIndex   =    COM2settingStruct.COM2_StopBit;
+	document.getElementById("ParityBit1").selectedIndex =    COM2settingStruct.COM2_ParityBit;
+	document.getElementById("Media1").selectedIndex     =    0;
+	document.getElementById("MobNo1").value		=    GSMandGroupSettingsStruct.MobileNo_1;
+	document.getElementById("MobNo2").value		=    GSMandGroupSettingsStruct.MobileNo_2;
+	document.getElementById("MobNo3").value 	=    GSMandGroupSettingsStruct.MobileNo_3;
+	document.getElementById("MobNo4").value 	=    GSMandGroupSettingsStruct.MobileNo_4;
+	document.getElementById("MobNo5").value		=    GSMandGroupSettingsStruct.MobileNo_5;
+
+	document.getElementById("Salarm1").value 	= 	 GSMandGroupSettingsStruct.AllGroup & 1;		//getBitPos(GSMandGroupSettingsStruct.AllGroup, 0);
+	document.getElementById("Salarm2").value 	= 	 (GSMandGroupSettingsStruct.AllGroup >> 1) & 1;	//getBitPos(GSMandGroupSettingsStruct.AllGroup, 1);
+	document.getElementById("Salarm3").value 	= 	 (GSMandGroupSettingsStruct.AllGroup >> 2) & 1;	//getBitPos(GSMandGroupSettingsStruct.AllGroup, 2);
+	document.getElementById("Salarm4").value 	= 	 (GSMandGroupSettingsStruct.AllGroup >> 3) & 1;	//getBitPos(GSMandGroupSettingsStruct.AllGroup, 3);
+	document.getElementById("Salarm5").value 	= 	 (GSMandGroupSettingsStruct.AllGroup >> 4) & 1;	//getBitPos(GSMandGroupSettingsStruct.AllGroup, 4);
+	for (var i = 1;i <= 5;i++)
+	{
+		if(document.getElementById("Salarm"+i).value == 1)
+		{
+			document.getElementById("Salarm"+i).checked = true;
+		}
+		else
+		{
+			document.getElementById("Salarm"+i).checked = false;
+		}
+	}
+}
+
+function SerialFunction()
+{
+
+	document.getElementById("Protocol").selectedIndex  =    0;
+	document.getElementById("BaudRate").selectedIndex  =    COM1settingStruct.COM1_BaudRate;
+	document.getElementById("DataBits").selectedIndex  =    COM1settingStruct.COM1_DataBits;
+	document.getElementById("StopBit").selectedIndex   =    COM1settingStruct.COM1_StopBit;
+	document.getElementById("ParityBit").selectedIndex =    COM1settingStruct.COM1_ParityBit;
+	document.getElementById("Media").selectedIndex     =    0;
+	document.getElementById("SlaveId").value   		   =    ProtocolsettingStruct.SlaveId;
+	document.getElementById("ResponseTime").value	   =    ProtocolsettingStruct.ResponseTimeout;
+	document.getElementById("FramRate").value      	   =    ProtocolsettingStruct.InterframeDelay;
+}
+
+
+function DiagnosticParameters()
+{
+	if(socket.readyState==WebSocket.OPEN)
+	{
+		loaddata();
+		if(FlagSettingStruct.WEBEmail_Enable == 1)
+		{
+			toggleEmailSetting();
+		}
+
+		if(DataBuffer.getUint8(6) == 0)
+		{
+			document.getElementById("charRecv_COM1").value 	= COM1DiagnosticStruct.COM1_charRecv;
+			document.getElementById("charSent_COM1").value 	= COM1DiagnosticStruct.COM1_charSent;
+			document.getElementById("framesRecv_COM1").value 	= COM1DiagnosticStruct.COM1_framesRecv;
+			document.getElementById("frameSent_COM1").value 	= COM1DiagnosticStruct.COM1_frameSent;
+			document.getElementById("goodTransaction_COM1").value 	= COM1DiagnosticStruct.COM1_goodTransaction;
+			document.getElementById("goodException_COM1").value 	= COM1DiagnosticStruct.COM1_badTransaction;
+			document.getElementById("ReqTimedout_COM1").value 	= COM1DiagnosticStruct.COM1_ReqTimedout;
+			document.getElementById("cntrlCmdPassCntr_COM1").value 	= COM1DiagnosticStruct.COM1_cntrlCmdPassCntr;
+			document.getElementById("cntrlCmdFailCntr_COM1").value 	= COM1DiagnosticStruct.COM1_cntrlCmdFailCntr;
+
+			document.getElementById("CharRece1").value 	= COM2DiagnosticStruct.COM2_CharReceive;
+			document.getElementById("CharSent1").value 	= COM2DiagnosticStruct.COM2_CharSent;
+			document.getElementById("FramRece1").value 	= COM2DiagnosticStruct.COM2_FramesReceive;
+			document.getElementById("FramSent1").value 	= COM2DiagnosticStruct.COM2_FramesSent;
+			document.getElementById("GoodTran1").value 	= COM2DiagnosticStruct.COM2_SMSSent;
+			document.getElementById("GoodExce1").value 	= COM2DiagnosticStruct.COM2_SMSFail;
+			document.getElementById("MismaErr1").value 	= COM2DiagnosticStruct.COM2_ModemError;
+			document.getElementById("BadCRC1").value   	= COM2DiagnosticStruct.COM2_ModemConnect;
+			document.getElementById("NoRespon1").value 	= COM2DiagnosticStruct.COM2_ResponseTimeout;
+			document.getElementById("OtherErr1").value 	= COM2DiagnosticStruct.COM2_ResponseWaitTimeout;
+		}
+	}
+}
+
+function ClickCOM1Setting_Request()
+{
+	NewCOM1settingStruct.COM1_Protocol 	= document.getElementById("Protocol").value;
+	NewCOM1settingStruct.COM1_BaudRate 	= document.getElementById("BaudRate").value;
+	NewCOM1settingStruct.COM1_DataBits 	= document.getElementById("DataBits").value;
+	NewCOM1settingStruct.COM1_StopBit 	= document.getElementById("StopBit").value;
+	NewCOM1settingStruct.COM1_ParityBit = document.getElementById("ParityBit").value;
+	NewCOM1settingStruct.COM1_Media 	= document.getElementById("Media").value;
+
+	ClickandSaveCOM1Setting_Request();
+}
+
+function ClickProtocolSetting_Request()
+{
+	NewProtocolsettingStruct.SlaveId = document.getElementById("SlaveId").value;
+	NewProtocolsettingStruct.ResponseTimeout = document.getElementById("ResponseTime").value;
+	NewProtocolsettingStruct.InterframeDelay = document.getElementById("FramRate").value;
+
+    ClickandSaveProtocolSetting_Request();
+}
+
+function ClickCOM2Setting_Request()
+{
+	NewCOM2settingStruct.COM2_Protocol 	= document.getElementById("Protocol1").value;
+	NewCOM2settingStruct.COM2_BaudRate 	= document.getElementById("BaudRate1").value;
+	NewCOM2settingStruct.COM2_DataBits 	= document.getElementById("DataBits1").value;
+	NewCOM2settingStruct.COM2_StopBit 	= document.getElementById("StopBit1").value;
+	NewCOM2settingStruct.COM2_ParityBit = document.getElementById("ParityBit1").value;
+	NewCOM2settingStruct.COM2_Media 	= document.getElementById("Media1").value;
+
+	ClickandSaveCOM2Setting_Request();
+}
+
+function Get8byteCombinedValue(checkbox1, checkbox2, checkbox3, checkbox4, checkbox5)
+{
+    return ((document.getElementById(checkbox5).checked ? 1 : 0) << 4) |
+           ((document.getElementById(checkbox4).checked ? 1 : 0) << 3) |
+		   ((document.getElementById(checkbox3).checked ? 1 : 0) << 2) |
+           ((document.getElementById(checkbox2).checked ? 1 : 0) << 1) |
+           (document.getElementById(checkbox1).checked ? 1 : 0);
+}
+
+function ClickGSMSMSSetting_Request()
+{
+	var value = 0;
+
+	value = document.getElementById("MobNo1").value;
+	NewGSMandGroupSettingsStruct.MobileNo_1 = BigInt(value);
+	value = document.getElementById("MobNo2").value;
+	NewGSMandGroupSettingsStruct.MobileNo_2 = BigInt(value);
+	value = document.getElementById("MobNo3").value;
+	NewGSMandGroupSettingsStruct.MobileNo_3 = BigInt(value);
+	value = document.getElementById("MobNo4").value;
+	NewGSMandGroupSettingsStruct.MobileNo_4 = BigInt(value);
+	value = document.getElementById("MobNo5").value;
+	NewGSMandGroupSettingsStruct.MobileNo_5 = BigInt(value);
+
+	NewGSMandGroupSettingsStruct.AllGroup = Get8byteCombinedValue("Salarm1", "Salarm2", "Salarm3", "Salarm4", "Salarm5");
+
+	ClickandSaveGSMSMSSetting_Request();
+}
+
+setInterval(DiagnosticParameters,500);
+
+</script>
+</html>

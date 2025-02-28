@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Fuji Electric India Pvt Ltd </title>
+<link href="CSS/Main.css" rel="stylesheet" type="text/css" />
+<link href="CSS/Tab.css" rel="stylesheet" type="text/css" />
+<script src="Script/FlagSetting.js"></script>
+<script src="Script/WebSocket.js" type="text/javascript" defer ></script>
+<script src="Script/AllParameter.js" ></script>
+<script src="Script/MainPage.js" type="text/javascript" defer ></script>
+<script src="Script/ScheduleSetting.js" ></script>
+<script type="text/javascript">
+	window.history.pushState(null, null, window.location.href);
+	window.onpopstate = function () {
+		window.history.go(1);
+	};
+</script>
+
+</head>
+<body onload="SocketCreation()">
+
+<div id="page">
+	<div style="padding:0 0 1px 3px"><img src="images/blue.jpg" alt="WELCOME" style="width: 130px; height: auto;" />
+		<table style="float:right;margin-top:10px;margin-left:-300px;">
+			<tr>
+				<td style="font-size:13px;">CONTROL VER :</td>
+				<td><input type="button" id ="Ctlversion" style="font-size:14px; width:70px; margin-left:1px; text-align: left; border:none; background-color: #fff;"/></td>
+				
+				<td style="font-size:13px;">FW VER :</td>
+				<td><input type="button" id ="OSversion" style="font-size:14px; width:50px; margin-left:0px; text-align: left; border:none; background-color: #fff;"/></td>
+				
+				<td style="font-size:13px;">BOOT VER :</td>
+				<td><input type="button" id ="bootversion" style="width:30px; font-size:14px; border:none; text-align: left; background-color: #fff;"/></td>
+				
+				<td><input type="button" id="dateTimeValue" onclick="confirmAction()" style="font-size:14px; border:none; background-color: #fff;" /></td>
+			</tr>
+		</table>
+	</div>
+
+<div class="menu">
+	<ul class = "menuul">
+	<li><a href="MainPage.shtml" class="menuList">MAIN PAGE</a></li>
+	<li><a href="AllParameters.shtml" class="menuList">ALL PARAMETERS</a></li>
+	<li><a href="EthernetSetting.shtml" class="menuList">ETHERNET SETTING</a></li>
+	<li><a href="SerialSetting.shtml" class="menuList">SERIAL SETTING</a></li>
+	<li><a href="FlagSetting.shtml" id="openModalBtn" class="menuList active" style="pointer-events: none;">COMMAND SETTING</a></li>
+	<li><a href="/ScheduleSetting.shtml" class="menuList active" style="pointer-events: none;">SCHEDULE SETTING</a></li>
+	<li><a href="DataLog.shtml" class="menuList" >DATA LOGS</a></li>
+	<li><a href="RTCSetting.shtml" class="menuList" >CLOCK SETTING</a></li>
+	<li id="emailSetting" style="display:none;"><a href="EmailConfig.shtml" class="menuList">EMAIL SETTING</a></li>
+	</ul>
+</div>
+<br/>
+
+<!-- Custom modal -->
+<form id="customModal" class="modal">
+    <div class="modal-content">
+        <h2>Enter Password to Access Feature Setting</h2>
+        <input type="password" id="passwordInput" placeholder="Password">
+        <button  type="submit" id="submitPassword">Submit</button>
+    </div>
+</form>
+
+<div style="width:100%; height:500px; background-color: #ddd;overflow: auto;">
+	<table align="center" style="margin-top: 10px;">
+		<tr>
+			<td><b>AudibleAlarm:</b></td>
+			<td><label class="switch">
+			<input type="checkbox" id="Flag1"  onchange='handleChange(this,0);' name="Flag1">
+			<span class="slider round" ></span>
+			</label></td>
+
+			<td><b>BattModeAudibleWarning:</b></td>
+			<td><label class="switch" >
+			<input type="checkbox" id="Flag2"   onchange='handleChange(this,1);' name="Flag2" >
+			<span class="slider round"></span>
+			</label></td>
+
+			<td><b>ColdStart:</b></td>
+			<td><label class="switch">
+			<input type="checkbox" id="Flag3" onchange='handleChange(this,2);'  name="Flag3">
+			<span class="slider round" ></span>
+			</label></td>
+
+			<td><b>BattOpenStatusCheck:</b></td>
+			<td><label class="switch">
+			<input type="checkbox" id="Flag4" onchange='handleChange(this,3);'  name="Flag4">
+			<span class="slider round" ></span>
+			</label></td>
+		</tr>
+		<tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr>
+		<tr>
+			<td><b>HighEfficiencyMode:</b></td>
+			<td><label class="switch">
+			<input type="checkbox" id="Flag5" onchange='handleChange(this,4);'  name="Flag5">
+			<span class="slider round" ></span>
+			</label></td>
+
+			<td><b>bypassForbiding:</b></td>
+			<td><label class="switch">
+			<input type="checkbox" id="Flag6" onchange='handleChange(this,5);'  name="Flag6" >
+			<span class="slider round" ></span>
+			</label></td>
+
+			<td><b>EnergySaving:</b> </td>
+			<td><label class="switch" >
+			<input type="checkbox" id="Flag7" onchange='handleChange(this,6);'  name="Flag7" >
+			<span class="slider round" ></span>
+			</label></td>
+
+
+			<td><b>ShortRestart3Times:</b></td>
+			<td><label class="switch">
+			<input type="checkbox" id="Flag8" onchange='handleChange(this,7);'  name="Flag8">
+			<span class="slider round" ></span>
+			</label></td>
+		</tr>
+		<tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr>
+		<tr>
+			<td><b>InverterShortClearFn:</b></td>
+			<td><label class="switch">
+			<input type="checkbox" id="Flag9" onchange='handleChange(this,8);'  name="Flag9">
+			<span class="slider round" ></span>
+			</label></td>
+
+			<td><b>OutputSocket1InBattMode:</b></td>
+			<td><label class="switch">
+			<input type="checkbox" id="Flag10" onchange='handleChange(this,9);'  name="Flag10" >
+			<span class="slider round" ></span>
+			</label></td>
+
+			<td><b>OutputSocket2InBattMode:</b></td>
+			<td><label class="switch">
+			<input type="checkbox" id="Flag11" onchange='handleChange(this,10);'  name="Flag11" >
+			<span class="slider round" ></span>
+			</label></td>
+
+			<td><b>SiteFaultDetect:</b> </td>
+			<td><label class="switch" >
+			<input type="checkbox" id="Flag12" onchange='handleChange(this,11);'  name="Flag12">
+			<span class="slider round" ></span>
+			</label></td>
+		</tr>
+		<tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr>
+		<tr>
+			<td><b>SetHotStandby:</b></td>
+			<td><label class="switch">
+			<input type="checkbox" id="Flag13" onchange='handleChange(this,12);'  name="Flag13" >
+			<span class="slider round" ></span>
+			</label></td>
+
+			<td><b>DeepHighEfficiencyMode:</b></td>
+			<td><label class="switch">
+			<input type="checkbox" id="Flag14" onchange='handleChange(this,13);'  name="Flag14">
+			<span class="slider round" ></span>
+			</label></td>
+
+			<td><b>BypasWhenUPSTurnOff:</b></td>
+			<td><label class="switch">
+			<input type="checkbox" id="Flag15" onchange='handleChange(this,14);'  name="Flag15">
+			<span class="slider round" ></span>
+			</label></td>
+
+			<td><b>BypassAudibleWarning:</b></td>
+			<td><label class="switch">
+			<input type="checkbox" id="Flag16" onchange='handleChange(this,15);'  name="Flag16" >
+			<span class="slider round" ></span>
+			</label></td>
+		</tr>
+		<tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr>
+		<tr>
+			<td><b>ConstantPhaseAngleFn:</b> </td>
+			<td><label class="switch" >
+			<input type="checkbox" id="Flag17" onchange='handleChange(this,16);'  name="Flag17">
+			<span class="slider round" ></span>
+			</label></td>
+
+
+			<td><b>AutoRestart:</b></td>
+			<td><label class="switch">
+			<input type="checkbox" id="Flag18" onchange='handleChange(this,17);'  name="Flag18">
+			<span class="slider round" ></span>
+			</label></td>
+
+			<td><b>BattDeepDischProtect:</b></td>
+			<td><label class="switch">
+			<input type="checkbox" id="Flag19" onchange='handleChange(this,18);'  name="Flag19">
+			<span class="slider round" ></span>
+			</label></td>
+
+			<td><b>BattLowProtect:</b></td>
+			<td><label class="switch">
+			<input type="checkbox" id="Flag20" onchange='handleChange(this,19);'  name="Flag20">
+			<span class="slider round" ></span>
+			</label></td>
+		</tr>
+		<tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr>
+		<tr>
+			<td><b>FreeRunFunction:</b></td>
+			<td><label class="switch">
+			<input type="checkbox" id="Flag21" onchange='handleChange(this,20);'  name="Flag21" >
+			<span class="slider round" ></span>
+			</label></td>
+
+			<td><b>ConverterMode:</b> </td>
+			<td><label class="switch" >
+			<input type="checkbox" id="Flag22" onchange='handleChange(this,21);'  name="Flag22">
+			<span class="slider round" ></span>
+			</label></td>
+
+			<td><b>limitedRuntimeOnBatt:</b></td>
+			<td><label class="switch">
+			<input type="checkbox" id="Flag23" onchange='handleChange(this,22);'  name="Flag23">
+			<span class="slider round" ></span>
+			</label></td>
+
+
+			<td><b>OutputParallelFn:</b></td>
+			<td><label class="switch">
+			<input type="checkbox" id="Flag24" onchange='handleChange(this,23);'  name="Flag24">
+			<span class="slider round" ></span>
+			</label></td>
+		</tr>
+		<tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr>
+		<tr>
+			<td><b>PhaseAutoAdapt:</b></td>
+			<td><label class="switch">
+			<input type="checkbox" id="Flag25" onchange='handleChange(this,24);'  name="Flag25">
+			<span class="slider round" ></span>
+			</label></td>
+
+			<td><b>PeriodSelfTest:</b></td>
+			<td><label class="switch">
+			<input type="checkbox" id="Flag26" onchange='handleChange(this,25);'  name="Flag26">
+			<span class="slider round" ></span>
+			</label></td>
+
+			<td><b>SMTP:</b></td>
+			<td><label class="switch">
+			<input type="checkbox" id="Flag27" onchange='handleChange(this,26);'  name="Flag27">
+			<span class="slider round" ></span>
+			</label></td>
+
+		</tr>
+	</table>
+  <div id="footer">FEI - Copyright &copy; 2024 Fuji Electric India Pvt Ltd </div>
+</div>
+
+<script>
+function handleChange(checkbox,ParaIndex)
+{
+	FlagSettingStruct.Updated=0;
+	if(checkbox.checked==true)
+	{
+		checkbox.value=1;
+		NewFlagSettingStruct.ParameterFlagSetting=1;
+	}
+	else
+	{
+		checkbox.value=0;
+		NewFlagSettingStruct.ParameterFlagSetting=0;
+     }
+	NewFlagSettingStruct.ParameterFlagIndex = ParaIndex;	
+	ClickandSaveFlagSetting_Request();
+}
+function UpdateGroupParam()
+{
+	if(socket.readyState==WebSocket.OPEN)
+	{
+		if(FlagSettingStruct.WEBEmail_Enable == 1)
+		{
+			toggleEmailSetting();
+		}
+		if (FlagSettingStruct.Updated  == 1)
+		{
+		   	document.getElementById("Flag1").value = FlagSettingStruct.AudibleAlarm;
+			document.getElementById("Flag2").value = FlagSettingStruct.BattModeAudibleWarning;
+			document.getElementById("Flag3").value = FlagSettingStruct.ColdStart;
+			document.getElementById("Flag4").value = FlagSettingStruct.BattOpenStatusCheck;
+			document.getElementById("Flag5").value = FlagSettingStruct.HighEfficiencyMode;
+			document.getElementById("Flag6").value = FlagSettingStruct.bypassForbiding;
+			document.getElementById("Flag7").value = FlagSettingStruct.EnergySaving;
+			document.getElementById("Flag8").value = FlagSettingStruct.ShortRestart3Times;
+			document.getElementById("Flag9").value = FlagSettingStruct.InverterShortClearFn;
+			document.getElementById("Flag10").value = FlagSettingStruct.OutputSocket1InBattMode;
+			document.getElementById("Flag11").value = FlagSettingStruct.OutputSocket2InBattMode;
+			document.getElementById("Flag12").value = FlagSettingStruct.SiteFaultDetect;
+			document.getElementById("Flag13").value = FlagSettingStruct.SetHotStandby;
+			document.getElementById("Flag14").value = FlagSettingStruct.DeepHighEfficiencyMode;
+			document.getElementById("Flag15").value = FlagSettingStruct.BypasWhenUPSTurnOff;
+			document.getElementById("Flag16").value = FlagSettingStruct.BypassAudibleWarning;
+			document.getElementById("Flag17").value = FlagSettingStruct.ConstantPhaseAngleFn;
+			document.getElementById("Flag18").value = FlagSettingStruct.AutoRestart;
+			document.getElementById("Flag19").value = FlagSettingStruct.BattDeepDischProtect;
+			document.getElementById("Flag20").value = FlagSettingStruct.BattLowProtect;
+			document.getElementById("Flag21").value = FlagSettingStruct.FreeRunFunction;
+			document.getElementById("Flag22").value = FlagSettingStruct.ConverterMode;
+			document.getElementById("Flag23").value = FlagSettingStruct.limitedRuntimeOnBatt;
+			document.getElementById("Flag24").value = FlagSettingStruct.OutputParallelFn;
+			document.getElementById("Flag25").value = FlagSettingStruct.PhaseAutoAdapt;
+			document.getElementById("Flag26").value = FlagSettingStruct.PeriodSelfTest;
+			document.getElementById("Flag27").value = FlagSettingStruct.WEBEmail_Enable;
+
+			for (var i = 1;i <= 27;i++)
+			{
+				if(document.getElementById("Flag"+i).value == 1)
+				{
+					document.getElementById("Flag"+i).checked = true;
+				}
+				else
+				{
+					document.getElementById("Flag"+i).checked = false;
+				}
+			}
+			FlagSettingStruct.Updated = 0;
+			FlagSettingStruct.RefreshFlagSetting=1;
+		}
+	}
+}
+function UpdateGroupParamCommand()
+{
+	if(FlagSettingStruct.RefreshFlagSetting ==1)
+	{
+		RefreshFlagSetting_Request();
+		FlagSettingStruct.Updated = 1;
+	}
+}
+setInterval(UpdateGroupParam,600);
+
+setInterval(UpdateGroupParamCommand,500);
+</script>
+</body>
+</html>

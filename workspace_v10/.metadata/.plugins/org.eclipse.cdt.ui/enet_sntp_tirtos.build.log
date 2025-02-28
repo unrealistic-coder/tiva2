@@ -1,0 +1,54 @@
+
+**** Build of configuration Debug for project enet_sntp_tirtos ****
+
+"C:\\ti\\ccs1031\\ccs\\utils\\bin\\gmake" -k -j 8 all -O 
+ 
+Building file: "../httpsget.cfg"
+Invoking: XDCtools
+"C:/ti/xdctools_3_32_00_06_core/xs" --xdcpath="C:/ti/tirtos_tivac_2_16_01_14/packages;C:/ti/tirtos_tivac_2_16_01_14/products/tidrivers_tivac_2_16_01_13/packages;C:/ti/tirtos_tivac_2_16_01_14/products/bios_6_45_02_31/packages;C:/ti/tirtos_tivac_2_16_01_14/products/ndk_2_25_00_09/packages;C:/ti/tirtos_tivac_2_16_01_14/products/uia_2_00_05_50/packages;C:/ti/tirtos_tivac_2_16_01_14/products/ns_1_11_00_10/packages;" xdc.tools.configuro -o configPkg -t ti.targets.arm.elf.M4F -p ti.platforms.tiva:TM4C1294NCPDT -r release -c "C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_20.2.4.LTS" --compileOptions "-mv7M4 --code_state=16 --float_support=FPv4SPD16 -me -O2 --include_path=\"C:/Users/14169/workspace_v10/enet_sntp_tirtos\" --include_path=\"C:/ti/tirtos_tivac_2_16_01_14/products/ndk_2_25_00_09/packages/ti/ndk/inc/bsd\" --include_path=\"C:/Users/14169/workspace_v10/enet_sntp_tirtos\" --include_path=\"C:/ti/tirtos_tivac_2_16_01_14/products/TivaWare_C_Series-2.1.1.71b\" --include_path=\"C:/ti/tirtos_tivac_2_16_01_14/products/bios_6_45_01_29/packages/ti/sysbios/posix\" --include_path=\"C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_20.2.4.LTS/include\" --define=ccs=\"ccs\" --define=PART_TM4C1294NCPDT --define=NET_NDK --define=WOLFSSL_TIRTOS --define=ccs --define=TIVAWARE -g --gcc --diag_warning=225 --diag_warning=255 --diag_wrap=off --display_error_number --gen_func_subsections=on --abi=eabi  " "../httpsget.cfg"
+making package.mak (because of package.bld) ...
+generating interfaces for package configPkg (because package/package.xdc.inc is older than package.xdc) ...
+configuring httpsget.xem4f from package/cfg/httpsget_pem4f.cfg ...
+generating custom ti.sysbios library makefile ... 
+Starting build of library sources ...
+making C:/Users/14169/workspace_v10/enet_sntp_tirtos/src/sysbios/sysbios.aem4f ...
+gmake[1]: Entering directory `C:/Users/14169/workspace_v10/enet_sntp_tirtos/src/sysbios'
+clem4f C:/ti/tirtos_tivac_2_16_01_14/products/bios_6_45_02_31/packages/ti/sysbios/BIOS.c ...
+asmem4f C:/ti/tirtos_tivac_2_16_01_14/products/bios_6_45_02_31/packages/ti/sysbios/family/arm/m3/Hwi_asm.sv7M ...
+asmem4f C:/ti/tirtos_tivac_2_16_01_14/products/bios_6_45_02_31/packages/ti/sysbios/family/arm/m3/Hwi_asm_switch.sv7M ...
+asmem4f C:/ti/tirtos_tivac_2_16_01_14/products/bios_6_45_02_31/packages/ti/sysbios/family/arm/m3/IntrinsicsSupport_asm.sv7M ...
+asmem4f C:/ti/tirtos_tivac_2_16_01_14/products/bios_6_45_02_31/packages/ti/sysbios/family/arm/m3/TaskSupport_asm.sv7M ...
+arem4f BIOS.obj m3_Hwi_asm.obj m3_Hwi_asm_switch.obj m3_IntrinsicsSupport_asm.obj m3_TaskSupport_asm.obj ...
+gmake[1]: Leaving directory `C:/Users/14169/workspace_v10/enet_sntp_tirtos/src/sysbios'
+Build of libraries done.
+clem4f package/cfg/httpsget_pem4f.c ...
+"package/cfg/httpsget_pem4f.c", line 17122: warning #112-D: statement is unreachable
+"package/cfg/httpsget_pem4f.c", line 17635: warning #112-D: statement is unreachable
+"package/cfg/httpsget_pem4f.c", line 17870: warning #112-D: statement is unreachable
+"package/cfg/httpsget_pem4f.c", line 18090: warning #112-D: statement is unreachable
+"package/cfg/httpsget_pem4f.c", line 18271: warning #112-D: statement is unreachable
+Finished building: "../httpsget.cfg"
+ 
+        1 file(s) copied.
+making ../src/sysbios/sysbios.aem4f ...
+gmake[1]: Nothing to be done for 'all'.
+Building file: "../sntp.c"
+Invoking: ARM Compiler
+"C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_20.2.4.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me -O2 --include_path="C:/Users/14169/workspace_v10/enet_sntp_tirtos" --include_path="C:/ti/tirtos_tivac_2_16_01_14/products/ndk_2_25_00_09/packages/ti/ndk/inc/bsd" --include_path="C:/Users/14169/workspace_v10/enet_sntp_tirtos" --include_path="C:/ti/tirtos_tivac_2_16_01_14/products/TivaWare_C_Series-2.1.1.71b" --include_path="C:/ti/tirtos_tivac_2_16_01_14/products/bios_6_45_01_29/packages/ti/sysbios/posix" --include_path="C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_20.2.4.LTS/include" --define=ccs="ccs" --define=PART_TM4C1294NCPDT --define=NET_NDK --define=WOLFSSL_TIRTOS --define=ccs --define=TIVAWARE -g --gcc --diag_warning=225 --diag_warning=255 --diag_wrap=off --display_error_number --gen_func_subsections=on --abi=eabi --preproc_with_compile --preproc_dependency="sntp.d_raw" --cmd_file="configPkg/compiler.opt"  "../sntp.c"
+Finished building: "../sntp.c"
+ 
+Building file: "../EK_TM4C1294XL.c"
+Invoking: ARM Compiler
+"C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_20.2.4.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me -O2 --include_path="C:/Users/14169/workspace_v10/enet_sntp_tirtos" --include_path="C:/ti/tirtos_tivac_2_16_01_14/products/ndk_2_25_00_09/packages/ti/ndk/inc/bsd" --include_path="C:/Users/14169/workspace_v10/enet_sntp_tirtos" --include_path="C:/ti/tirtos_tivac_2_16_01_14/products/TivaWare_C_Series-2.1.1.71b" --include_path="C:/ti/tirtos_tivac_2_16_01_14/products/bios_6_45_01_29/packages/ti/sysbios/posix" --include_path="C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_20.2.4.LTS/include" --define=ccs="ccs" --define=PART_TM4C1294NCPDT --define=NET_NDK --define=WOLFSSL_TIRTOS --define=ccs --define=TIVAWARE -g --gcc --diag_warning=225 --diag_warning=255 --diag_wrap=off --display_error_number --gen_func_subsections=on --abi=eabi --preproc_with_compile --preproc_dependency="EK_TM4C1294XL.d_raw" --cmd_file="configPkg/compiler.opt"  "../EK_TM4C1294XL.c"
+Finished building: "../EK_TM4C1294XL.c"
+ 
+making ../src/sysbios/sysbios.aem4f ...
+gmake[2]: Nothing to be done for 'all'.
+Building target: "enet_sntp_tirtos.out"
+Invoking: ARM Linker
+"C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_20.2.4.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me -O2 --define=ccs="ccs" --define=PART_TM4C1294NCPDT --define=NET_NDK --define=WOLFSSL_TIRTOS --define=ccs --define=TIVAWARE -g --gcc --diag_warning=225 --diag_warning=255 --diag_wrap=off --display_error_number --gen_func_subsections=on --abi=eabi -z -m"enet_sntp_tirtos.map" --heap_size=0 --stack_size=512 -i"C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_20.2.4.LTS/lib" -i"C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_20.2.4.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="enet_sntp_tirtos_linkInfo.xml" --rom_model -o "enet_sntp_tirtos.out" "./EK_TM4C1294XL.obj" "./sntp.obj" "../EK_TM4C1294XL.cmd" -l"configPkg/linker.cmd"  -l"C:/ti/tirtos_tivac_2_16_01_14/products/TivaWare_C_Series-2.1.1.71b/grlib/ccs/Debug/grlib.lib" -l"C:/ti/tirtos_tivac_2_16_01_14/products/TivaWare_C_Series-2.1.1.71b/usblib/ccs/Debug/usblib.lib" -l"C:/ti/tirtos_tivac_2_16_01_14/products/TivaWare_C_Series-2.1.1.71b/driverlib/ccs/Debug/driverlib.lib" -llibc.a 
+<Linking>
+Finished building target: "enet_sntp_tirtos.out"
+ 
+
+**** Build Finished ****

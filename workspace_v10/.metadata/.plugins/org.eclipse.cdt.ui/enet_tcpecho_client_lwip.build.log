@@ -1,0 +1,24 @@
+
+**** Build of configuration Debug for project enet_tcpecho_client_lwip ****
+
+"C:\\ti\\ccs1031\\ccs\\utils\\bin\\gmake" -k all 
+ 
+Building file: "../enet_tcpecho_client_lwip.c"
+Invoking: ARM Compiler
+"C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_20.2.4.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me -Ooff --include_path="C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_20.2.4.LTS/include" --include_path="C:/Users/14169/workspace_v10/enet_tcpecho_client_lwip" --include_path="C:/ti/TivaWare_C_Series-2.2.0.295/examples/boards/ek-tm4c1294xl" --include_path="C:/ti/TivaWare_C_Series-2.2.0.295" --include_path="C:/ti/TivaWare_C_Series-2.2.0.295/third_party/lwip-1.4.1/src/include" --include_path="C:/ti/TivaWare_C_Series-2.2.0.295/third_party/lwip-1.4.1/src/include/ipv4" --include_path="C:/ti/TivaWare_C_Series-2.2.0.295/third_party/lwip-1.4.1/ports/tiva-tm4c129/include" --include_path="C:/ti/TivaWare_C_Series-2.2.0.295/third_party/lwip-1.4.1/apps" --include_path="C:/ti/TivaWare_C_Series-2.2.0.295/third_party" --advice:power=all --define=ccs="ccs" --define=PART_TM4C1294NCPDT --define=TARGET_IS_TM4C129_RA0 --define=EK_TM4C129_BP1 -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --gen_func_subsections=on --abi=eabi --ual --preproc_with_compile --preproc_dependency="enet_tcpecho_client_lwip.d_raw"  "../enet_tcpecho_client_lwip.c"
+"../enet_tcpecho_client_lwip.c", line 540: remark #1527-D: (ULP 2.1) Detected SW delay loop using empty loop. Recommend using a timer module instead
+"../enet_tcpecho_client_lwip.c", line 571: remark #1527-D: (ULP 2.1) Detected SW delay loop using empty loop. Recommend using a timer module instead
+"../enet_tcpecho_client_lwip.c", line 594: remark #1527-D: (ULP 2.1) Detected SW delay loop using empty loop. Recommend using a timer module instead
+Finished building: "../enet_tcpecho_client_lwip.c"
+ 
+Building target: "enet_tcpecho_client_lwip.out"
+Invoking: ARM Linker
+"C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_20.2.4.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me -Ooff --advice:power=all --define=ccs="ccs" --define=PART_TM4C1294NCPDT --define=TARGET_IS_TM4C129_RA0 --define=EK_TM4C129_BP1 -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --gen_func_subsections=on --abi=eabi --ual -z -m"enet_lwip_ccs.map" --heap_size=0 --stack_size=2048 -i"C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_20.2.4.LTS/lib" -i"C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_20.2.4.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="enet_tcpecho_client_lwip_linkInfo.xml" --rom_model -o "enet_tcpecho_client_lwip.out" "./enet_tcpecho_client_lwip.obj" "./startup_ccs.obj" "./drivers/pinout.obj" "./utils/locator.obj" "./utils/lwiplib.obj" "./utils/uartstdio.obj" "./utils/ustdlib.obj" "../enet_tcpecho_client_lwip_ccs.cmd"  -llibc.a -l"C:/ti/TivaWare_C_Series-2.2.0.295/driverlib/ccs/Debug/driverlib.lib" 
+<Linking>
+remark #10371-D: (ULP 1.1) Detected no uses of low power mode state changing instructions
+Finished building target: "enet_tcpecho_client_lwip.out"
+ 
+"C:/ti/ccs1031/ccs/utils/tiobj2bin/tiobj2bin" "enet_tcpecho_client_lwip.out" "enet_tcpecho_client_lwip.bin" "C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_20.2.4.LTS/bin/armofd" "C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_20.2.4.LTS/bin/armhex" "C:/ti/ccs1031/ccs/utils/tiobj2bin/mkhex4bin"
+ 
+
+**** Build Finished ****

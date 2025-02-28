@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="NewWizardAction">
+		<item key="NewWizardSelectionPage.STORE_SELECTED_ID" value="com.ti.ccstudio.system.setup.editor.wizards.SystemSetupNewWizard"/>
+		<list key="NewWizardSelectionPage.STORE_EXPANDED_CATEGORIES_ID">
+			<item value="com.ti.common.ui.new"/>
+		</list>
+	</section>
+	<section name="WorkbenchPreferenceDialogSettings">
+		<item key="DIALOG_X_ORIGIN" value="10"/>
+		<item key="DIALOG_Y_ORIGIN" value="40"/>
+	</section>
+	<section name="ImportExportAction">
+		<item key="ImportExportPage.STORE_SELECTED_IMPORT_WIZARD_ID" value="com.ti.ccstudio.project.ui.wizards.importexport.ImportCCSProjectWizard"/>
+		<list key="ImportExportPage.STORE_EXPANDED_IMPORT_CATEGORIES">
+			<item value="com.ti.common.ui.import"/>
+		</list>
+	</section>
+	<section name="MemoryDumperFillAction">
+		<item key="com.ti.ccstudio.system.setup.ui.editors.connectionName" value="Texas Instruments XDS100v2 USB Debug Probe"/>
+		<item key="com.ti.ccstudio.system.setup.ui.editors.connectionType" value="TIXDS100v2"/>
+	</section>
+	<section name="org.eclipse.ui.internal.QuickAccess">
+		<item key="org.eclipse.ui.internal.quickaccess.QuickAccessDialogDIALOG_WIDTH" value="450"/>
+		<item key="org.eclipse.ui.internal.quickaccess.QuickAccessDialogDIALOG_HEIGHT" value="506"/>
+		<item key="org.eclipse.ui.internal.quickaccess.QuickAccessDialogDIALOG_USE_PERSISTED_SIZE" value="true"/>
+		<item key="org.eclipse.ui.internal.quickaccess.QuickAccessDialogDIALOG_USE_PERSISTED_LOCATION" value="false"/>
+		<list key="orderedElements">
+			<item value="search.in.help"/>
+		</list>
+		<list key="orderedProviders">
+			<item value="search.help"/>
+		</list>
+		<list key="textEntries">
+			<item value="1"/>
+		</list>
+		<list key="textArray">
+			<item value="socketndk.c"/>
+		</list>
+	</section>
+</section>

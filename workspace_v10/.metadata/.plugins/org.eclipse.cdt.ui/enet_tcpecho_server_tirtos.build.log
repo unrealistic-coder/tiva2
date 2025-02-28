@@ -1,0 +1,22 @@
+
+**** Build of configuration Debug for project enet_tcpecho_server_tirtos ****
+
+"C:\\ti\\ccs1031\\ccs\\utils\\bin\\gmake" -k -j 8 all -O 
+ 
+making ../src/sysbios/sysbios.aem4f ...
+gmake[1]: Nothing to be done for 'all'.
+Building file: "../tcpEchoServer.c"
+Invoking: Arm Compiler
+"C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_20.2.4.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --include_path="C:/Users/14169/workspace_v10/enet_tcpecho_server_tirtos" --include_path="C:/ti/tirtos_tivac_2_16_01_14/products/ndk_2_25_00_09/packages/ti/ndk/inc/bsd" --include_path="C:/Users/14169/workspace_v10/enet_tcpecho_server_tirtos" --include_path="C:/ti/tirtos_tivac_2_16_01_14/products/TivaWare_C_Series-2.1.1.71b" --include_path="C:/ti/tirtos_tivac_2_16_01_14/products/bios_6_45_01_29/packages/ti/sysbios/posix" --include_path="C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_20.2.4.LTS/include" --define=ccs="ccs" --define=PART_TM4C1294NCPDT --define=ccs --define=TIVAWARE -g --gcc --diag_warning=225 --diag_warning=255 --diag_wrap=off --display_error_number --gen_func_subsections=on --abi=eabi --preproc_with_compile --preproc_dependency="tcpEchoServer.d_raw" --cmd_file="configPkg/compiler.opt"  "../tcpEchoServer.c"
+Finished building: "../tcpEchoServer.c"
+ 
+making ../src/sysbios/sysbios.aem4f ...
+gmake[2]: Nothing to be done for 'all'.
+Building target: "enet_tcpecho_server_tirtos.out"
+Invoking: Arm Linker
+"C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_20.2.4.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --define=ccs="ccs" --define=PART_TM4C1294NCPDT --define=ccs --define=TIVAWARE -g --gcc --diag_warning=225 --diag_warning=255 --diag_wrap=off --display_error_number --gen_func_subsections=on --abi=eabi -z -m"enet_tcpecho_server_tirtos.map" --heap_size=0 --stack_size=512 -i"C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_20.2.4.LTS/lib" -i"C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_20.2.4.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="enet_tcpecho_server_tirtos_linkInfo.xml" --rom_model -o "enet_tcpecho_server_tirtos.out" "./EK_TM4C1294XL.obj" "./tcpEchoHooks.obj" "./tcpEchoServer.obj" "../EK_TM4C1294XL.cmd" -l"configPkg/linker.cmd"  -l"C:/ti/tirtos_tivac_2_16_01_14/products/TivaWare_C_Series-2.1.1.71b/grlib/ccs/Debug/grlib.lib" -l"C:/ti/tirtos_tivac_2_16_01_14/products/TivaWare_C_Series-2.1.1.71b/usblib/ccs/Debug/usblib.lib" -l"C:/ti/tirtos_tivac_2_16_01_14/products/TivaWare_C_Series-2.1.1.71b/driverlib/ccs/Debug/driverlib.lib" -llibc.a 
+<Linking>
+Finished building target: "enet_tcpecho_server_tirtos.out"
+ 
+
+**** Build Finished ****

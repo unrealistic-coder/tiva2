@@ -1,0 +1,90 @@
+# FIXED
+
+boot_loader/bl_main.obj: D:/tivaware/boot_loader/bl_main.c
+boot_loader/bl_main.obj: C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_18.12.2.LTS/include/stdint.h
+boot_loader/bl_main.obj: C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_18.12.2.LTS/include/_stdint40.h
+boot_loader/bl_main.obj: C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_18.12.2.LTS/include/sys/stdint.h
+boot_loader/bl_main.obj: C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_18.12.2.LTS/include/sys/cdefs.h
+boot_loader/bl_main.obj: C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_18.12.2.LTS/include/sys/_types.h
+boot_loader/bl_main.obj: C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_18.12.2.LTS/include/machine/_types.h
+boot_loader/bl_main.obj: C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_18.12.2.LTS/include/machine/_stdint.h
+boot_loader/bl_main.obj: C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_18.12.2.LTS/include/sys/_stdint.h
+boot_loader/bl_main.obj: C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_18.12.2.LTS/include/stdbool.h
+boot_loader/bl_main.obj: D:/tivaware/inc/hw_gpio.h
+boot_loader/bl_main.obj: D:/tivaware/inc/hw_flash.h
+boot_loader/bl_main.obj: D:/tivaware/inc/hw_i2c.h
+boot_loader/bl_main.obj: D:/tivaware/inc/hw_memmap.h
+boot_loader/bl_main.obj: D:/tivaware/inc/hw_nvic.h
+boot_loader/bl_main.obj: D:/tivaware/inc/hw_ssi.h
+boot_loader/bl_main.obj: D:/tivaware/inc/hw_sysctl.h
+boot_loader/bl_main.obj: D:/tivaware/inc/hw_types.h
+boot_loader/bl_main.obj: D:/tivaware/inc/hw_uart.h
+boot_loader/bl_main.obj: C:/Users/14169/workspace_v10_2/boot_emac_flash/bl_config.h
+boot_loader/bl_main.obj: D:/tivaware/boot_loader/bl_commands.h
+boot_loader/bl_main.obj: D:/tivaware/boot_loader/bl_decrypt.h
+boot_loader/bl_main.obj: D:/tivaware/boot_loader/bl_flash.h
+boot_loader/bl_main.obj: D:/tivaware/driverlib/rom.h
+boot_loader/bl_main.obj: D:/tivaware/boot_loader/bl_hooks.h
+boot_loader/bl_main.obj: D:/tivaware/boot_loader/bl_i2c.h
+boot_loader/bl_main.obj: D:/tivaware/boot_loader/bl_packet.h
+boot_loader/bl_main.obj: D:/tivaware/boot_loader/bl_ssi.h
+boot_loader/bl_main.obj: D:/tivaware/boot_loader/bl_uart.h
+
+D:/tivaware/boot_loader/bl_main.c:
+
+C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_18.12.2.LTS/include/stdint.h:
+
+C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_18.12.2.LTS/include/_stdint40.h:
+
+C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_18.12.2.LTS/include/sys/stdint.h:
+
+C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_18.12.2.LTS/include/sys/cdefs.h:
+
+C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_18.12.2.LTS/include/sys/_types.h:
+
+C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_18.12.2.LTS/include/machine/_types.h:
+
+C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_18.12.2.LTS/include/machine/_stdint.h:
+
+C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_18.12.2.LTS/include/sys/_stdint.h:
+
+C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_18.12.2.LTS/include/stdbool.h:
+
+D:/tivaware/inc/hw_gpio.h:
+
+D:/tivaware/inc/hw_flash.h:
+
+D:/tivaware/inc/hw_i2c.h:
+
+D:/tivaware/inc/hw_memmap.h:
+
+D:/tivaware/inc/hw_nvic.h:
+
+D:/tivaware/inc/hw_ssi.h:
+
+D:/tivaware/inc/hw_sysctl.h:
+
+D:/tivaware/inc/hw_types.h:
+
+D:/tivaware/inc/hw_uart.h:
+
+C:/Users/14169/workspace_v10_2/boot_emac_flash/bl_config.h:
+
+D:/tivaware/boot_loader/bl_commands.h:
+
+D:/tivaware/boot_loader/bl_decrypt.h:
+
+D:/tivaware/boot_loader/bl_flash.h:
+
+D:/tivaware/driverlib/rom.h:
+
+D:/tivaware/boot_loader/bl_hooks.h:
+
+D:/tivaware/boot_loader/bl_i2c.h:
+
+D:/tivaware/boot_loader/bl_packet.h:
+
+D:/tivaware/boot_loader/bl_ssi.h:
+
+D:/tivaware/boot_loader/bl_uart.h:
+

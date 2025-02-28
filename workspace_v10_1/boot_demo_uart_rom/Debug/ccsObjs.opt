@@ -1,0 +1,1 @@
+"./boot_demo_uart_rom.obj" "./startup_ccs.obj" "./drivers/buttons.obj" "../boot_demo_uart_rom_ccs.cmd" -l"D:/tivaware/driverlib/ccs/Debug/driverlib.lib" -llibc.a 

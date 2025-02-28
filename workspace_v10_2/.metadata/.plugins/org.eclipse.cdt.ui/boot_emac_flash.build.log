@@ -1,0 +1,85 @@
+
+**** Build of configuration Debug for project boot_emac_flash ****
+
+"C:\\ti\\ccs1031\\ccs\\utils\\bin\\gmake" -k -j 8 all -O 
+ 
+Building file: "D:/tivaware/boot_loader/bl_autobaud.c"
+Invoking: ARM Compiler
+"C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_18.12.2.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me -O2 --include_path="C:/Users/14169/workspace_v10_2/boot_emac_flash" --include_path="C:/Users/14169/workspace_v10_2/boot_emac_flash" --include_path="D:/tivaware" --include_path="D:/tivaware/boot_loader" --include_path="C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_18.12.2.LTS/include" --define=ccs="ccs" --define=PART_TM4C1294NCPDT --define=TARGET_IS_TM4C129_RA2 -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --gen_func_subsections=on --abi=eabi --ual --preproc_with_compile --preproc_dependency="boot_loader/bl_autobaud.d_raw" --obj_directory="boot_loader"  "D:/tivaware/boot_loader/bl_autobaud.c"
+Finished building: "D:/tivaware/boot_loader/bl_autobaud.c"
+ 
+Building file: "D:/tivaware/boot_loader/bl_decrypt.c"
+Invoking: ARM Compiler
+"C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_18.12.2.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me -O2 --include_path="C:/Users/14169/workspace_v10_2/boot_emac_flash" --include_path="C:/Users/14169/workspace_v10_2/boot_emac_flash" --include_path="D:/tivaware" --include_path="D:/tivaware/boot_loader" --include_path="C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_18.12.2.LTS/include" --define=ccs="ccs" --define=PART_TM4C1294NCPDT --define=TARGET_IS_TM4C129_RA2 -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --gen_func_subsections=on --abi=eabi --ual --preproc_with_compile --preproc_dependency="boot_loader/bl_decrypt.d_raw" --obj_directory="boot_loader"  "D:/tivaware/boot_loader/bl_decrypt.c"
+Finished building: "D:/tivaware/boot_loader/bl_decrypt.c"
+ 
+Building file: "D:/tivaware/boot_loader/bl_check.c"
+Invoking: ARM Compiler
+"C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_18.12.2.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me -O2 --include_path="C:/Users/14169/workspace_v10_2/boot_emac_flash" --include_path="C:/Users/14169/workspace_v10_2/boot_emac_flash" --include_path="D:/tivaware" --include_path="D:/tivaware/boot_loader" --include_path="C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_18.12.2.LTS/include" --define=ccs="ccs" --define=PART_TM4C1294NCPDT --define=TARGET_IS_TM4C129_RA2 -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --gen_func_subsections=on --abi=eabi --ual --preproc_with_compile --preproc_dependency="boot_loader/bl_check.d_raw" --obj_directory="boot_loader"  "D:/tivaware/boot_loader/bl_check.c"
+Finished building: "D:/tivaware/boot_loader/bl_check.c"
+ 
+Building file: "D:/tivaware/boot_loader/bl_can.c"
+Invoking: ARM Compiler
+"C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_18.12.2.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me -O2 --include_path="C:/Users/14169/workspace_v10_2/boot_emac_flash" --include_path="C:/Users/14169/workspace_v10_2/boot_emac_flash" --include_path="D:/tivaware" --include_path="D:/tivaware/boot_loader" --include_path="C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_18.12.2.LTS/include" --define=ccs="ccs" --define=PART_TM4C1294NCPDT --define=TARGET_IS_TM4C129_RA2 -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --gen_func_subsections=on --abi=eabi --ual --preproc_with_compile --preproc_dependency="boot_loader/bl_can.d_raw" --obj_directory="boot_loader"  "D:/tivaware/boot_loader/bl_can.c"
+Finished building: "D:/tivaware/boot_loader/bl_can.c"
+ 
+Building file: "D:/tivaware/boot_loader/bl_crc32.c"
+Invoking: ARM Compiler
+"C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_18.12.2.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me -O2 --include_path="C:/Users/14169/workspace_v10_2/boot_emac_flash" --include_path="C:/Users/14169/workspace_v10_2/boot_emac_flash" --include_path="D:/tivaware" --include_path="D:/tivaware/boot_loader" --include_path="C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_18.12.2.LTS/include" --define=ccs="ccs" --define=PART_TM4C1294NCPDT --define=TARGET_IS_TM4C129_RA2 -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --gen_func_subsections=on --abi=eabi --ual --preproc_with_compile --preproc_dependency="boot_loader/bl_crc32.d_raw" --obj_directory="boot_loader"  "D:/tivaware/boot_loader/bl_crc32.c"
+Finished building: "D:/tivaware/boot_loader/bl_crc32.c"
+ 
+Building file: "D:/tivaware/boot_loader/bl_flash.c"
+Invoking: ARM Compiler
+"C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_18.12.2.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me -O2 --include_path="C:/Users/14169/workspace_v10_2/boot_emac_flash" --include_path="C:/Users/14169/workspace_v10_2/boot_emac_flash" --include_path="D:/tivaware" --include_path="D:/tivaware/boot_loader" --include_path="C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_18.12.2.LTS/include" --define=ccs="ccs" --define=PART_TM4C1294NCPDT --define=TARGET_IS_TM4C129_RA2 -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --gen_func_subsections=on --abi=eabi --ual --preproc_with_compile --preproc_dependency="boot_loader/bl_flash.d_raw" --obj_directory="boot_loader"  "D:/tivaware/boot_loader/bl_flash.c"
+Finished building: "D:/tivaware/boot_loader/bl_flash.c"
+ 
+Building file: "D:/tivaware/boot_loader/bl_i2c.c"
+Invoking: ARM Compiler
+"C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_18.12.2.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me -O2 --include_path="C:/Users/14169/workspace_v10_2/boot_emac_flash" --include_path="C:/Users/14169/workspace_v10_2/boot_emac_flash" --include_path="D:/tivaware" --include_path="D:/tivaware/boot_loader" --include_path="C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_18.12.2.LTS/include" --define=ccs="ccs" --define=PART_TM4C1294NCPDT --define=TARGET_IS_TM4C129_RA2 -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --gen_func_subsections=on --abi=eabi --ual --preproc_with_compile --preproc_dependency="boot_loader/bl_i2c.d_raw" --obj_directory="boot_loader"  "D:/tivaware/boot_loader/bl_i2c.c"
+Finished building: "D:/tivaware/boot_loader/bl_i2c.c"
+ 
+Building file: "D:/tivaware/boot_loader/bl_main.c"
+Invoking: ARM Compiler
+"C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_18.12.2.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me -O2 --include_path="C:/Users/14169/workspace_v10_2/boot_emac_flash" --include_path="C:/Users/14169/workspace_v10_2/boot_emac_flash" --include_path="D:/tivaware" --include_path="D:/tivaware/boot_loader" --include_path="C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_18.12.2.LTS/include" --define=ccs="ccs" --define=PART_TM4C1294NCPDT --define=TARGET_IS_TM4C129_RA2 -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --gen_func_subsections=on --abi=eabi --ual --preproc_with_compile --preproc_dependency="boot_loader/bl_main.d_raw" --obj_directory="boot_loader"  "D:/tivaware/boot_loader/bl_main.c"
+Finished building: "D:/tivaware/boot_loader/bl_main.c"
+ 
+Building file: "D:/tivaware/boot_loader/bl_packet.c"
+Invoking: ARM Compiler
+"C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_18.12.2.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me -O2 --include_path="C:/Users/14169/workspace_v10_2/boot_emac_flash" --include_path="C:/Users/14169/workspace_v10_2/boot_emac_flash" --include_path="D:/tivaware" --include_path="D:/tivaware/boot_loader" --include_path="C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_18.12.2.LTS/include" --define=ccs="ccs" --define=PART_TM4C1294NCPDT --define=TARGET_IS_TM4C129_RA2 -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --gen_func_subsections=on --abi=eabi --ual --preproc_with_compile --preproc_dependency="boot_loader/bl_packet.d_raw" --obj_directory="boot_loader"  "D:/tivaware/boot_loader/bl_packet.c"
+Finished building: "D:/tivaware/boot_loader/bl_packet.c"
+ 
+Building file: "D:/tivaware/boot_loader/bl_ssi.c"
+Invoking: ARM Compiler
+"C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_18.12.2.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me -O2 --include_path="C:/Users/14169/workspace_v10_2/boot_emac_flash" --include_path="C:/Users/14169/workspace_v10_2/boot_emac_flash" --include_path="D:/tivaware" --include_path="D:/tivaware/boot_loader" --include_path="C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_18.12.2.LTS/include" --define=ccs="ccs" --define=PART_TM4C1294NCPDT --define=TARGET_IS_TM4C129_RA2 -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --gen_func_subsections=on --abi=eabi --ual --preproc_with_compile --preproc_dependency="boot_loader/bl_ssi.d_raw" --obj_directory="boot_loader"  "D:/tivaware/boot_loader/bl_ssi.c"
+Finished building: "D:/tivaware/boot_loader/bl_ssi.c"
+ 
+Building file: "D:/tivaware/boot_loader/bl_uart.c"
+Invoking: ARM Compiler
+"C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_18.12.2.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me -O2 --include_path="C:/Users/14169/workspace_v10_2/boot_emac_flash" --include_path="C:/Users/14169/workspace_v10_2/boot_emac_flash" --include_path="D:/tivaware" --include_path="D:/tivaware/boot_loader" --include_path="C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_18.12.2.LTS/include" --define=ccs="ccs" --define=PART_TM4C1294NCPDT --define=TARGET_IS_TM4C129_RA2 -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --gen_func_subsections=on --abi=eabi --ual --preproc_with_compile --preproc_dependency="boot_loader/bl_uart.d_raw" --obj_directory="boot_loader"  "D:/tivaware/boot_loader/bl_uart.c"
+Finished building: "D:/tivaware/boot_loader/bl_uart.c"
+ 
+Building file: "D:/tivaware/boot_loader/bl_usbfuncs.c"
+Invoking: ARM Compiler
+"C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_18.12.2.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me -O2 --include_path="C:/Users/14169/workspace_v10_2/boot_emac_flash" --include_path="C:/Users/14169/workspace_v10_2/boot_emac_flash" --include_path="D:/tivaware" --include_path="D:/tivaware/boot_loader" --include_path="C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_18.12.2.LTS/include" --define=ccs="ccs" --define=PART_TM4C1294NCPDT --define=TARGET_IS_TM4C129_RA2 -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --gen_func_subsections=on --abi=eabi --ual --preproc_with_compile --preproc_dependency="boot_loader/bl_usbfuncs.d_raw" --obj_directory="boot_loader"  "D:/tivaware/boot_loader/bl_usbfuncs.c"
+Finished building: "D:/tivaware/boot_loader/bl_usbfuncs.c"
+ 
+Building file: "D:/tivaware/boot_loader/bl_usb.c"
+Invoking: ARM Compiler
+"C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_18.12.2.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me -O2 --include_path="C:/Users/14169/workspace_v10_2/boot_emac_flash" --include_path="C:/Users/14169/workspace_v10_2/boot_emac_flash" --include_path="D:/tivaware" --include_path="D:/tivaware/boot_loader" --include_path="C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_18.12.2.LTS/include" --define=ccs="ccs" --define=PART_TM4C1294NCPDT --define=TARGET_IS_TM4C129_RA2 -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --gen_func_subsections=on --abi=eabi --ual --preproc_with_compile --preproc_dependency="boot_loader/bl_usb.d_raw" --obj_directory="boot_loader"  "D:/tivaware/boot_loader/bl_usb.c"
+Finished building: "D:/tivaware/boot_loader/bl_usb.c"
+ 
+Building file: "D:/tivaware/boot_loader/bl_emac.c"
+Invoking: ARM Compiler
+"C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_18.12.2.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me -O2 --include_path="C:/Users/14169/workspace_v10_2/boot_emac_flash" --include_path="C:/Users/14169/workspace_v10_2/boot_emac_flash" --include_path="D:/tivaware" --include_path="D:/tivaware/boot_loader" --include_path="C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_18.12.2.LTS/include" --define=ccs="ccs" --define=PART_TM4C1294NCPDT --define=TARGET_IS_TM4C129_RA2 -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --gen_func_subsections=on --abi=eabi --ual --preproc_with_compile --preproc_dependency="boot_loader/bl_emac.d_raw" --obj_directory="boot_loader"  "D:/tivaware/boot_loader/bl_emac.c"
+Finished building: "D:/tivaware/boot_loader/bl_emac.c"
+ 
+Building target: "boot_emac_flash.out"
+Invoking: ARM Linker
+"C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_18.12.2.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me -O2 --define=ccs="ccs" --define=PART_TM4C1294NCPDT --define=TARGET_IS_TM4C129_RA2 -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --gen_func_subsections=on --abi=eabi --ual -z -m"boot_emac_flash_ccs.map" --heap_size=0 --stack_size=1024 -i"C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_18.12.2.LTS/lib" -i"C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_18.12.2.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="boot_emac_flash_linkInfo.xml" --ram_model -o "boot_emac_flash.out" "./boot_loader/bl_autobaud.obj" "./boot_loader/bl_can.obj" "./boot_loader/bl_check.obj" "./boot_loader/bl_crc32.obj" "./boot_loader/bl_decrypt.obj" "./boot_loader/bl_emac.obj" "./boot_loader/bl_flash.obj" "./boot_loader/bl_i2c.obj" "./boot_loader/bl_main.obj" "./boot_loader/bl_packet.obj" "./boot_loader/bl_ssi.obj" "./boot_loader/bl_startup_ccs.obj" "./boot_loader/bl_uart.obj" "./boot_loader/bl_usb.obj" "./boot_loader/bl_usbfuncs.obj" "D:/tivaware/boot_loader/bl_link_ccs.cmd"  -l"D:/tivaware/driverlib/ccs/Debug/driverlib.lib" -llibc.a 
+<Linking>
+Finished building target: "boot_emac_flash.out"
+ 
+"C:/ti/ccs1031/ccs/utils/tiobj2bin/tiobj2bin" "boot_emac_flash.out" "boot_emac_flash.bin" "C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_18.12.2.LTS/bin/armofd" "C:/ti/ccs1031/ccs/tools/compiler/ti-cgt-arm_18.12.2.LTS/bin/armhex" "C:/ti/ccs1031/ccs/utils/tiobj2bin/mkhex4bin"
+ 
+
+**** Build Finished ****

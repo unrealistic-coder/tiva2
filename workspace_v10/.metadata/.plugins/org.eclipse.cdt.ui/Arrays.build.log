@@ -1,0 +1,22 @@
+
+**** Build of configuration Debug for project Arrays ****
+
+"C:\\ti\\ccs1031\\ccs\\utils\\bin\\gmake" -k -j 8 all -O 
+ 
+Building file: "Arrays.cpp"
+Invoking: GNU Compiler
+"C:/Users/14169/AppData/Local/Energia15/packages/energia/tools/arm-none-eabi-gcc/8.3.1-20190703/bin/arm-none-eabi-gcc-8.3.1.exe" -c -mcpu=cortex-m4 -march=armv7e-m -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -Dprintf=iprintf -DF_CPU=120000000L -DENERGIA_EK_TM4C1294XL -DENERGIA_ARCH_TIVAC -DENERGIA=23 -DARDUINO=10610 -I"C:/Users/14169/AppData/Local/Energia15/packages/energia/hardware/tivac/1.0.4/system/driverlib" -I"C:/Users/14169/AppData/Local/Energia15/packages/energia/hardware/tivac/1.0.4/system/inc" -I"C:/Users/14169/AppData/Local/Energia15/packages/energia/hardware/tivac/1.0.4/system" -I"C:/Users/14169/AppData/Local/Energia15/packages/energia/hardware/tivac/1.0.4/cores/tivac" -I"C:/Users/14169/AppData/Local/Energia15/packages/energia/hardware/tivac/1.0.4/variants/EK-TM4C1294XL" -I"C:/Users/14169/workspace_v10/Arrays" -I"C:/Users/14169/AppData/Local/Energia15/packages/energia/tools/arm-none-eabi-gcc/8.3.1-20190703/arm-none-eabi/include" -Os -ffunction-sections -fdata-sections -g -gdwarf-3 -gstrict-dwarf -w -Wall --param max-inline-insns-single=500 -mabi=aapcs -MMD -MP -MF"Arrays.d_raw" -MT"Arrays.o" -std=gnu++11 -fno-rtti -fno-threadsafe-statics -fno-exceptions  -o"Arrays.o" "Arrays.cpp"
+Finished building: "Arrays.cpp"
+ 
+Building target: "Arrays.out"
+Invoking: GNU Linker
+"C:/Users/14169/AppData/Local/Energia15/packages/energia/tools/arm-none-eabi-gcc/8.3.1-20190703/bin/arm-none-eabi-gcc-8.3.1.exe" -mfpu=fpv4-sp-d16 -Dprintf=iprintf -DF_CPU=120000000L -DENERGIA_EK_TM4C1294XL -DENERGIA_ARCH_TIVAC -DENERGIA=23 -DARDUINO=10610 -Os -ffunction-sections -fdata-sections -g -gdwarf-3 -gstrict-dwarf -w -Wall --param max-inline-insns-single=500 -mabi=aapcs -mcpu=cortex-m4 -Wl,-Map,"Arrays.map" --entry ResetISR -nostartfiles -nostdlib -Wl,--gc-sections -L"C:/Users/14169/workspace_v10/tivac_EK-TM4C1294XL_core/Debug" -L"C:/Users/14169/AppData/Local/Energia15/packages/energia/hardware/tivac/1.0.4/system/driverlib" -Os -specs=nano.specs -specs=rdimon.specs -specs=nosys.specs -Wl,--check-sections -Wl,--unresolved-symbols=report-all -Wl,--warn-common -fsingle-precision-constant -o"Arrays.out" "./Arrays.o"  -Wl,--start-group -Wl,-T"C:/Users/14169/AppData/Local/Energia15/packages/energia/hardware/tivac/1.0.4/variants/EK-TM4C1294XL/lm4fcpp_snowflake.ld" -ltivac_EK-TM4C1294XL_core -ldriverlib -lm -lc -lgcc -Wl,--end-group 
+Finished building target: "Arrays.out"
+ 
+Building secondary target: "Arrays.bin"
+Invoking: GNU Objcopy Utility
+"C:/Users/14169/AppData/Local/Energia15/packages/energia/tools/arm-none-eabi-gcc/8.3.1-20190703/bin/arm-none-eabi-objcopy.exe" -O binary  "Arrays.out"  "Arrays.bin"
+Finished building secondary target: "Arrays.bin"
+ 
+
+**** Build Finished ****
